@@ -24,6 +24,49 @@ function openModal(id){document.querySelector('#'+id)?.classList.add('show')}fun
 async function checkout(e){e.preventDefault();if(!db||!storeCache?.connected){toast('ยังไม่ได้เชื่อมฐานข้อมูล กรุณาตั้งค่า Supabase ก่อน');return}if(!cart.length){toast('กรุณาเลือกสินค้าก่อน');return}let fd=new FormData(e.target),items=cart.map(x=>({product_id:x.id,name:x.name,price:x.price,quantity:x.qty})),total=cart.reduce((a,x)=>a+x.qty*x.price,0);let payload={customer_name:fd.get('name'),phone:fd.get('phone'),order_type:fd.get('type'),pickup_date:fd.get('date'),note:fd.get('note')||'',items,total,status:'รอยืนยัน'};let {error}=await db.from('orders').insert(payload);if(error){toast('บันทึกไม่สำเร็จ: '+error.message);return}cart=[];updateCart();closeModal('cart-modal');e.target.reset();toast('รับคำสั่งซื้อแล้ว ขอบคุณที่อุดหนุน Crust&Cream')}
 function initStore(){renderStore();updateCart();document.querySelectorAll('[data-filter]').forEach(b=>b.addEventListener('click',()=>{activeFilter=b.dataset.filter;document.querySelectorAll('[data-filter]').forEach(x=>x.classList.toggle('active',x===b));renderStore()}));document.querySelector('#checkout-form')?.addEventListener('submit',checkout);document.querySelector('#checkout-open')?.addEventListener('click',()=>{if(!cart.length){toast('กรุณาเลือกสินค้าก่อน');return}closeModal('cart-modal');openModal('checkout-modal')})}
 
+
+// Password reset: send the recovery email to the dedicated reset page on Vercel.
+const RESET_PAGE_URL = 'https://crust-and-cream-six.vercel.app/reset-password.html';
+async function requestAdminPasswordReset(){
+  if(!db){toast('ไม่พบการตั้งค่า Supabase');return}
+  const email=prompt('กรอกอีเมล Admin เพื่อรับลิงก์ตั้งรหัสผ่านใหม่');
+  if(!email)return;
+  const {error}=await db.auth.resetPasswordForEmail(email.trim(),{redirectTo:RESET_PAGE_URL});
+  if(error){toast('ส่งลิงก์ไม่สำเร็จ: '+error.message);return}
+  alert('ส่งลิงก์ตั้งรหัสผ่านใหม่ไปที่ '+email.trim()+' แล้ว กรุณาเปิดอีเมลฉบับล่าสุด');
+}
+async function initReset(){
+  const form=document.querySelector('#reset-form');
+  const message=document.querySelector('#reset-message');
+  const submit=document.querySelector('#reset-submit');
+  const {data,error}=await db.auth.getSession();
+  if(error||!data.session){
+    if(message)message.textContent='ลิงก์รีเซ็ตไม่ถูกต้องหรือหมดอายุ กรุณากลับไปหน้า Admin แล้วกด “ลืมรหัสผ่าน” เพื่อส่งลิงก์ใหม่';
+    if(submit)submit.disabled=true;
+    return;
+  }
+  if(message)message.textContent='ตั้งรหัสผ่านใหม่สำหรับบัญชี Admin ของคุณ';
+  form?.addEventListener('submit',async e=>{
+    e.preventDefault();
+    const password=form.elements.password.value;
+    const confirm=form.elements.confirm_password.value;
+    if(password.length<6){if(message)message.textContent='รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร';return}
+    if(password!==confirm){if(message)message.textContent='รหัสผ่านทั้งสองช่องไม่ตรงกัน';return}
+    if(submit){submit.disabled=true;submit.textContent='กำลังบันทึก...'}
+    const {error}=await db.auth.updateUser({password});
+    if(error){
+      if(message)message.textContent='เปลี่ยนรหัสผ่านไม่สำเร็จ: '+error.message;
+      if(submit){submit.disabled=false;submit.textContent='บันทึกรหัสผ่านใหม่'}
+      return;
+    }
+    if(message)message.textContent='เปลี่ยนรหัสผ่านสำเร็จแล้ว สามารถเข้าสู่ระบบ Admin ได้';
+    form.reset();
+    if(submit)submit.textContent='เปลี่ยนรหัสผ่านสำเร็จ';
+    const link=document.querySelector('#back-admin');
+    if(link)link.hidden=false;
+  });
+}
+
 // Admin dashboard
 let adminUser=null,adminProducts=[];
 async function adminLogin(e){e.preventDefault();if(!db){toast('ไม่พบการตั้งค่า Supabase');return}const fd=new FormData(e.target);let {data,error}=await db.auth.signInWithPassword({email:fd.get('email'),password:fd.get('password')});if(error){toast('เข้าสู่ระบบไม่สำเร็จ: '+error.message);return}adminUser=data.user;await showAdmin()}
@@ -37,6 +80,15 @@ async function deleteProduct(id){if(!confirm('ต้องการลบสิ�
 async function saveSettings(e){e.preventDefault();let fd=new FormData(e.target),payload={id:1};for(let k of ['brand_name','announcement','hero_title','hero_desc','hours','address','contact'])payload[k]=fd.get(k);let {error}=await db.from('shop_settings').upsert(payload);toast(error?'บันทึกไม่สำเร็จ: '+error.message:'บันทึกข้อมูลร้านแล้ว')}
 async function logout(){await db.auth.signOut();document.querySelector('#admin-view')?.classList.add('hidden');document.querySelector('#login-view')?.classList.remove('hidden')}
 function adminTab(tab){document.querySelectorAll('[data-admin-panel]').forEach(x=>x.classList.toggle('hidden',x.dataset.adminPanel!==tab));document.querySelectorAll('[data-admin-tab]').forEach(x=>x.classList.toggle('active',x.dataset.adminTab===tab));let title={orders:'จัดการคำสั่งซื้อ',products:'จัดการสินค้า',settings:'ตั้งค่าหน้าร้าน'}[tab];document.querySelector('#admin-page-title').textContent=title}
-async function initAdmin(){document.querySelector('#login-form')?.addEventListener('submit',adminLogin);document.querySelector('#product-form')?.addEventListener('submit',saveProduct);document.querySelector('#settings-form')?.addEventListener('submit',saveSettings);document.querySelectorAll('[data-admin-tab]').forEach(b=>b.addEventListener('click',()=>adminTab(b.dataset.adminTab)));let {data}=await db.auth.getSession();if(data.session){adminUser=data.session.user;await showAdmin()}}
+async function initAdmin(){
+  const loginForm=document.querySelector('#login-form');
+  loginForm?.addEventListener('submit',adminLogin);
+  if(loginForm&&!document.querySelector('#forgot-admin-password')){
+    const forgot=document.createElement('button');
+    forgot.type='button';forgot.id='forgot-admin-password';forgot.className='btn light';
+    forgot.textContent='ลืมรหัสผ่าน?';forgot.style.marginTop='12px';
+    forgot.addEventListener('click',requestAdminPasswordReset);
+    loginForm.insertAdjacentElement('afterend',forgot);
+  }document.querySelector('#product-form')?.addEventListener('submit',saveProduct);document.querySelector('#settings-form')?.addEventListener('submit',saveSettings);document.querySelectorAll('[data-admin-tab]').forEach(b=>b.addEventListener('click',()=>adminTab(b.dataset.adminTab)));let {data}=await db.auth.getSession();if(data.session){adminUser=data.session.user;await showAdmin()}}
 window.addToCart=addToCart;window.changeQty=changeQty;window.openModal=openModal;window.closeModal=closeModal;window.editProduct=editProduct;window.newProduct=newProduct;window.deleteProduct=deleteProduct;window.setOrderStatus=setOrderStatus;window.logout=logout;window.adminTab=adminTab;
-document.addEventListener('DOMContentLoaded',()=>{if(document.body.dataset.page==='store')initStore();if(document.body.dataset.page==='admin')initAdmin()});
+document.addEventListener('DOMContentLoaded',()=>{if(document.body.dataset.page==='store')initStore();if(document.body.dataset.page==='admin')initAdmin();if(document.body.dataset.page==='reset')initReset()});

@@ -776,7 +776,14 @@
         <!-- Panel 1: Orders -->
         <section id="admin-panel-orders" class="admin-panel bg-pearl border border-hairline rounded-2xl p-4 sm:p-6 shadow-card space-y-4">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <h2 class="text-lg font-bold text-espresso">รายการคำสั่งซื้อลูกค้า</h2>
+            <div class="flex items-center gap-2.5">
+              <h2 class="text-lg font-bold text-espresso">รายการคำสั่งซื้อลูกค้า</h2>
+              <button type="button" onclick="syncOrdersNow()" title="ดึงข้อมูลออเดอร์ล่าสุด"
+                class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full border border-hairline bg-ivory hover:border-gold text-xs font-medium text-espresso transition">
+                <i data-lucide="refresh-cw" class="w-3.5 h-3.5 text-gold"></i>
+                <span>รีเฟรช</span>
+              </button>
+            </div>
             <select id="admin-order-filter" onchange="renderAdminOrders()"
               class="px-4 py-2 rounded-xl border border-hairline bg-ivory text-xs sm:text-sm text-espresso focus:outline-none focus:border-gold">
               <option value="all">สถานะทั้งหมด</option>
@@ -1543,11 +1550,44 @@
         .order('created_at', { ascending: false });
 
       if (!error && data) {
+        const prevIds = new Set(state.orders.map(o => String(o.id)));
+        const newIncoming = data.filter(row => !prevIds.has(String(row.id)));
         state.orders = data;
         persistLocalState();
         renderAdminOrders();
         updateAdminStats();
+        renderAdminLiveFeed();
+        if (newIncoming.length > 0 && state.isAdminAuthenticated) {
+          newIncoming.slice(0, 3).reverse().forEach(ord => triggerIncomingOrderAlert(ord));
+        }
       }
+    }
+
+    async function syncOrdersNow() {
+      if (supabaseClient) {
+        try {
+          const { data, error } = await supabaseClient
+            .from('orders')
+            .select('*')
+            .order('created_at', { ascending: false });
+          if (!error && Array.isArray(data)) {
+            state.supabaseConnected = true;
+            state.orders = data;
+            persistLocalState();
+            renderAdminOrders();
+            updateAdminStats();
+            renderAdminLiveFeed();
+            updateConnectionBadge(true);
+            showToast(`อัปเดตรายการคำสั่งซื้อแล้ว (${data.length} รายการ)`);
+            return;
+          }
+        } catch (err) {}
+      }
+      renderAdminOrders();
+      updateAdminStats();
+      renderAdminLiveFeed();
+      showToast('รีเฟรชข้อมูลในเครื่องเรียบร้อยแล้ว');
+    }
     }
 
     function getFallbackImageByName(name = '') {
@@ -2439,6 +2479,9 @@
       renderAdminOrders();
       renderAdminProducts();
       populateAdminSettingsForm();
+      if (supabaseClient) {
+        loadSupabaseOrders();
+      }
       safeRefreshIcons();
     }
 

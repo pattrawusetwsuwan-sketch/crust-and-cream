@@ -1897,7 +1897,7 @@
 
     async function handleAdminLogin(event) {
       event.preventDefault();
-      const email = (document.getElementById('admin-passcode-input')?.value || '').trim();
+      const email = (document.getElementById('admin-passcode-input')?.value || '').trim().toLowerCase();
       const password = document.getElementById('admin-email-password-input')?.value || '';
       const errEl = document.getElementById('admin-login-error');
       if (!state.supabase) {
@@ -1916,7 +1916,7 @@
         showToast('เข้าสู่ระบบ Admin สำเร็จ เปิดรับออเดอร์เรียลไทม์แล้ว', 'success');
       } catch (err) {
         console.error('Admin login error:', err);
-        if (errEl) { errEl.textContent = 'เข้าสู่ระบบไม่สำเร็จ กรุณาตรวจสอบอีเมลและรหัสผ่าน Supabase Auth'; errEl.classList.remove('hidden'); }
+        if (errEl) { errEl.textContent = `เข้าสู่ระบบไม่สำเร็จ: ${err?.message || 'ไม่ทราบสาเหตุ'} (ตรวจสอบอีเมลและรหัสผ่าน Supabase Auth)`; errEl.classList.remove('hidden'); }
       }
     }
 

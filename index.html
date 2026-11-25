@@ -8,10 +8,10 @@
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Luxury Editorial Fonts: Cormorant Garamond + Noto Serif Thai + Prompt -->
+  <!-- Clean, Highly Readable Thai & Modern Editorial Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Noto+Serif+Thai:wght@300;400;500;600;700&family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Supabase JS Client & Lucide Icons -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -26,7 +26,7 @@
             pearl: '#FFFDFB',
             espresso: '#1E1714',
             cocoa: '#3B2F2A',
-            muted: '#7A6D65',
+            muted: '#6E625A',
             gold: '#B8925A',
             goldLight: '#DFC79E',
             rose: '#A65E58',
@@ -34,13 +34,14 @@
             hairline: '#E8DFD3'
           },
           fontFamily: {
-            editorial: ['"Cormorant Garamond"', '"Noto Serif Thai"', 'serif'],
-            serifThai: ['"Noto Serif Thai"', 'serif'],
-            sans: ['"Prompt"', 'sans-serif']
+            editorial: ['"IBM Plex Sans Thai"', '"Prompt"', 'sans-serif'],
+            brand: ['"Playfair Display"', '"IBM Plex Sans Thai"', 'serif'],
+            serifThai: ['"IBM Plex Sans Thai"', '"Prompt"', 'sans-serif'],
+            sans: ['"IBM Plex Sans Thai"', '"Prompt"', 'sans-serif']
           },
           boxShadow: {
-            luxury: '0 24px 60px -15px rgba(30, 23, 20, 0.08)',
-            card: '0 10px 35px -10px rgba(30, 23, 20, 0.05)'
+            luxury: '0 20px 50px -15px rgba(30, 23, 20, 0.08)',
+            card: '0 8px 28px -8px rgba(30, 23, 20, 0.06)'
           }
         }
       }
@@ -48,24 +49,26 @@
   </script>
 
   <style>
-    body {
+    html, body {
+      max-width: 100%;
+      overflow-x: hidden;
       background-color: #FAF7F2;
       color: #1E1714;
-      font-family: 'Prompt', sans-serif;
-      overflow-x: hidden;
+      font-family: 'IBM Plex Sans Thai', 'Prompt', sans-serif;
+      -webkit-font-smoothing: antialiased;
     }
 
-    .font-editorial {
-      font-family: 'Cormorant Garamond', 'Noto Serif Thai', serif;
+    .font-editorial, .font-thai-serif {
+      font-family: 'IBM Plex Sans Thai', 'Prompt', sans-serif;
     }
 
-    .font-thai-serif {
-      font-family: 'Noto Serif Thai', serif;
+    .font-brand {
+      font-family: 'Playfair Display', 'IBM Plex Sans Thai', serif;
     }
 
     /* Double-line luxury arch frame */
     .luxury-arch {
-      border-radius: 999px 999px 12px 12px;
+      border-radius: 999px 999px 16px 16px;
     }
 
     /* Rotating Artisanal Seal */
@@ -104,60 +107,56 @@
     ::-webkit-scrollbar-thumb:hover { background: #B8925A; }
   </style>
 </head>
-<body class="antialiased selection:bg-gold/20 selection:text-espresso">
+<body class="antialiased selection:bg-gold/20 selection:text-espresso pb-20 sm:pb-0">
 
   <!-- ==================== LUXURY STOREFRONT ==================== -->
-  <div id="storefront-view" class="min-h-screen flex flex-col">
+  <div id="storefront-view" class="min-h-screen flex flex-col w-full overflow-x-hidden">
 
     <!-- Top Couture Ribbon -->
-    <div id="announcement-bar" class="bg-espresso text-[#F5EDE3] text-center py-2.5 px-4 text-[11px] sm:text-xs tracking-[0.14em] uppercase font-light border-b border-gold/30">
+    <div id="announcement-bar" class="bg-espresso text-[#F5EDE3] text-center py-2 px-3 text-[11px] sm:text-xs font-normal border-b border-gold/30 leading-snug">
       อบสดใหม่จากเตาทุกเช้า • สั่งล่วงหน้า (Pre-order) 1 วัน หรือเลือกเมนูพร้อมส่งวันนี้
     </div>
 
-    <!-- Minimalist Boutique Header -->
-    <header class="sticky top-0 z-30 bg-ivory/90 backdrop-blur-md border-b border-hairline">
-      <div class="max-w-7xl mx-auto px-4 sm:px-8 h-20 sm:h-24 flex items-center justify-between">
+    <!-- Responsive Boutique Header -->
+    <header class="sticky top-0 z-30 bg-ivory/95 backdrop-blur-md border-b border-hairline w-full">
+      <div class="max-w-7xl mx-auto px-3 sm:px-8 h-16 sm:h-20 flex items-center justify-between gap-2">
         <!-- Left Navigation (Desktop) -->
-        <nav class="hidden lg:flex items-center gap-8 text-xs tracking-[0.18em] uppercase text-cocoa font-medium">
-          <a href="#collection" class="hover:text-gold transition">Collection</a>
-          <a href="#gift-sets" class="hover:text-gold transition">Gift Sets</a>
-          <a href="#ordering-steps" class="hover:text-gold transition">How to Order</a>
-          <a href="#savoir-faire" class="hover:text-gold transition">Savoir-Faire</a>
+        <nav class="hidden lg:flex items-center gap-7 text-sm text-cocoa font-medium">
+          <a href="#collection" class="hover:text-gold transition">เมนูทาร์ต</a>
+          <a href="#gift-sets" class="hover:text-gold transition">กล่องของขวัญ</a>
+          <a href="#ordering-steps" class="hover:text-gold transition">วิธีสั่งซื้อ</a>
+          <a href="#savoir-faire" class="hover:text-gold transition">เรื่องราวร้าน</a>
         </nav>
 
-        <!-- Center Brand Emblem -->
-        <a href="#home" class="flex flex-col items-center text-center group">
-          <div class="flex items-center gap-2 text-gold text-xs tracking-[0.3em] uppercase mb-0.5">
-            <span>✦</span>
-            <span class="text-[9px] font-medium">Parisian Inspired</span>
-            <span>✦</span>
-          </div>
-          <strong id="nav-brand-name" class="font-editorial text-2xl sm:text-4xl font-semibold tracking-[0.06em] text-espresso leading-none">
+        <!-- Brand Emblem -->
+        <a href="#home" class="flex flex-col items-start lg:items-center text-left lg:text-center min-w-0">
+          <strong id="nav-brand-name" class="font-brand text-xl sm:text-3xl font-bold text-espresso leading-tight truncate">
             Crust &amp; Cream
           </strong>
-          <span class="text-[9px] tracking-[0.34em] uppercase text-muted mt-1">
-            Haute Pâtisserie
+          <span class="text-[10px] sm:text-[11px] text-muted font-normal">
+            ทาร์ตผลไม้โฮมเมด
           </span>
         </a>
 
         <!-- Right Boutique Controls -->
-        <div class="flex items-center gap-2 sm:gap-4">
-          <button onclick="openTrackModal()" title="ติดตามสถานะคำสั่งซื้อ"
-            class="flex items-center gap-1.5 text-xs tracking-wider text-cocoa hover:text-gold border border-hairline bg-pearl px-3 sm:px-4 py-2 rounded-full transition">
-            <i data-lucide="package-search" class="w-3.5 h-3.5 text-gold"></i>
-            <span>ติดตามออเดอร์</span>
+        <div class="flex items-center gap-1.5 sm:gap-3 shrink-0">
+          <button type="button" onclick="openTrackModal()" title="ติดตามสถานะคำสั่งซื้อ"
+            class="flex items-center gap-1 text-xs font-medium text-cocoa hover:text-gold border border-hairline bg-pearl px-2.5 sm:px-4 py-2 rounded-full transition">
+            <i data-lucide="package-search" class="w-4 h-4 text-gold shrink-0"></i>
+            <span class="hidden sm:inline">ติดตามออเดอร์</span>
+            <span class="sm:hidden text-[11px]">เช็กสถานะ</span>
           </button>
 
-          <button onclick="switchToAdmin()" title="เข้าสู่ระบบหลังร้าน"
-            class="relative flex items-center gap-1.5 text-xs tracking-wider text-muted hover:text-espresso border border-hairline bg-pearl/70 px-3 sm:px-3.5 py-2 rounded-full transition">
-            <i data-lucide="crown" class="w-3.5 h-3.5 text-gold"></i>
-            <span>แอดมิน</span>
+          <button type="button" onclick="switchToAdmin()" title="เข้าสู่ระบบหลังร้าน"
+            class="relative flex items-center gap-1 text-xs font-medium text-muted hover:text-espresso border border-hairline bg-pearl/80 px-2.5 sm:px-3.5 py-2 rounded-full transition">
+            <i data-lucide="crown" class="w-4 h-4 text-gold shrink-0"></i>
+            <span class="text-[11px] sm:text-xs">แอดมิน</span>
             <span id="store-admin-badge" class="hidden absolute -top-1 -right-1 w-4 h-4 rounded-full bg-rose text-white text-[9px] font-bold items-center justify-center animate-bounce">!</span>
           </button>
 
-          <button onclick="openCartDrawer()"
-            class="flex items-center gap-2 bg-espresso hover:bg-cocoa text-pearl text-xs tracking-[0.12em] uppercase px-4 sm:px-5 py-2.5 rounded-full transition shadow-card">
-            <i data-lucide="shopping-bag" class="w-3.5 h-3.5 text-goldLight"></i>
+          <button type="button" onclick="openCartDrawer()"
+            class="hidden sm:flex items-center gap-2 bg-espresso hover:bg-cocoa text-pearl text-xs font-medium px-4 py-2 rounded-full transition shadow-card">
+            <i data-lucide="shopping-bag" class="w-4 h-4 text-goldLight"></i>
             <span>ตะกร้า</span>
             <span id="nav-cart-count" class="bg-gold text-espresso font-bold text-[11px] px-2 py-0.5 rounded-full">0</span>
           </button>
@@ -166,78 +165,75 @@
     </header>
 
     <!-- Main Content -->
-    <main id="home" class="flex-1">
+    <main id="home" class="flex-1 w-full">
 
       <!-- Editorial Hero Section -->
       <section class="relative paper-texture border-b border-hairline overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-8 py-14 sm:py-24 lg:py-28">
-          <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-12 items-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-8 py-10 sm:py-20 lg:py-24">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
 
             <!-- Left Typography Column -->
-            <div class="lg:col-span-6 space-y-6 text-center lg:text-left order-2 lg:order-1">
-              <div class="inline-flex items-center gap-3 text-gold text-[11px] tracking-[0.28em] uppercase font-medium">
-                <span class="w-8 h-[1px] bg-gold"></span>
-                <span>ทาร์ตผลไม้โฮมเมดระดับบูทีค</span>
+            <div class="lg:col-span-6 space-y-5 text-center lg:text-left order-2 lg:order-1">
+              <div class="inline-flex items-center gap-2.5 text-gold text-xs sm:text-sm font-semibold">
+                <span class="w-6 h-[1.5px] bg-gold"></span>
+                <span>ทาร์ตผลไม้โฮมเมด อบสดใหม่ทุกวัน</span>
               </div>
 
-              <h1 id="hero-title" class="font-editorial text-4xl sm:text-6xl lg:text-[68px] font-medium leading-[1.12] text-espresso">
+              <h1 id="hero-title" class="text-3xl sm:text-5xl lg:text-[56px] font-bold leading-[1.2] text-espresso">
                 ความสุขชิ้นเล็ก<br>
-                <span class="italic text-rose font-normal">อบสดใหม่จากใจ</span>
+                <span class="text-rose font-semibold">อบสดใหม่จากใจ</span>
               </h1>
 
-              <p id="hero-desc" class="font-thai-serif text-cocoa/80 text-sm sm:text-base leading-[1.95] max-w-lg mx-auto lg:mx-0 font-light">
+              <p id="hero-desc" class="text-cocoa/85 text-sm sm:text-base leading-[1.75] max-w-lg mx-auto lg:mx-0 font-normal">
                 ทาร์ตผลไม้โฮมเมดระดับบูทีค รังสรรค์จากแป้งพายเนยสดฝรั่งเศสกรอบร่วน ครีมคัสตาร์ดวานิลลามาดากัสการ์หวานละมุน และผลไม้สดคัดพิเศษตามฤดูกาล
               </p>
 
-              <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-3">
+              <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-center lg:justify-start gap-3 pt-2">
                 <a href="#collection"
-                  class="bg-espresso hover:bg-cocoa text-pearl text-xs tracking-[0.18em] uppercase px-8 py-4 rounded-full transition shadow-luxury flex items-center gap-3">
+                  class="bg-espresso hover:bg-cocoa text-pearl text-sm font-medium px-7 py-3.5 rounded-full transition shadow-luxury flex items-center justify-center gap-2.5">
                   <span>เลือกเมนูทาร์ต</span>
                   <i data-lucide="arrow-right" class="w-4 h-4 text-goldLight"></i>
                 </a>
                 <a href="#gift-sets"
-                  class="border border-espresso/30 hover:border-espresso text-espresso text-xs tracking-[0.15em] uppercase px-6 py-4 rounded-full transition">
+                  class="border border-espresso/30 hover:border-espresso bg-pearl/70 text-espresso text-sm font-medium px-6 py-3.5 rounded-full transition text-center">
                   กล่องของขวัญตามฤดูกาล
                 </a>
               </div>
 
               <!-- Signature Pillars -->
-              <div class="grid grid-cols-3 gap-4 pt-8 border-t border-hairline max-w-md mx-auto lg:mx-0 text-left">
-                <div>
-                  <span class="font-editorial italic text-xl text-gold block">01.</span>
-                  <strong class="text-xs font-medium text-espresso block mt-0.5">เนยสดแท้คัดพิเศษ</strong>
-                  <span class="text-[11px] text-muted font-light">แป้งพายอบกรอบหอมกรุ่น</span>
+              <div class="grid grid-cols-3 gap-2.5 sm:gap-4 pt-6 border-t border-hairline max-w-md mx-auto lg:mx-0 text-left">
+                <div class="bg-pearl/60 sm:bg-transparent p-2.5 sm:p-0 rounded-xl">
+                  <span class="text-base sm:text-lg font-bold text-gold block">01</span>
+                  <strong class="text-xs sm:text-sm font-semibold text-espresso block mt-0.5">เนยสดแท้</strong>
+                  <span class="text-[11px] text-muted block leading-snug">แป้งกรอบหอมกรุ่น</span>
                 </div>
-                <div>
-                  <span class="font-editorial italic text-xl text-gold block">02.</span>
-                  <strong class="text-xs font-medium text-espresso block mt-0.5">วานิลลาแท้ 100%</strong>
-                  <span class="text-[11px] text-muted font-light">คัสตาร์ดสูตรหวานน้อย</span>
+                <div class="bg-pearl/60 sm:bg-transparent p-2.5 sm:p-0 rounded-xl">
+                  <span class="text-base sm:text-lg font-bold text-gold block">02</span>
+                  <strong class="text-xs sm:text-sm font-semibold text-espresso block mt-0.5">หวานน้อย</strong>
+                  <span class="text-[11px] text-muted block leading-snug">คัสตาร์ดวานิลลาแท้</span>
                 </div>
-                <div>
-                  <span class="font-editorial italic text-xl text-gold block">03.</span>
-                  <strong class="text-xs font-medium text-espresso block mt-0.5">ผลไม้ตามฤดูกาล</strong>
-                  <span class="text-[11px] text-muted font-light">คัดสรรสดใหม่ทุกเช้า</span>
+                <div class="bg-pearl/60 sm:bg-transparent p-2.5 sm:p-0 rounded-xl">
+                  <span class="text-base sm:text-lg font-bold text-gold block">03</span>
+                  <strong class="text-xs sm:text-sm font-semibold text-espresso block mt-0.5">ผลไม้สด</strong>
+                  <span class="text-[11px] text-muted block leading-snug">คัดพิเศษทุกเช้า</span>
                 </div>
               </div>
             </div>
 
             <!-- Right Arch Showcase Column -->
-            <div class="lg:col-span-6 relative flex justify-center order-1 lg:order-2">
-              <div class="relative w-full max-w-[460px]">
-                <!-- Offset Gold Hairline Arch Frame -->
-                <div class="absolute -inset-3 sm:-inset-4 translate-x-2.5 translate-y-2.5 border border-gold/60 luxury-arch pointer-events-none"></div>
+            <div class="lg:col-span-6 relative flex justify-center order-1 lg:order-2 px-2 sm:px-0">
+              <div class="relative w-full max-w-[340px] sm:max-w-[440px]">
+                <div class="hidden sm:block absolute -inset-3.5 translate-x-2 translate-y-2 border border-gold/60 luxury-arch pointer-events-none"></div>
 
-                <!-- Main Arch Full-Bleed Image -->
                 <div class="relative luxury-arch overflow-hidden shadow-luxury border-4 border-pearl bg-[#EFE7DC]">
                   <img id="hero-image"
                     src="https://images.unsplash.com/photo-1519915028121-7d3463d20b13?auto=format&fit=crop&w=1000&q=85"
                     onerror="this.src='https://placehold.co/800x1000/EFE7DC/1E1714?text=Crust+%26+Cream'"
                     alt="Crust & Cream Signature Fruit Tart"
-                    class="w-full h-[400px] sm:h-[520px] object-cover hover:scale-105 transition duration-1000" />
+                    class="w-full h-[300px] sm:h-[480px] object-cover hover:scale-105 transition duration-1000" />
                 </div>
 
-                <!-- Rotating Luxury Seal -->
-                <div class="hidden sm:flex absolute -left-10 top-12 w-28 h-28 rounded-full bg-pearl/95 backdrop-blur-md border border-gold/50 shadow-card items-center justify-center p-2">
+                <div class="hidden md:flex absolute -left-8 top-10 w-24 h-24 rounded-full bg-pearl/95 backdrop-blur-md border border-gold/50 shadow-card items-center justify-center p-2">
                   <svg viewBox="0 0 100 100" class="w-full h-full animate-spin-slow">
                     <defs>
                       <path id="sealCircle" d="M 50, 50 m -36, 0 a 36,36 0 1,1 72,0 a 36,36 0 1,1 -72,0" />
@@ -246,14 +242,12 @@
                       <textPath href="#sealCircle">HANDCRAFTED DAILY • CRUST &amp; CREAM •</textPath>
                     </text>
                   </svg>
-                  <span class="absolute font-editorial italic text-xl text-gold">C&amp;C</span>
+                  <span class="absolute font-brand italic text-lg text-gold">C&amp;C</span>
                 </div>
 
-                <!-- Floating Editorial Card -->
-                <div class="absolute -bottom-5 right-2 sm:-right-6 bg-pearl/95 backdrop-blur-md border border-hairline px-5 py-4 rounded-2xl shadow-luxury max-w-[240px]">
-                  <div class="text-[10px] tracking-[0.22em] uppercase text-gold font-semibold">La Signature</div>
-                  <div class="font-editorial text-xl text-espresso mt-0.5">Artisanal Fruit Tarts</div>
-                  <p class="text-[11px] text-muted font-light mt-0.5">บรรจุกล่องของขวัญริบบิ้นทองทุกออเดอร์</p>
+                <div class="mt-3 sm:mt-0 sm:absolute sm:-bottom-4 sm:right-2 bg-pearl/95 backdrop-blur-md border border-hairline px-4 py-3 rounded-2xl shadow-card text-center sm:text-left">
+                  <div class="text-[11px] text-gold font-semibold">แพ็กเกจสุดพิเศษ</div>
+                  <div class="text-sm sm:text-base font-bold text-espresso">บรรจุกล่องของขวัญผูกริบบิ้นฟรีทุกออเดอร์</div>
                 </div>
               </div>
             </div>
@@ -263,8 +257,8 @@
       </section>
 
       <!-- Luxury Scrolling Marquee -->
-      <div class="bg-pearl border-b border-hairline py-3.5 overflow-hidden select-none">
-        <div class="marquee-track flex items-center gap-10 text-xs tracking-[0.24em] uppercase text-cocoa/80 font-editorial">
+      <div class="bg-pearl border-b border-hairline py-3 overflow-hidden select-none">
+        <div class="marquee-track flex items-center gap-8 text-xs sm:text-sm text-cocoa/85 font-medium">
           <span>✦ อบสดใหม่ทุกเช้าจากเตา</span>
           <span>✦ แป้งพายเนยสดแท้คัดพิเศษ</span>
           <span>✦ ครีมคัสตาร์ดวานิลลาหวานน้อย</span>
@@ -279,147 +273,135 @@
       </div>
 
       <!-- Product Collection Section -->
-      <section id="collection" class="max-w-7xl mx-auto px-4 sm:px-8 py-20 sm:py-28">
-        <div class="text-center max-w-2xl mx-auto mb-14 space-y-3">
-          <div class="text-gold text-[11px] tracking-[0.3em] uppercase font-medium">คอลเลกชันพิเศษ</div>
-          <h2 class="font-editorial text-3xl sm:text-5xl font-medium text-espresso">เมนูทาร์ตผลไม้ซิกเนเจอร์</h2>
-          <p class="font-thai-serif text-muted text-xs sm:text-sm font-light">
-            เลือกสรรความละมุนที่รังสรรค์ขึ้นอย่างพิถีพิถัน ทั้งเมนูพร้อมเสิร์ฟวันนี้และเมนูสั่งอบพิเศษล่วงหน้า
+      <section id="collection" class="max-w-7xl mx-auto px-4 sm:px-8 py-14 sm:py-24">
+        <div class="text-center max-w-2xl mx-auto mb-10 sm:mb-14 space-y-2">
+          <div class="text-gold text-xs sm:text-sm font-semibold">เมนูแนะนำประจำร้าน</div>
+          <h2 class="text-2xl sm:text-4xl font-bold text-espresso">เมนูทาร์ตผลไม้โฮมเมด</h2>
+          <p class="text-muted text-xs sm:text-sm">
+            เลือกความอร่อยที่อบสดใหม่ทุกวัน ทั้งเมนูพร้อมส่งวันนี้และเมนูสั่งอบล่วงหน้า
           </p>
         </div>
 
         <!-- Boutique Filter & Search Bar -->
-        <div class="flex flex-col md:flex-row items-center justify-between gap-4 pb-8 mb-12 border-b border-hairline">
-          <div class="flex flex-wrap items-center justify-center gap-2" id="filter-buttons">
-            <button data-filter="all"
-              class="filter-btn active px-5 py-2.5 rounded-full text-xs tracking-[0.14em] uppercase border border-espresso bg-espresso text-pearl transition">
+        <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 pb-6 mb-8 sm:mb-10 border-b border-hairline">
+          <div class="flex items-center justify-center gap-2 overflow-x-auto pb-1" id="filter-buttons">
+            <button type="button" data-filter="all"
+              class="filter-btn active px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-medium border border-espresso bg-espresso text-pearl whitespace-nowrap transition">
               ทั้งหมด
             </button>
-            <button data-filter="ready"
-              class="filter-btn px-5 py-2.5 rounded-full text-xs tracking-[0.14em] uppercase border border-hairline bg-pearl text-cocoa hover:border-gold transition">
+            <button type="button" data-filter="ready"
+              class="filter-btn px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-medium border border-hairline bg-pearl text-cocoa hover:border-gold whitespace-nowrap transition">
               พร้อมส่งวันนี้
             </button>
-            <button data-filter="preorder"
-              class="filter-btn px-5 py-2.5 rounded-full text-xs tracking-[0.14em] uppercase border border-hairline bg-pearl text-cocoa hover:border-gold transition">
-              Pre-order
+            <button type="button" data-filter="preorder"
+              class="filter-btn px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-medium border border-hairline bg-pearl text-cocoa hover:border-gold whitespace-nowrap transition">
+              สั่งล่วงหน้า (Pre-order)
             </button>
           </div>
 
           <div class="relative w-full md:w-72">
             <i data-lucide="search" class="w-4 h-4 text-gold absolute left-4 top-1/2 -translate-y-1/2"></i>
             <input id="search-input" type="text" placeholder="ค้นหารสชาติทาร์ต..."
-              class="w-full pl-11 pr-4 py-2.5 rounded-full bg-pearl border border-hairline text-xs text-espresso placeholder:text-muted focus:outline-none focus:border-gold transition" />
+              class="w-full pl-11 pr-4 py-2.5 rounded-full bg-pearl border border-hairline text-sm text-espresso placeholder:text-muted focus:outline-none focus:border-gold transition" />
           </div>
         </div>
 
         <!-- Product Grid -->
-        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
-          <!-- Cards populated by JS -->
-        </div>
+        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"></div>
 
-        <div id="empty-products" class="hidden text-center py-16 bg-pearl rounded-3xl border border-hairline">
-          <p class="font-thai-serif text-muted text-sm">ไม่พบเมนูทาร์ตที่ตรงกับคำค้นหาของคุณ</p>
+        <div id="empty-products" class="hidden text-center py-12 bg-pearl rounded-3xl border border-hairline">
+          <p class="text-muted text-sm">ไม่พบเมนูทาร์ตที่ตรงกับคำค้นหาของคุณ</p>
         </div>
 
         <!-- Sync Status Footer -->
-        <div class="mt-12 pt-5 border-t border-hairline flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-muted">
+        <div class="mt-10 pt-4 border-t border-hairline flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-muted text-center">
           <span id="db-status-badge" class="inline-flex items-center gap-2">
             <span class="w-2 h-2 rounded-full bg-gold animate-pulse"></span>
             กำลังเชื่อมต่อระบบร้านค้าออนไลน์...
           </span>
-          <span class="tracking-wider">บรรจุกล่องของขวัญสุดหรูพร้อมการ์ดข้อความฟรีทุกออเดอร์</span>
+          <span>บรรจุกล่องของขวัญสุดหรูพร้อมการ์ดข้อความฟรีทุกออเดอร์</span>
         </div>
       </section>
 
       <!-- Seasonal Gift Sets & Assortments Section -->
-      <section id="gift-sets" class="bg-pearl border-y border-hairline py-20 sm:py-28">
+      <section id="gift-sets" class="bg-pearl border-y border-hairline py-14 sm:py-24">
         <div class="max-w-7xl mx-auto px-4 sm:px-8">
-          <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
-            <div class="space-y-3 max-w-2xl">
-              <div class="inline-flex items-center gap-3 text-gold text-[11px] tracking-[0.28em] uppercase font-medium">
-                <span class="w-8 h-[1px] bg-gold"></span>
+          <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10 sm:mb-14 text-center md:text-left">
+            <div class="space-y-2 max-w-2xl">
+              <div class="inline-flex items-center gap-2.5 text-gold text-xs sm:text-sm font-semibold">
+                <span class="w-6 h-[1.5px] bg-gold"></span>
                 <span>กล่องของขวัญตามฤดูกาล</span>
               </div>
-              <h2 class="font-editorial text-3xl sm:text-5xl font-medium text-espresso">
+              <h2 class="text-2xl sm:text-4xl font-bold text-espresso">
                 เซตกล่องของขวัญทาร์ตผลไม้สุดพิเศษ
               </h2>
-              <p class="font-thai-serif text-muted text-xs sm:text-sm font-light leading-relaxed">
-                ออกแบบมาเพื่อโอกาสสำคัญ วันเฉลิมฉลอง และของฝากคนพิเศษ จัดเรียงทาร์ตผลไม้โฮมเมดในกล่องบูทีคผูกริบบิ้นแชมเปญ พร้อมการ์ดเขียนข้อความส่วนตัว
+              <p class="text-muted text-xs sm:text-sm leading-relaxed">
+                เหมาะสำหรับโอกาสสำคัญ วันเกิด และของฝากคนพิเศษ จัดเรียงทาร์ตในกล่องบูทีคผูกริบบิ้นแชมเปญ พร้อมการ์ดเขียนข้อความฟรี
               </p>
             </div>
-            <span class="text-xs tracking-[0.18em] uppercase text-gold font-medium">เหมาะสำหรับมอบเป็นของขวัญ</span>
-          </div>
-              <h2 class="font-editorial text-3xl sm:text-5xl font-medium text-espresso">
-                เซตกล่องของขวัญทาร์ตผลไม้สุดพิเศษ
-              </h2>
-              <p class="font-thai-serif text-muted text-xs sm:text-sm font-light leading-relaxed">
-                ออกแบบมาเพื่อโอกาสสำคัญ วันเฉลิมฉลอง และของฝากคนพิเศษ จัดเรียงทาร์ตผลไม้โฮมเมดในกล่องบูทีคผูกริบบิ้นแชมเปญ พร้อมการ์ดเขียนข้อความส่วนตัว
-              </p>
-            </div>
-            <span class="text-xs tracking-[0.18em] uppercase text-gold font-medium">Curated for Gifting</span>
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
             <!-- Gift Box 1 -->
             <article class="bg-ivory border border-hairline rounded-3xl overflow-hidden flex flex-col justify-between shadow-card hover:border-gold/70 transition duration-500 group">
               <div>
-                <div class="relative h-72 overflow-hidden bg-[#EFE7DC]">
+                <div class="relative h-60 sm:h-68 overflow-hidden bg-[#EFE7DC]">
                   <img src="https://images.unsplash.com/photo-1519915028121-7d3463d20b13?auto=format&fit=crop&w=900&q=85"
                     onerror="this.src='https://placehold.co/800x600/EFE7DC/1E1714?text=Duo+Gift+Box'"
-                    alt="La Boîte Duo Gift Box"
+                    alt="กล่องของขวัญคู่ละมุน (2 ชิ้น)"
                     class="w-full h-full object-cover group-hover:scale-105 transition duration-700" />
-                  <span class="absolute top-4 left-4 bg-pearl/95 text-espresso border border-hairline px-3.5 py-1 rounded-full text-[10px] tracking-[0.16em] uppercase font-semibold">
-                    Gift Box • 2 ชิ้น
+                  <span class="absolute top-3.5 left-3.5 bg-pearl/95 text-espresso border border-hairline px-3 py-1 rounded-full text-xs font-semibold">
+                    เซต 2 ชิ้น
                   </span>
                 </div>
-                <div class="p-7 text-center space-y-2">
-                  <div class="text-[10px] tracking-[0.22em] uppercase text-gold font-medium">Petit Cadeau</div>
-                  <h3 class="font-editorial text-2xl font-semibold text-espresso">กล่องของขวัญคู่ละมุน (2 ชิ้น)</h3>
-                  <p class="font-thai-serif text-muted text-xs leading-relaxed font-light">
+                <div class="p-5 sm:p-6 text-center space-y-2">
+                  <div class="text-xs text-gold font-semibold">กล่องของขวัญขนาดเล็ก</div>
+                  <h3 class="text-xl font-bold text-espresso">กล่องของขวัญคู่ละมุน (2 ชิ้น)</h3>
+                  <p class="text-muted text-xs sm:text-sm leading-relaxed">
                     จับคู่ทาร์ตสตรอว์เบอร์รีครีมวานิลลา และทาร์ตมิกซ์เบอร์รีโฮมเมด ในกล่องของขวัญสีงาช้างพร้อมริบบิ้นทอง
                   </p>
                 </div>
               </div>
-              <div class="px-7 pb-7 pt-4 border-t border-hairline flex items-center justify-between">
+              <div class="px-5 sm:px-6 pb-5 sm:pb-6 pt-3.5 border-t border-hairline flex items-center justify-between">
                 <div>
-                  <span class="font-editorial text-2xl font-semibold text-espresso">฿370</span>
-                  <span class="text-[10px] text-muted uppercase tracking-wider"> / box</span>
+                  <span class="text-xl sm:text-2xl font-bold text-espresso">฿370</span>
+                  <span class="text-xs text-muted"> / กล่อง</span>
                 </div>
-                <button onclick="addGiftBoxToCart('gift-duo', 'กล่องของขวัญคู่ละมุน (2 ชิ้น)', 370, 'https://images.unsplash.com/photo-1519915028121-7d3463d20b13?auto=format&fit=crop&w=900&q=85')"
-                  class="bg-espresso hover:bg-gold hover:text-espresso text-pearl text-[11px] tracking-[0.15em] uppercase font-medium px-5 py-2.5 rounded-full transition">
-                  เพิ่มลงถุง
+                <button type="button" onclick="addGiftBoxToCart('gift-duo', 'กล่องของขวัญคู่ละมุน (2 ชิ้น)', 370, 'https://images.unsplash.com/photo-1519915028121-7d3463d20b13?auto=format&fit=crop&w=900&q=85')"
+                  class="bg-espresso hover:bg-gold hover:text-espresso text-pearl text-xs sm:text-sm font-medium px-4 sm:px-5 py-2.5 rounded-full transition">
+                  + เพิ่มลงตะกร้า
                 </button>
               </div>
             </article>
 
             <!-- Gift Box 2 -->
-            <article class="bg-ivory border border-gold/60 rounded-3xl overflow-hidden flex flex-col justify-between shadow-luxury hover:-translate-y-1 transition duration-500 group">
+            <article class="bg-ivory border border-gold/60 rounded-3xl overflow-hidden flex flex-col justify-between shadow-luxury transition duration-500 group">
               <div>
-                <div class="relative h-72 overflow-hidden bg-[#EFE7DC]">
+                <div class="relative h-60 sm:h-68 overflow-hidden bg-[#EFE7DC]">
                   <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=900&q=85"
                     onerror="this.src='https://placehold.co/800x600/EFE7DC/1E1714?text=Signature+Assortment+4'"
-                    alt="Le Coffret Signature 4 Pieces"
+                    alt="เซตของขวัญรวมรสซิกเนเจอร์ (4 ชิ้น)"
                     class="w-full h-full object-cover group-hover:scale-105 transition duration-700" />
-                  <span class="absolute top-4 left-4 bg-espresso text-goldLight px-3.5 py-1 rounded-full text-[10px] tracking-[0.16em] uppercase font-semibold">
-                    Best Seller • 4 ชิ้น
+                  <span class="absolute top-3.5 left-3.5 bg-espresso text-goldLight px-3 py-1 rounded-full text-xs font-semibold">
+                    ขายดี • 4 ชิ้น
                   </span>
                 </div>
-                <div class="p-7 text-center space-y-2">
-                  <div class="text-[10px] tracking-[0.22em] uppercase text-gold font-medium">Le Coffret Signature</div>
-                  <h3 class="font-editorial text-2xl font-semibold text-espresso">เซตของขวัญรวมรสซิกเนเจอร์ (4 ชิ้น)</h3>
-                  <p class="font-thai-serif text-muted text-xs leading-relaxed font-light">
+                <div class="p-5 sm:p-6 text-center space-y-2">
+                  <div class="text-xs text-gold font-semibold">เซตยอดนิยม</div>
+                  <h3 class="text-xl font-bold text-espresso">เซตของขวัญรวมรสซิกเนเจอร์ (4 ชิ้น)</h3>
+                  <p class="text-muted text-xs sm:text-sm leading-relaxed">
                     รวม 4 รสยอดนิยม (สตรอว์เบอร์รี มิกซ์เบอร์รี มะม่วงเสาวรส และองุ่นไซมัสแคท) พร้อมการ์ดข้อความฟรี
                   </p>
                 </div>
               </div>
-              <div class="px-7 pb-7 pt-4 border-t border-hairline flex items-center justify-between">
+              <div class="px-5 sm:px-6 pb-5 sm:pb-6 pt-3.5 border-t border-hairline flex items-center justify-between">
                 <div>
-                  <span class="font-editorial text-2xl font-semibold text-espresso">฿750</span>
-                  <span class="text-[10px] text-muted uppercase tracking-wider"> / box</span>
+                  <span class="text-xl sm:text-2xl font-bold text-espresso">฿750</span>
+                  <span class="text-xs text-muted"> / กล่อง</span>
                 </div>
-                <button onclick="addGiftBoxToCart('gift-quad', 'เซตของขวัญรวมรสซิกเนเจอร์ (4 ชิ้น)', 750, 'https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=900&q=85')"
-                  class="bg-espresso hover:bg-gold hover:text-espresso text-pearl text-[11px] tracking-[0.15em] uppercase font-medium px-5 py-2.5 rounded-full transition">
-                  เพิ่มลงถุง
+                <button type="button" onclick="addGiftBoxToCart('gift-quad', 'เซตของขวัญรวมรสซิกเนเจอร์ (4 ชิ้น)', 750, 'https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=900&q=85')"
+                  class="bg-espresso hover:bg-gold hover:text-espresso text-pearl text-xs sm:text-sm font-medium px-4 sm:px-5 py-2.5 rounded-full transition">
+                  + เพิ่มลงตะกร้า
                 </button>
               </div>
             </article>
@@ -427,31 +409,31 @@
             <!-- Gift Box 3 -->
             <article class="bg-ivory border border-hairline rounded-3xl overflow-hidden flex flex-col justify-between shadow-card hover:border-gold/70 transition duration-500 group">
               <div>
-                <div class="relative h-72 overflow-hidden bg-[#EFE7DC]">
+                <div class="relative h-60 sm:h-68 overflow-hidden bg-[#EFE7DC]">
                   <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=900&q=85"
                     onerror="this.src='https://placehold.co/800x600/EFE7DC/1E1714?text=Grand+Celebration+6'"
-                    alt="Grand Celebration Box 6 Pieces"
+                    alt="กล่องใหญ่ฉลองวาระพิเศษ (6 ชิ้น)"
                     class="w-full h-full object-cover group-hover:scale-105 transition duration-700" />
-                  <span class="absolute top-4 left-4 bg-pearl/95 text-espresso border border-hairline px-3.5 py-1 rounded-full text-[10px] tracking-[0.16em] uppercase font-semibold">
-                    Celebration • 6 ชิ้น
+                  <span class="absolute top-3.5 left-3.5 bg-pearl/95 text-espresso border border-hairline px-3 py-1 rounded-full text-xs font-semibold">
+                    เซตใหญ่ • 6 ชิ้น
                   </span>
                 </div>
-                <div class="p-7 text-center space-y-2">
-                  <div class="text-[10px] tracking-[0.22em] uppercase text-gold font-medium">Grand Celebration</div>
-                  <h3 class="font-editorial text-2xl font-semibold text-espresso">กล่องใหญ่ฉลองวาระพิเศษ (6 ชิ้น)</h3>
-                  <p class="font-thai-serif text-muted text-xs leading-relaxed font-light">
+                <div class="p-5 sm:p-6 text-center space-y-2">
+                  <div class="text-xs text-gold font-semibold">กล่องของขวัญพิเศษ</div>
+                  <h3 class="text-xl font-bold text-espresso">กล่องใหญ่ฉลองวาระพิเศษ (6 ชิ้น)</h3>
+                  <p class="text-muted text-xs sm:text-sm leading-relaxed">
                     ครบทั้ง 5 รสชาติซิกเนเจอร์พร้อมทาร์ตผลไม้พรีเมียมอีก 1 ชิ้น เหมาะสำหรับงานเลี้ยง วันเกิด หรือมอบให้ผู้ใหญ่
                   </p>
                 </div>
               </div>
-              <div class="px-7 pb-7 pt-4 border-t border-hairline flex items-center justify-between">
+              <div class="px-5 sm:px-6 pb-5 sm:pb-6 pt-3.5 border-t border-hairline flex items-center justify-between">
                 <div>
-                  <span class="font-editorial text-2xl font-semibold text-espresso">฿1,120</span>
-                  <span class="text-[10px] text-muted uppercase tracking-wider"> / box</span>
+                  <span class="text-xl sm:text-2xl font-bold text-espresso">฿1,120</span>
+                  <span class="text-xs text-muted"> / กล่อง</span>
                 </div>
-                <button onclick="addGiftBoxToCart('gift-grand', 'กล่องใหญ่ฉลองวาระพิเศษ (6 ชิ้น)', 1120, 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=900&q=85')"
-                  class="bg-espresso hover:bg-gold hover:text-espresso text-pearl text-[11px] tracking-[0.15em] uppercase font-medium px-5 py-2.5 rounded-full transition">
-                  เพิ่มลงถุง
+                <button type="button" onclick="addGiftBoxToCart('gift-grand', 'กล่องใหญ่ฉลองวาระพิเศษ (6 ชิ้น)', 1120, 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=900&q=85')"
+                  class="bg-espresso hover:bg-gold hover:text-espresso text-pearl text-xs sm:text-sm font-medium px-4 sm:px-5 py-2.5 rounded-full transition">
+                  + เพิ่มลงตะกร้า
                 </button>
               </div>
             </article>
@@ -460,77 +442,77 @@
       </section>
 
       <!-- Clear Ordering Steps Section -->
-      <section id="ordering-steps" class="max-w-7xl mx-auto px-4 sm:px-8 py-20 sm:py-24">
-        <div class="text-center max-w-xl mx-auto mb-14 space-y-2">
-          <div class="text-gold text-[11px] tracking-[0.3em] uppercase font-medium">Seamless Ordering</div>
-          <h2 class="font-editorial text-3xl sm:text-5xl font-medium text-espresso">ขั้นตอนการสั่งความอร่อย</h2>
-          <p class="font-thai-serif text-muted text-xs sm:text-sm font-light">
-            สั่งจองทาร์ตผลไม้โฮมเมดได้ง่ายๆ ใน 4 ขั้นตอน พร้อมติดตามสถานะได้ตลอดเวลา
+      <section id="ordering-steps" class="max-w-7xl mx-auto px-4 sm:px-8 py-14 sm:py-20">
+        <div class="text-center max-w-xl mx-auto mb-10 sm:mb-12 space-y-2">
+          <div class="text-gold text-xs sm:text-sm font-semibold">สั่งซื้อง่ายใน 4 ขั้นตอน</div>
+          <h2 class="text-2xl sm:text-4xl font-bold text-espresso">ขั้นตอนการสั่งความอร่อย</h2>
+          <p class="text-muted text-xs sm:text-sm">
+            สั่งจองทาร์ตผลไม้โฮมเมดได้ง่ายๆ พร้อมติดตามสถานะได้ตลอดเวลา
           </p>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div class="bg-pearl border border-hairline rounded-2xl p-7 space-y-3 hover:border-gold/60 transition">
-            <span class="font-editorial italic text-3xl text-gold block">01</span>
-            <h3 class="font-thai-serif text-base font-semibold text-espresso">เลือกเมนูหรือกล่องของขวัญ</h3>
-            <p class="text-xs text-muted font-light leading-relaxed">
-              เลือกทาร์ตผลไม้พร้อมส่งวันนี้ สั่ง Pre-order ล่วงหน้า หรือเลือกเซตกล่องของขวัญเพิ่มลงถุงช้อปปิ้ง
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          <div class="bg-pearl border border-hairline rounded-2xl p-5 sm:p-6 space-y-2">
+            <span class="text-2xl font-bold text-gold block">01</span>
+            <h3 class="text-base font-bold text-espresso">เลือกเมนูหรือกล่องของขวัญ</h3>
+            <p class="text-xs sm:text-sm text-muted leading-relaxed">
+              เลือกทาร์ตผลไม้พร้อมส่งวันนี้ สั่ง Pre-order ล่วงหน้า หรือเลือกเซตกล่องของขวัญเพิ่มลงตะกร้า
             </p>
           </div>
 
-          <div class="bg-pearl border border-hairline rounded-2xl p-7 space-y-3 hover:border-gold/60 transition">
-            <span class="font-editorial italic text-3xl text-gold block">02</span>
-            <h3 class="font-thai-serif text-base font-semibold text-espresso">ระบุวันรับและข้อความการ์ด</h3>
-            <p class="text-xs text-muted font-light leading-relaxed">
+          <div class="bg-pearl border border-hairline rounded-2xl p-5 sm:p-6 space-y-2">
+            <span class="text-2xl font-bold text-gold block">02</span>
+            <h3 class="text-base font-bold text-espresso">ระบุวันรับและข้อความการ์ด</h3>
+            <p class="text-xs sm:text-sm text-muted leading-relaxed">
               กรอกข้อมูลผู้สั่ง เลือกวันที่ต้องการรับสินค้า วิธีรับ/จัดส่ง และข้อความอวยพรบนการ์ดได้ตามต้องการ
             </p>
           </div>
 
-          <div class="bg-pearl border border-hairline rounded-2xl p-7 space-y-3 hover:border-gold/60 transition">
-            <span class="font-editorial italic text-3xl text-gold block">03</span>
-            <h3 class="font-thai-serif text-base font-semibold text-espresso">รับเลขที่ออเดอร์ &amp; ส่งแชทร้าน</h3>
-            <p class="text-xs text-muted font-light leading-relaxed">
+          <div class="bg-pearl border border-hairline rounded-2xl p-5 sm:p-6 space-y-2">
+            <span class="text-2xl font-bold text-gold block">03</span>
+            <h3 class="text-base font-bold text-espresso">รับเลขที่ออเดอร์ &amp; ส่งแชทร้าน</h3>
+            <p class="text-xs sm:text-sm text-muted leading-relaxed">
               ระบบออกเลขที่คำสั่งซื้อ (CC-xxxx) และแจ้งเตือนห้องอบทันที พร้อมปุ่มคัดลอกใบเสร็จส่งแชทร้าน
             </p>
           </div>
 
-          <div class="bg-pearl border border-hairline rounded-2xl p-7 space-y-3 hover:border-gold/60 transition">
-            <span class="font-editorial italic text-3xl text-gold block">04</span>
-            <h3 class="font-thai-serif text-base font-semibold text-espresso">ติดตามสถานะแบบ Real-time</h3>
-            <p class="text-xs text-muted font-light leading-relaxed">
-              ตรวจสอบสถานะการอบและการจัดส่งได้ทุกเมื่อผ่านปุ่ม “ติดตามออเดอร์” ด้วยเลขที่ออเดอร์หรือเบอร์โทร
+          <div class="bg-pearl border border-hairline rounded-2xl p-5 sm:p-6 space-y-2">
+            <span class="text-2xl font-bold text-gold block">04</span>
+            <h3 class="text-base font-bold text-espresso">ติดตามสถานะแบบ Real-time</h3>
+            <p class="text-xs sm:text-sm text-muted leading-relaxed">
+              ตรวจสอบสถานะการอบและการจัดส่งได้ทุกเมื่อผ่านปุ่ม “เช็กสถานะ / ติดตามออเดอร์”
             </p>
           </div>
         </div>
       </section>
 
       <!-- Savoir-Faire (Brand Story) Section -->
-      <section id="savoir-faire" class="bg-espresso text-[#F6EFE6] py-20 sm:py-28 relative overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <section id="savoir-faire" class="bg-espresso text-[#F6EFE6] py-14 sm:py-24 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-8 grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 items-center">
           <div class="lg:col-span-6 relative">
             <div class="relative rounded-2xl overflow-hidden border border-gold/40 shadow-2xl">
               <img id="story-image"
                 src="https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?auto=format&fit=crop&w=1000&q=85"
                 onerror="this.src='https://placehold.co/800x600/3B2F2A/DFC79E?text=Savoir-Faire'"
                 alt="เรื่องราวของ Crust & Cream"
-                class="w-full h-72 sm:h-[420px] object-cover" />
+                class="w-full h-64 sm:h-[400px] object-cover" />
             </div>
           </div>
 
-          <div class="lg:col-span-6 space-y-6">
-            <div class="inline-flex items-center gap-3 text-goldLight text-[11px] tracking-[0.28em] uppercase">
-              <span class="w-8 h-[1px] bg-goldLight"></span>
-              <span>เรื่องราวของแบรนด์</span>
+          <div class="lg:col-span-6 space-y-5">
+            <div class="inline-flex items-center gap-2.5 text-goldLight text-xs sm:text-sm font-semibold">
+              <span class="w-6 h-[1.5px] bg-goldLight"></span>
+              <span>เรื่องราวของร้านเรา</span>
             </div>
-            <h2 class="font-editorial text-3xl sm:text-5xl font-medium leading-tight text-pearl">
-              ความประณีตที่ซ่อนอยู่ใน<br><span class="italic text-goldLight font-normal">ทุกสัมผัสของแป้งและครีม</span>
+            <h2 class="text-2xl sm:text-4xl font-bold leading-snug text-pearl">
+              ความประณีตที่ซ่อนอยู่ใน<br><span class="text-goldLight font-semibold">ทุกสัมผัสของแป้งและครีม</span>
             </h2>
-            <p id="story-desc" class="font-thai-serif text-[#D8CEC2] text-sm sm:text-base leading-[1.95] font-light">
+            <p id="story-desc" class="text-[#D8CEC2] text-sm sm:text-base leading-[1.85] font-normal">
               เราเชื่อว่าขนมหวานชั้นเลิศเริ่มต้นจากความใส่ใจในรายละเอียดที่เล็กที่สุด ทาร์ตทุกชิ้นของ Crust &amp; Cream จึงอบสดใหม่แบบชิ้นต่อชิ้น ใช้เนยสดแท้เกรดพรีเมียม ผสานกับครีมวานิลลาสูตรหวานน้อย และผลไม้สดตามฤดูกาล เพื่อมอบประสบการณ์ความอร่อยที่สง่างามในทุกคำ
             </p>
-            <div class="pt-3">
+            <div class="pt-2">
               <a href="#collection"
-                class="inline-flex items-center gap-3 border border-goldLight/60 hover:bg-goldLight hover:text-espresso text-goldLight text-xs tracking-[0.2em] uppercase px-7 py-3.5 rounded-full transition">
+                class="inline-flex items-center gap-2.5 border border-goldLight/60 hover:bg-goldLight hover:text-espresso text-goldLight text-sm font-medium px-6 py-3 rounded-full transition">
                 <span>เลือกชมเมนูทั้งหมด</span>
                 <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
               </a>
@@ -540,148 +522,146 @@
       </section>
 
       <!-- Boutique Concierge & Contact Section -->
-      <section id="boutique" class="max-w-7xl mx-auto px-4 sm:px-8 py-16 sm:py-24">
-        <div class="text-center max-w-xl mx-auto mb-12">
-          <div class="text-gold text-[11px] tracking-[0.3em] uppercase font-medium">Concierge &amp; Boutique</div>
-          <h2 class="font-editorial text-3xl sm:text-4xl font-medium text-espresso mt-1">บริการและการรับสินค้า</h2>
+      <section id="boutique" class="max-w-7xl mx-auto px-4 sm:px-8 py-14 sm:py-20">
+        <div class="text-center max-w-xl mx-auto mb-10">
+          <div class="text-gold text-xs sm:text-sm font-semibold">ข้อมูลร้านและการจัดส่ง</div>
+          <h2 class="text-2xl sm:text-3xl font-bold text-espresso mt-1">บริการและการรับสินค้า</h2>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="bg-pearl border border-hairline p-8 rounded-2xl text-center space-y-3 hover:border-gold/60 transition">
-            <div class="w-12 h-12 rounded-full border border-gold/40 bg-ivory text-gold flex items-center justify-center mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+          <div class="bg-pearl border border-hairline p-6 sm:p-7 rounded-2xl text-center space-y-2.5">
+            <div class="w-11 h-11 rounded-full border border-gold/40 bg-ivory text-gold flex items-center justify-center mx-auto">
               <i data-lucide="clock" class="w-5 h-5"></i>
             </div>
-            <div class="text-[10px] tracking-[0.22em] uppercase text-gold font-semibold">Opening Hours</div>
-            <h3 class="font-thai-serif text-base font-semibold text-espresso">เวลาทำการ</h3>
-            <p id="shop-hours" class="text-xs sm:text-sm text-muted font-light">เปิดทุกวัน 09:00 – 18:30 น.</p>
+            <h3 class="text-base font-bold text-espresso">เวลาทำการ</h3>
+            <p id="shop-hours" class="text-xs sm:text-sm text-muted">เปิดทุกวัน 09:00 – 18:30 น.</p>
           </div>
 
-          <div class="bg-pearl border border-hairline p-8 rounded-2xl text-center space-y-3 hover:border-gold/60 transition">
-            <div class="w-12 h-12 rounded-full border border-gold/40 bg-ivory text-gold flex items-center justify-center mx-auto">
+          <div class="bg-pearl border border-hairline p-6 sm:p-7 rounded-2xl text-center space-y-2.5">
+            <div class="w-11 h-11 rounded-full border border-gold/40 bg-ivory text-gold flex items-center justify-center mx-auto">
               <i data-lucide="sparkles" class="w-5 h-5"></i>
             </div>
-            <div class="text-[10px] tracking-[0.22em] uppercase text-gold font-semibold">Delivery &amp; Pick-up</div>
-            <h3 class="font-thai-serif text-base font-semibold text-espresso">การรับสินค้า</h3>
-            <p id="shop-address" class="text-xs sm:text-sm text-muted font-light">รับหน้าร้าน / ส่งแมสเซ็นเจอร์ควบคุมอุณหภูมิ</p>
+            <h3 class="text-base font-bold text-espresso">การรับสินค้า</h3>
+            <p id="shop-address" class="text-xs sm:text-sm text-muted">รับหน้าร้าน / ส่งแมสเซ็นเจอร์ควบคุมอุณหภูมิ</p>
           </div>
 
-          <div class="bg-pearl border border-hairline p-8 rounded-2xl text-center space-y-3 hover:border-gold/60 transition">
-            <div class="w-12 h-12 rounded-full border border-gold/40 bg-ivory text-gold flex items-center justify-center mx-auto">
+          <div class="bg-pearl border border-hairline p-6 sm:p-7 rounded-2xl text-center space-y-2.5">
+            <div class="w-11 h-11 rounded-full border border-gold/40 bg-ivory text-gold flex items-center justify-center mx-auto">
               <i data-lucide="mail" class="w-5 h-5"></i>
             </div>
-            <div class="text-[10px] tracking-[0.22em] uppercase text-gold font-semibold">Private Concierge</div>
-            <h3 class="font-thai-serif text-base font-semibold text-espresso">ติดต่อสอบถาม</h3>
-            <p id="shop-contact" class="text-xs sm:text-sm text-muted font-light">Instagram: @crustandcream • Line: @crustandcream</p>
+            <h3 class="text-base font-bold text-espresso">ติดต่อสอบถาม</h3>
+            <p id="shop-contact" class="text-xs sm:text-sm text-muted">Instagram: @crustandcream • Line: @crustandcream</p>
           </div>
         </div>
       </section>
     </main>
 
     <!-- Haute Couture Footer -->
-    <footer class="bg-espresso text-[#EAE0D5] border-t border-gold/30 py-14">
-      <div class="max-w-7xl mx-auto px-4 sm:px-8 flex flex-col md:flex-row items-center justify-between gap-8">
+    <footer class="bg-espresso text-[#EAE0D5] border-t border-gold/30 py-10 sm:py-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
         <div class="text-center md:text-left">
-          <strong id="footer-brand-name" class="font-editorial text-3xl font-semibold tracking-[0.06em] text-pearl block">
+          <strong id="footer-brand-name" class="font-brand text-2xl sm:text-3xl font-bold text-pearl block">
             Crust &amp; Cream
           </strong>
-          <span class="text-[10px] tracking-[0.3em] uppercase text-goldLight block mt-1">
-            Haute Pâtisserie • Artisanal Fruit Tarts
+          <span class="text-xs text-goldLight block mt-1">
+            ทาร์ตผลไม้โฮมเมด อบสดใหม่ทุกวัน
           </span>
         </div>
 
-        <div class="flex flex-wrap items-center justify-center gap-6 text-xs tracking-wider text-[#C7B9AA]">
+        <div class="flex flex-wrap items-center justify-center gap-5 text-xs sm:text-sm text-[#C7B9AA]">
           <a href="#collection" class="hover:text-goldLight transition">เมนูทาร์ต</a>
           <a href="#gift-sets" class="hover:text-goldLight transition">กล่องของขวัญ</a>
           <a href="#savoir-faire" class="hover:text-goldLight transition">เรื่องราวของเรา</a>
-          <button onclick="openTrackModal()" class="hover:text-goldLight transition">ติดตามออเดอร์</button>
-          <button onclick="switchToAdmin()" class="text-goldLight hover:underline flex items-center gap-1.5">
+          <button type="button" onclick="openTrackModal()" class="hover:text-goldLight transition">ติดตามออเดอร์</button>
+          <button type="button" onclick="switchToAdmin()" class="text-goldLight hover:underline flex items-center gap-1.5">
             <i data-lucide="crown" class="w-3.5 h-3.5"></i>
             <span>ระบบแอดมิน</span>
           </button>
         </div>
 
-        <p class="text-[11px] text-[#9E8F80] font-light">
+        <p class="text-xs text-[#9E8F80]">
           © 2026 Crust &amp; Cream. สงวนลิขสิทธิ์ทั้งหมด
         </p>
       </div>
     </footer>
 
     <!-- Floating Boutique Bag Button -->
-    <button onclick="openCartDrawer()"
-      class="fixed right-5 bottom-6 sm:right-8 sm:bottom-8 z-20 bg-espresso hover:bg-cocoa text-pearl border border-gold/50 px-5 py-3.5 rounded-full shadow-2xl flex items-center gap-3 transition hover:-translate-y-0.5">
-      <i data-lucide="shopping-bag" class="w-4 h-4 text-goldLight"></i>
-      <span class="text-xs tracking-[0.14em] uppercase font-medium">ตะกร้าสินค้า</span>
-      <span class="bg-gold text-espresso font-bold text-xs px-2 py-0.5 rounded-full" id="fab-cart-count">0</span>
-      <span class="font-editorial text-lg text-goldLight border-l border-white/20 pl-3" id="fab-cart-total">฿0</span>
-    </button>
+    <div class="fixed bottom-3 inset-x-3 sm:inset-x-auto sm:right-6 sm:bottom-6 z-20 flex justify-center">
+      <button type="button" onclick="openCartDrawer()"
+        class="w-full sm:w-auto bg-espresso hover:bg-cocoa text-pearl border border-gold/50 px-5 py-3.5 rounded-full shadow-2xl flex items-center justify-between sm:justify-center gap-3 transition">
+        <div class="flex items-center gap-2.5">
+          <i data-lucide="shopping-bag" class="w-4 h-4 text-goldLight"></i>
+          <span class="text-sm font-medium">ตะกร้าสินค้า</span>
+          <span class="bg-gold text-espresso font-bold text-xs px-2.5 py-0.5 rounded-full" id="fab-cart-count">0</span>
+        </div>
+        <span class="text-base font-bold text-goldLight sm:border-l sm:border-white/20 sm:pl-3" id="fab-cart-total">฿0</span>
+      </button>
+    </div>
   </div>
 
   <!-- ==================== ADMIN STUDIO VIEW ==================== -->
-  <div id="admin-view" class="hidden min-h-screen bg-[#F5F1EA]">
-    <!-- Admin Login -->
-    <section id="admin-login-screen" class="min-h-screen flex items-center justify-center p-4 paper-texture">
-      <div class="w-full max-w-md bg-pearl border border-hairline rounded-3xl p-8 sm:p-10 shadow-luxury">
-        <div class="flex items-center justify-between mb-8">
-          <div>
-            <span class="text-[10px] tracking-[0.28em] uppercase text-gold font-semibold block">ระบบจัดการหลังร้าน</span>
-            <strong class="font-editorial text-3xl font-semibold text-espresso">Crust &amp; Cream</strong>
-          </div>
-          <button onclick="switchToStore()" class="text-xs text-muted hover:text-espresso flex items-center gap-1.5 border border-hairline px-3.5 py-2 rounded-full transition">
-            <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
-            หน้าร้าน
+  <div id="admin-view" class="hidden min-h-screen bg-[#F5F0E8] text-espresso w-full overflow-x-hidden pb-20 lg:pb-0">
+    <!-- Admin Login Screen -->
+    <div id="admin-login-screen" class="min-h-screen flex items-center justify-center p-4 paper-texture">
+      <div class="w-full max-w-md bg-pearl border border-hairline rounded-3xl p-6 sm:p-10 shadow-luxury space-y-6">
+        <div class="flex items-center justify-between">
+          <button type="button" onclick="switchToStore()" class="inline-flex items-center gap-1.5 text-xs text-muted hover:text-espresso transition">
+            <i data-lucide="arrow-left" class="w-4 h-4"></i>
+            <span>กลับหน้าร้าน</span>
           </button>
+          <span class="text-[11px] font-semibold text-gold">ADMIN STUDIO</span>
         </div>
 
-        <h1 class="font-thai-serif text-xl font-semibold text-espresso">เข้าสู่ระบบผู้ดูแลร้าน (Admin Studio)</h1>
-        <p class="text-muted text-xs mt-1 mb-6 font-light">กรอกอีเมลและรหัสผ่านเพื่อจัดการเมนูสินค้า รูปภาพ สต็อก คำสั่งซื้อ และการแจ้งเตือนออนไลน์</p>
+        <div class="text-center space-y-1.5">
+          <div class="w-12 h-12 rounded-full bg-ivory border border-gold/40 text-gold flex items-center justify-center mx-auto mb-2">
+            <i data-lucide="crown" class="w-6 h-6"></i>
+          </div>
+          <h1 class="text-2xl font-bold text-espresso">เข้าสู่ระบบผู้ดูแลร้าน</h1>
+          <p class="text-xs sm:text-sm text-muted">จัดการคำสั่งซื้อ สินค้า รูปภาพ และตั้งค่าร้าน Crust &amp; Cream</p>
+        </div>
 
-        <form id="admin-login-form" class="space-y-4" autocomplete="off">
+        <form id="admin-login-form" class="space-y-4">
           <div>
             <label class="block text-xs font-medium text-cocoa mb-1.5">อีเมลผู้ดูแลร้าน</label>
-            <input id="admin-email-input" type="email" required value="" placeholder="admin@crustandcream.com" autocomplete="username"
-              class="w-full px-4 py-3 rounded-xl border border-hairline bg-ivory/60 text-sm focus:outline-none focus:border-gold" />
+            <input id="admin-email-input" type="email" required autocomplete="username" placeholder="admin@crustandcream.com"
+              class="w-full px-4 py-3 rounded-xl border border-hairline bg-ivory/50 text-sm focus:outline-none focus:border-gold" />
           </div>
           <div>
             <label class="block text-xs font-medium text-cocoa mb-1.5">รหัสผ่าน</label>
-            <input id="admin-pass-input" type="password" required value="" placeholder="กรอกรหัสผ่านแอดมิน" autocomplete="current-password"
-              class="w-full px-4 py-3 rounded-xl border border-hairline bg-ivory/60 text-sm focus:outline-none focus:border-gold" />
+            <input id="admin-pass-input" type="password" required autocomplete="current-password" placeholder="กรอกรหัสผ่านผู้ดูแลร้าน"
+              class="w-full px-4 py-3 rounded-xl border border-hairline bg-ivory/50 text-sm focus:outline-none focus:border-gold" />
           </div>
-          <button type="submit" class="w-full bg-espresso hover:bg-cocoa text-pearl text-xs tracking-[0.18em] uppercase font-medium py-4 rounded-full transition shadow-card">
-            เข้าสู่ระบบจัดการร้าน
+          <button type="submit"
+            class="w-full bg-espresso hover:bg-cocoa text-pearl text-sm font-medium py-3.5 rounded-full transition shadow-card">
+            เข้าสู่ระบบหลังร้าน
           </button>
         </form>
       </div>
-    </section>
+    </div>
 
-    <!-- Admin Dashboard -->
-    <section id="admin-dashboard-screen" class="hidden min-h-screen flex flex-col lg:flex-row">
+    <!-- Admin Dashboard Screen -->
+    <div id="admin-dashboard-screen" class="hidden min-h-screen flex flex-col lg:flex-row">
       <!-- Desktop Sidebar -->
-      <aside class="hidden lg:flex lg:w-68 bg-espresso text-[#F5EDE3] flex-col justify-between p-7 shrink-0 border-r border-gold/20">
-        <div>
-          <div class="mb-10">
-            <span class="text-[9px] tracking-[0.3em] uppercase text-goldLight block">Admin Studio</span>
-            <strong class="font-editorial text-3xl font-semibold text-pearl block mt-0.5">Crust &amp; Cream</strong>
+      <aside class="hidden lg:flex lg:w-64 bg-espresso text-pearl flex-col justify-between p-6 shrink-0">
+        <div class="space-y-8">
+          <div>
+            <strong class="font-brand text-2xl font-bold text-pearl block">Crust &amp; Cream</strong>
+            <span class="text-xs text-goldLight">Admin Studio</span>
           </div>
 
-          <div class="text-[10px] tracking-[0.22em] text-[#9E8F80] uppercase mb-3 px-3">Management</div>
-          <nav class="space-y-1.5">
-            <button onclick="switchAdminTab('orders')" data-tab-btn="orders"
-              class="admin-tab-btn active w-full flex items-center justify-between px-4 py-3.5 rounded-xl text-xs tracking-wider font-medium bg-cocoa text-pearl border border-gold/30 transition">
-              <span class="flex items-center gap-3">
-                <i data-lucide="clipboard-list" class="w-4 h-4 text-goldLight"></i>
-                <span>คำสั่งซื้อ (Orders)</span>
-              </span>
-              <span id="sidebar-new-order-badge" class="hidden bg-rose text-white text-[10px] font-bold px-2 py-0.5 rounded-full animate-pulse">0</span>
+          <nav class="space-y-2">
+            <button type="button" onclick="switchAdminTab('orders')" data-tab-btn="orders"
+              class="admin-tab-btn w-full flex items-center justify-between px-4 py-3 rounded-xl bg-cocoa text-pearl border border-gold/30 text-sm font-medium transition">
+              <span class="flex items-center gap-2.5"><i data-lucide="receipt" class="w-4 h-4 text-goldLight"></i> คำสั่งซื้อ</span>
+              <span id="sidebar-new-order-badge" class="hidden bg-rose text-white text-[10px] font-bold px-2 py-0.5 rounded-full">0</span>
             </button>
-
-            <button onclick="switchAdminTab('products')" data-tab-btn="products"
-              class="admin-tab-btn w-full flex items-center gap-3 px-4 py-3.5 rounded-xl text-xs tracking-wider font-medium text-[#D6C8BB] hover:bg-cocoa/60 transition">
+            <button type="button" onclick="switchAdminTab('products')" data-tab-btn="products"
+              class="admin-tab-btn w-full flex items-center gap-2.5 px-4 py-3 rounded-xl text-[#D6C8BB] hover:text-pearl text-sm font-medium transition">
               <i data-lucide="cake-slice" class="w-4 h-4 text-goldLight"></i>
-              <span>สินค้า &amp; รูปภาพ</span>
+              <span>สินค้าและรูปภาพ</span>
             </button>
-
-            <button onclick="switchAdminTab('settings')" data-tab-btn="settings"
-              class="admin-tab-btn w-full flex items-center gap-3 px-4 py-3.5 rounded-xl text-xs tracking-wider font-medium text-[#D6C8BB] hover:bg-cocoa/60 transition">
+            <button type="button" onclick="switchAdminTab('settings')" data-tab-btn="settings"
+              class="admin-tab-btn w-full flex items-center gap-2.5 px-4 py-3 rounded-xl text-[#D6C8BB] hover:text-pearl text-sm font-medium transition">
               <i data-lucide="sliders-horizontal" class="w-4 h-4 text-goldLight"></i>
               <span>ตั้งค่าร้าน &amp; แจ้งเตือน</span>
             </button>
@@ -689,95 +669,117 @@
         </div>
 
         <div class="pt-6 border-t border-white/10 space-y-3">
-          <div class="px-3">
-            <div class="text-[9px] tracking-[0.2em] text-[#9E8F80] uppercase">Signed in as</div>
-            <div id="sidebar-admin-email" class="text-xs text-goldLight truncate mt-0.5">admin@crustandcream.com</div>
+          <div class="text-xs text-[#C7B9AA] truncate" id="sidebar-admin-email">admin@crustandcream.com</div>
+          <div class="flex flex-col gap-2">
+            <button type="button" onclick="switchToStore()" class="w-full py-2.5 px-3 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-medium text-pearl transition text-center">
+              ดูหน้าร้านลูกค้า ↗
+            </button>
+            <button type="button" onclick="adminLogout()" class="w-full py-2.5 px-3 rounded-xl border border-white/15 hover:bg-rose/20 text-xs text-[#E5D8CE] transition text-center">
+              ออกจากระบบ
+            </button>
           </div>
-          <button onclick="switchToStore()" class="w-full flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-xs bg-white/10 hover:bg-white/15 text-pearl transition">
-            <i data-lucide="external-link" class="w-3.5 h-3.5 text-goldLight"></i>
-            <span>ดูหน้าร้านลูกค้า</span>
-          </button>
-          <button onclick="adminLogout()" class="w-full flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-xs text-[#E5B8B3] hover:bg-white/5 transition">
-            <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
-            <span>ออกจากระบบ</span>
-          </button>
         </div>
       </aside>
 
-      <!-- Admin Main Content -->
-      <main class="flex-1 p-4 sm:p-8 lg:p-10 pb-24 lg:pb-12 max-w-6xl mx-auto w-full">
-        <!-- Header Bar -->
-        <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
+      <!-- Main Admin Content -->
+      <main class="flex-1 min-w-0 p-4 sm:p-8 max-w-6xl mx-auto w-full space-y-6">
+        <!-- Admin Top Bar -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-pearl border border-hairline p-4 sm:p-6 rounded-2xl shadow-card">
           <div>
-            <span class="text-gold text-[10px] tracking-[0.26em] uppercase font-semibold">Boutique Atelier Control</span>
-            <h1 id="admin-header-title" class="font-editorial text-3xl sm:text-4xl font-semibold text-espresso">จัดการคำสั่งซื้อ</h1>
+            <span class="text-xs font-semibold text-gold">ระบบจัดการร้านออนไลน์</span>
+            <h1 id="admin-header-title" class="text-xl sm:text-2xl font-bold text-espresso">จัดการคำสั่งซื้อ</h1>
           </div>
 
           <div class="flex flex-wrap items-center gap-2">
-            <button id="admin-sound-toggle" onclick="toggleAdminSound()"
-              class="px-3.5 py-2 rounded-full bg-pearl border border-hairline text-xs font-medium text-espresso hover:border-gold flex items-center gap-1.5 transition">
-              <i id="admin-sound-icon" data-lucide="volume-2" class="w-3.5 h-3.5 text-gold"></i>
-              <span id="admin-sound-label" class="hidden sm:inline">เสียงกระดิ่ง: เปิด</span>
+            <button type="button" onclick="toggleAdminSound()"
+              class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-ivory border border-hairline text-xs font-medium text-espresso hover:border-gold transition">
+              <i id="admin-sound-icon" data-lucide="volume-2" class="w-4 h-4 text-gold"></i>
+              <span id="admin-sound-label">เสียงกระดิ่ง: เปิด</span>
             </button>
 
-            <button onclick="requestBrowserNotifPermission()"
-              class="px-3.5 py-2 rounded-full bg-pearl border border-hairline text-xs font-medium text-espresso hover:border-gold flex items-center gap-1.5 transition relative">
-              <i data-lucide="bell" class="w-3.5 h-3.5 text-rose"></i>
-              <span class="hidden sm:inline">แจ้งเตือนหน้าจอ</span>
-              <span id="admin-bell-badge" class="hidden bg-rose text-white text-[10px] font-bold px-1.5 rounded-full">0</span>
+            <button type="button" onclick="requestBrowserNotifPermission()"
+              class="relative inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-ivory border border-hairline text-xs font-medium text-espresso hover:border-gold transition">
+              <i data-lucide="bell" class="w-4 h-4 text-gold"></i>
+              <span>แจ้งเตือนหน้าจอ</span>
+              <span id="admin-bell-badge" class="hidden bg-rose text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">0</span>
             </button>
 
-            <button onclick="switchToStore()"
-              class="px-4 py-2 rounded-full bg-espresso text-pearl text-xs font-medium hover:bg-cocoa flex items-center gap-1.5 transition">
-              <span>หน้าร้าน</span>
-              <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 text-goldLight"></i>
+            <button type="button" onclick="switchToStore()"
+              class="lg:hidden inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-espresso text-pearl text-xs font-medium">
+              <span>หน้าร้าน ↗</span>
+            </button>
+
+            <button type="button" onclick="adminLogout()"
+              class="lg:hidden inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-hairline text-xs text-muted">
+              <span>ออก</span>
             </button>
           </div>
         </div>
 
-        <!-- Incoming Order Banner -->
-        <div id="live-order-banner" class="hidden mb-6 bg-espresso text-pearl border border-gold rounded-2xl p-4 sm:p-5 shadow-luxury flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <div class="flex items-center gap-3.5">
-            <div class="w-11 h-11 rounded-full bg-gold/20 border border-gold flex items-center justify-center shrink-0">
-              <i data-lucide="bell-ring" class="w-5 h-5 text-goldLight animate-bounce"></i>
-            </div>
+        <!-- Incoming Live Order Banner -->
+        <div id="live-order-banner" class="hidden bg-rose text-pearl p-4 rounded-2xl shadow-lg flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center shrink-0">
+              <i data-lucide="bell-ring" class="w-4 h-4"></i>
+            </span>
             <div>
-              <div class="text-[10px] font-semibold uppercase tracking-[0.22em] text-goldLight">New Order Received • มีคำสั่งซื้อใหม่</div>
-              <p id="live-order-banner-text" class="text-sm font-medium mt-0.5">มีออเดอร์ใหม่เข้ามาในระบบ</p>
+              <strong class="text-sm font-bold block">มีคำสั่งซื้อใหม่เข้ามา!</strong>
+              <span id="live-order-banner-text" class="text-xs text-white/90">ออเดอร์ใหม่</span>
             </div>
           </div>
-          <button onclick="acknowledgeNewOrders()" class="bg-gold hover:bg-goldLight text-espresso font-semibold text-xs px-5 py-2.5 rounded-full transition self-end sm:self-center">
-            รับทราบ / ดูรายการ
+          <button type="button" onclick="acknowledgeNewOrders()" class="px-4 py-2 rounded-full bg-pearl text-espresso text-xs font-semibold shrink-0">
+            รับทราบ &amp; ดูรายการ
           </button>
         </div>
 
-        <!-- KPI Stats -->
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          <div class="bg-pearl border border-hairline rounded-2xl p-5 shadow-card">
-            <span class="text-[11px] uppercase tracking-wider text-muted">เมนูทั้งหมด</span>
-            <strong id="stat-total-products" class="font-editorial text-3xl sm:text-4xl font-semibold text-espresso block mt-1">0</strong>
+        <!-- Real-time Activity & Order Notification Feed -->
+        <section class="bg-pearl border border-hairline rounded-2xl p-4 sm:p-5 shadow-card space-y-3">
+          <div class="flex items-center justify-between gap-2">
+            <div class="flex items-center gap-2">
+              <span class="relative flex h-2.5 w-2.5">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-rose"></span>
+              </span>
+              <h2 class="text-sm sm:text-base font-bold text-espresso">ฟีดแจ้งเตือนออเดอร์ล่าสุด (Live Feed)</h2>
+            </div>
+            <button type="button" onclick="clearAdminFeed()" class="text-xs text-muted hover:text-espresso transition">
+              ล้างรายการแจ้งเตือน
+            </button>
           </div>
-          <div class="bg-pearl border border-hairline rounded-2xl p-5 shadow-card">
-            <span class="text-[11px] uppercase tracking-wider text-muted">คำสั่งซื้อทั้งหมด</span>
-            <strong id="stat-total-orders" class="font-editorial text-3xl sm:text-4xl font-semibold text-espresso block mt-1">0</strong>
+          <div id="admin-live-feed-list" class="space-y-2 max-h-48 overflow-y-auto pr-1">
+            <div class="text-xs text-muted text-center py-4 bg-ivory/60 rounded-xl border border-hairline">
+              ยังไม่มีการแจ้งเตือนใหม่ • ระบบกำลังรอรับออเดอร์แบบเรียลไทม์
+            </div>
           </div>
-          <div class="bg-pearl border border-hairline rounded-2xl p-5 shadow-card">
-            <span class="text-[11px] uppercase tracking-wider text-muted">รอดำเนินการ</span>
-            <strong id="stat-pending-orders" class="font-editorial text-3xl sm:text-4xl font-semibold text-rose block mt-1">0</strong>
+        </section>
+
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+          <div class="bg-pearl border border-hairline p-4 sm:p-5 rounded-2xl">
+            <span class="text-xs text-muted block">เมนูทั้งหมด</span>
+            <strong id="stat-total-products" class="text-2xl sm:text-3xl font-bold text-espresso mt-1 block">0</strong>
           </div>
-          <div class="bg-pearl border border-hairline rounded-2xl p-5 shadow-card">
-            <span class="text-[11px] uppercase tracking-wider text-muted">ยอดขายสำเร็จ</span>
-            <strong id="stat-total-sales" class="font-editorial text-3xl sm:text-4xl font-semibold text-gold block mt-1">฿0</strong>
+          <div class="bg-pearl border border-hairline p-4 sm:p-5 rounded-2xl">
+            <span class="text-xs text-muted block">ออเดอร์ทั้งหมด</span>
+            <strong id="stat-total-orders" class="text-2xl sm:text-3xl font-bold text-espresso mt-1 block">0</strong>
+          </div>
+          <div class="bg-pearl border border-hairline p-4 sm:p-5 rounded-2xl">
+            <span class="text-xs text-muted block">รอดำเนินการ</span>
+            <strong id="stat-pending-orders" class="text-2xl sm:text-3xl font-bold text-rose mt-1 block">0</strong>
+          </div>
+          <div class="bg-pearl border border-hairline p-4 sm:p-5 rounded-2xl">
+            <span class="text-xs text-muted block">ยอดขายสำเร็จ</span>
+            <strong id="stat-total-sales" class="text-2xl sm:text-3xl font-bold text-gold mt-1 block">฿0</strong>
           </div>
         </div>
 
-        <!-- TAB 1: ORDERS -->
-        <section id="admin-panel-orders" class="admin-panel bg-pearl border border-hairline rounded-3xl p-6 shadow-card">
-          <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
-            <h2 class="font-editorial text-2xl font-semibold text-espresso">รายการคำสั่งซื้อล่าสุด</h2>
+        <!-- Panel 1: Orders -->
+        <section id="admin-panel-orders" class="admin-panel bg-pearl border border-hairline rounded-2xl p-4 sm:p-6 shadow-card space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <h2 class="text-lg font-bold text-espresso">รายการคำสั่งซื้อลูกค้า</h2>
             <select id="admin-order-filter" onchange="renderAdminOrders()"
-              class="text-xs border border-hairline rounded-full px-4 py-2 bg-ivory text-espresso focus:outline-none focus:border-gold">
-              <option value="all">ทุกสถานะออเดอร์</option>
+              class="px-4 py-2 rounded-xl border border-hairline bg-ivory text-xs sm:text-sm text-espresso focus:outline-none focus:border-gold">
+              <option value="all">สถานะทั้งหมด</option>
               <option value="รอยืนยัน">รอยืนยัน</option>
               <option value="กำลังอบ">กำลังอบ</option>
               <option value="พร้อมรับ/จัดส่ง">พร้อมรับ/จัดส่ง</option>
@@ -787,265 +789,242 @@
           </div>
 
           <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse min-w-[700px]">
+            <table class="w-full text-left border-collapse min-w-[680px]">
               <thead>
-                <tr class="border-b border-hairline text-[11px] uppercase tracking-wider text-muted">
-                  <th class="py-3.5 px-3 font-medium">เลขที่ / เวลาสั่ง</th>
-                  <th class="py-3.5 px-3 font-medium">ลูกค้า</th>
-                  <th class="py-3.5 px-3 font-medium">รายการขนม</th>
-                  <th class="py-3.5 px-3 font-medium">วันรับสินค้า</th>
-                  <th class="py-3.5 px-3 font-medium">ยอดรวม</th>
-                  <th class="py-3.5 px-3 font-medium">สถานะ</th>
+                <tr class="border-b border-hairline text-xs text-muted">
+                  <th class="py-3 px-3">เลขที่ / เวลา</th>
+                  <th class="py-3 px-3">ข้อมูลลูกค้า</th>
+                  <th class="py-3 px-3">รายการขนม</th>
+                  <th class="py-3 px-3">วันรับสินค้า</th>
+                  <th class="py-3 px-3">ยอดรวม</th>
+                  <th class="py-3 px-3">สถานะ</th>
                 </tr>
               </thead>
-              <tbody id="admin-orders-tbody" class="text-xs sm:text-sm divide-y divide-hairline">
-                <!-- Orders rows -->
-              </tbody>
+              <tbody id="admin-orders-tbody" class="divide-y divide-hairline text-sm"></tbody>
             </table>
           </div>
         </section>
 
-        <!-- TAB 2: PRODUCTS & IMAGES -->
-        <section id="admin-panel-products" class="admin-panel hidden bg-pearl border border-hairline rounded-3xl p-6 shadow-card">
-          <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+        <!-- Panel 2: Products -->
+        <section id="admin-panel-products" class="admin-panel hidden bg-pearl border border-hairline rounded-2xl p-4 sm:p-6 shadow-card space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
-              <h2 class="font-editorial text-2xl font-semibold text-espresso">คอลเลกชันสินค้า &amp; รูปภาพ</h2>
-              <p class="text-xs text-muted font-light mt-0.5">เพิ่มเมนูใหม่ แก้ไขราคา อัปโหลดรูปภาพ หรือจัดการสต็อกหน้าร้าน</p>
+              <h2 class="text-lg font-bold text-espresso">สินค้า สต็อก และรูปภาพ</h2>
+              <p class="text-xs text-muted">เพิ่มเมนูใหม่ แก้ไขราคา ปรับสต็อก หรืออัปโหลดรูปภาพขนม</p>
             </div>
-            <button onclick="openProductModal()"
-              class="bg-espresso hover:bg-cocoa text-pearl text-xs tracking-[0.14em] uppercase font-medium px-5 py-3 rounded-full flex items-center gap-2 transition shadow-card">
+            <button type="button" onclick="openProductModal()"
+              class="inline-flex items-center justify-center gap-2 bg-espresso hover:bg-cocoa text-pearl text-xs sm:text-sm font-medium px-5 py-2.5 rounded-full transition">
               <i data-lucide="plus" class="w-4 h-4 text-goldLight"></i>
-              <span>เพิ่มเมนูใหม่</span>
+              <span>เพิ่มเมนูทาร์ตใหม่</span>
             </button>
           </div>
 
           <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse min-w-[700px]">
+            <table class="w-full text-left border-collapse min-w-[680px]">
               <thead>
-                <tr class="border-b border-hairline text-[11px] uppercase tracking-wider text-muted">
-                  <th class="py-3.5 px-3 font-medium">เมนูทาร์ต</th>
-                  <th class="py-3.5 px-3 font-medium">ราคา</th>
-                  <th class="py-3.5 px-3 font-medium">สต็อก</th>
-                  <th class="py-3.5 px-3 font-medium">ประเภท</th>
-                  <th class="py-3.5 px-3 font-medium">การแสดงผล</th>
-                  <th class="py-3.5 px-3 font-medium text-right">จัดการ</th>
+                <tr class="border-b border-hairline text-xs text-muted">
+                  <th class="py-3 px-3">เมนูสินค้า</th>
+                  <th class="py-3 px-3">ราคา</th>
+                  <th class="py-3 px-3">สต็อก</th>
+                  <th class="py-3 px-3">ประเภท</th>
+                  <th class="py-3 px-3">การแสดงผล</th>
+                  <th class="py-3 px-3 text-right">จัดการ</th>
                 </tr>
               </thead>
-              <tbody id="admin-products-tbody" class="text-xs sm:text-sm divide-y divide-hairline">
-                <!-- Product rows -->
-              </tbody>
+              <tbody id="admin-products-tbody" class="divide-y divide-hairline text-sm"></tbody>
             </table>
           </div>
         </section>
 
-        <!-- TAB 3: SETTINGS & NOTIFICATIONS -->
-        <section id="admin-panel-settings" class="admin-panel hidden bg-pearl border border-hairline rounded-3xl p-6 sm:p-8 shadow-card">
-          <div class="mb-6">
-            <h2 class="font-editorial text-2xl font-semibold text-espresso">ตั้งค่าแบรนด์และระบบแจ้งเตือน</h2>
-            <p class="text-xs text-muted font-light mt-0.5">ปรับแต่งข้อมูลหน้าแรก รูปภาพแบนเนอร์ และการเชื่อมต่อแจ้งเตือนเข้ามือถือ</p>
-          </div>
+        <!-- Panel 3: Settings & Notifications -->
+        <section id="admin-panel-settings" class="admin-panel hidden bg-pearl border border-hairline rounded-2xl p-4 sm:p-6 shadow-card">
+          <form id="admin-settings-form" class="space-y-6">
+            <div>
+              <h2 class="text-lg font-bold text-espresso">ข้อมูลหน้าร้านและแบนเนอร์</h2>
+              <p class="text-xs text-muted">แก้ไขข้อความและรูปภาพหน้าแรกของร้านได้ทันที</p>
+            </div>
 
-          <form id="admin-settings-form" class="space-y-6 max-w-3xl">
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label class="block text-xs font-medium text-cocoa mb-1.5">ชื่อแบรนด์ (Brand Name)</label>
-                <input name="brand_name" required class="w-full px-4 py-2.5 rounded-xl border border-hairline bg-ivory/50 text-sm focus:outline-none focus:border-gold" />
+                <label class="block text-xs font-medium text-cocoa mb-1">ชื่อแบรนด์ร้าน</label>
+                <input name="brand_name" required class="w-full px-4 py-2.5 rounded-xl border border-hairline bg-ivory/40 text-sm focus:outline-none focus:border-gold" />
               </div>
               <div>
-                <label class="block text-xs font-medium text-cocoa mb-1.5">เวลาทำการ</label>
-                <input name="hours" class="w-full px-4 py-2.5 rounded-xl border border-hairline bg-ivory/50 text-sm focus:outline-none focus:border-gold" />
+                <label class="block text-xs font-medium text-cocoa mb-1">ข้อความประกาศแถบบนสุด</label>
+                <input name="announcement" class="w-full px-4 py-2.5 rounded-xl border border-hairline bg-ivory/40 text-sm focus:outline-none focus:border-gold" />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-medium text-cocoa mb-1">หัวข้อแบนเนอร์หน้าแรก (ขึ้นบรรทัดใหม่ได้)</label>
+                <textarea name="hero_title" rows="2" class="w-full px-4 py-2.5 rounded-xl border border-hairline bg-ivory/40 text-sm focus:outline-none focus:border-gold"></textarea>
+              </div>
+              <div>
+                <label class="block text-xs font-medium text-cocoa mb-1">คำอธิบายแบนเนอร์หน้าแรก</label>
+                <textarea name="hero_desc" rows="2" class="w-full px-4 py-2.5 rounded-xl border border-hairline bg-ivory/40 text-sm focus:outline-none focus:border-gold"></textarea>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-ivory border border-hairline flex flex-col sm:flex-row items-center gap-4">
+              <img id="settings-hero-preview" src="https://images.unsplash.com/photo-1519915028121-7d3463d20b13?auto=format&fit=crop&w=400&q=80"
+                class="w-20 h-20 rounded-2xl object-cover border border-gold/40 shrink-0" alt="Hero Preview" />
+              <div class="flex-1 w-full space-y-2">
+                <label class="block text-xs font-semibold text-espresso">รูปภาพหลักหน้าแรก (URL หรืออัปโหลดใหม่)</label>
+                <input id="settings-hero-image-input" name="hero_image"
+                  oninput="document.getElementById('settings-hero-preview').src = this.value"
+                  class="w-full px-3.5 py-2 rounded-xl border border-hairline bg-white text-xs focus:outline-none focus:border-gold" />
+                <label class="cursor-pointer inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-espresso text-pearl text-xs font-medium">
+                  <i data-lucide="image-plus" class="w-3.5 h-3.5 text-goldLight"></i>
+                  <span>อัปโหลดรูปภาพแบนเนอร์</span>
+                  <input type="file" accept="image/*" class="hidden" onchange="handleImageFileUpload(event, 'settings-hero-image-input', 'settings-hero-preview')" />
+                </label>
               </div>
             </div>
 
             <div>
-              <label class="block text-xs font-medium text-cocoa mb-1.5">ข้อความประกาศด้านบนสุด</label>
-              <input name="announcement" class="w-full px-4 py-2.5 rounded-xl border border-hairline bg-ivory/50 text-sm focus:outline-none focus:border-gold" />
+              <label class="block text-xs font-medium text-cocoa mb-1">เรื่องราวของร้าน (Savoir-Faire)</label>
+              <textarea name="story_desc" rows="3" class="w-full px-4 py-2.5 rounded-xl border border-hairline bg-ivory/40 text-sm focus:outline-none focus:border-gold"></textarea>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div>
-                <label class="block text-xs font-medium text-cocoa mb-1.5">พาดหัวหน้าแรก (ขึ้นบรรทัดใหม่ด้วย Enter)</label>
-                <textarea name="hero_title" rows="2" class="w-full px-4 py-2.5 rounded-xl border border-hairline bg-ivory/50 text-sm focus:outline-none focus:border-gold"></textarea>
+                <label class="block text-xs font-medium text-cocoa mb-1">เวลาทำการ</label>
+                <input name="hours" class="w-full px-4 py-2.5 rounded-xl border border-hairline bg-ivory/40 text-sm focus:outline-none focus:border-gold" />
               </div>
               <div>
-                <label class="block text-xs font-medium text-cocoa mb-1.5">คำโปรยหน้าแรก</label>
-                <textarea name="hero_desc" rows="2" class="w-full px-4 py-2.5 rounded-xl border border-hairline bg-ivory/50 text-sm focus:outline-none focus:border-gold"></textarea>
-              </div>
-            </div>
-
-            <!-- Hero Image Upload -->
-            <div class="p-5 rounded-2xl bg-ivory border border-hairline space-y-3">
-              <label class="block text-xs font-semibold text-espresso">รูปภาพหลักหน้าแรก (Hero Arch Image)</label>
-              <div class="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
-                <img id="settings-hero-preview" src="" alt="Hero Preview" class="w-24 h-28 object-cover luxury-arch border border-gold/50 bg-white shrink-0" />
-                <div class="flex-1 w-full space-y-2.5">
-                  <input id="settings-hero-url" name="hero_image" placeholder="วางลิงก์รูปภาพ URL หรืออัปโหลดด้านล่าง"
-                    oninput="document.getElementById('settings-hero-preview').src = this.value"
-                    class="w-full px-3.5 py-2 rounded-xl border border-hairline bg-white text-xs focus:outline-none focus:border-gold" />
-                  <label class="cursor-pointer inline-flex items-center gap-2 px-4 py-2 rounded-full bg-espresso text-pearl text-xs font-medium hover:bg-cocoa transition">
-                    <i data-lucide="upload" class="w-3.5 h-3.5 text-goldLight"></i>
-                    <span>อัปโหลดรูปแบนเนอร์จากเครื่อง</span>
-                    <input type="file" accept="image/*" class="hidden" onchange="handleImageFileUpload(event, 'settings-hero-url', 'settings-hero-preview')" />
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <label class="block text-xs font-medium text-cocoa mb-1.5">เรื่องราวของแบรนด์ (Notre Savoir-Faire)</label>
-              <textarea name="story_desc" rows="3" class="w-full px-4 py-2.5 rounded-xl border border-hairline bg-ivory/50 text-sm focus:outline-none focus:border-gold"></textarea>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label class="block text-xs font-medium text-cocoa mb-1.5">รูปแบบการรับสินค้า</label>
-                <input name="address" class="w-full px-4 py-2.5 rounded-xl border border-hairline bg-ivory/50 text-sm focus:outline-none focus:border-gold" />
+                <label class="block text-xs font-medium text-cocoa mb-1">วิธีรับสินค้า / จัดส่ง</label>
+                <input name="address" class="w-full px-4 py-2.5 rounded-xl border border-hairline bg-ivory/40 text-sm focus:outline-none focus:border-gold" />
               </div>
               <div>
-                <label class="block text-xs font-medium text-cocoa mb-1.5">ช่องทางติดต่อร้าน</label>
-                <input name="contact" class="w-full px-4 py-2.5 rounded-xl border border-hairline bg-ivory/50 text-sm focus:outline-none focus:border-gold" />
+                <label class="block text-xs font-medium text-cocoa mb-1">ช่องทางติดต่อร้าน</label>
+                <input name="contact" class="w-full px-4 py-2.5 rounded-xl border border-hairline bg-ivory/40 text-sm focus:outline-none focus:border-gold" />
               </div>
             </div>
 
             <!-- Webhook Notification Config -->
-            <div class="p-5 rounded-2xl bg-ivory border border-hairline space-y-4">
+            <div class="pt-5 border-t border-hairline space-y-4">
               <div>
-                <h3 class="text-sm font-semibold text-espresso flex items-center gap-2">
-                  <i data-lucide="send" class="w-4 h-4 text-gold"></i>
-                  <span>ส่งแจ้งเตือนออเดอร์เข้ามือถืออัตโนมัติ (Telegram / Discord / Webhook)</span>
-                </h3>
-                <p class="text-xs text-muted font-light mt-0.5">รับข้อความสรุปออเดอร์ทันทีที่มีลูกค้ากดสั่งซื้อบนหน้าเว็บ</p>
+                <h3 class="text-base font-bold text-espresso">ตั้งค่าแจ้งเตือนออเดอร์เข้ามือถือ (Telegram / Discord / Webhook)</h3>
+                <p class="text-xs text-muted">ส่งข้อความสรุปรายการสั่งซื้อเข้าแอปแชทของคุณทันทีที่มีลูกค้าสั่งขนม</p>
               </div>
 
-              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label class="block text-xs font-medium text-cocoa mb-1">ช่องทางแจ้งเตือน</label>
                   <select id="webhook-type-select" name="webhook_type" onchange="toggleWebhookFields()"
-                    class="w-full px-3.5 py-2.5 rounded-xl border border-hairline bg-white text-xs focus:outline-none focus:border-gold">
-                    <option value="none">ปิดการส่ง Webhook</option>
-                    <option value="telegram">Telegram Bot (แนะนำ)</option>
+                    class="w-full px-4 py-2.5 rounded-xl border border-hairline bg-ivory/40 text-sm focus:outline-none focus:border-gold">
+                    <option value="none">ปิดการแจ้งเตือนภายนอก</option>
+                    <option value="telegram">Telegram Bot (แนะนำ ง่ายและฟรี)</option>
                     <option value="discord">Discord Webhook</option>
-                    <option value="custom">Custom Webhook (Make / LINE)</option>
+                    <option value="custom">Custom Webhook (Make.com / LINE OA)</option>
                   </select>
                 </div>
-                <div class="sm:col-span-2">
+
+                <div>
                   <label class="block text-xs font-medium text-cocoa mb-1">Bot Token หรือ Webhook URL</label>
-                  <input name="webhook_url" placeholder="วาง Telegram Bot Token หรือ Webhook URL"
-                    class="w-full px-3.5 py-2.5 rounded-xl border border-hairline bg-white text-xs focus:outline-none focus:border-gold" />
+                  <input name="webhook_url" placeholder="วาง Token หรือ https://..."
+                    class="w-full px-4 py-2.5 rounded-xl border border-hairline bg-ivory/40 text-sm focus:outline-none focus:border-gold" />
                 </div>
               </div>
 
               <div id="telegram-chat-id-group" class="hidden">
                 <label class="block text-xs font-medium text-cocoa mb-1">Telegram Chat ID</label>
-                <input name="telegram_chat_id" placeholder="เช่น 123456789"
-                  class="w-full px-3.5 py-2.5 rounded-xl border border-hairline bg-white text-xs focus:outline-none focus:border-gold" />
+                <input name="telegram_chat_id" placeholder="เช่น 123456789 (หาได้จาก @userinfobot)"
+                  class="w-full px-4 py-2.5 rounded-xl border border-hairline bg-ivory/40 text-sm focus:outline-none focus:border-gold" />
               </div>
 
-              <button type="button" onclick="testWebhookNotification()"
-                class="px-4 py-2 rounded-full border border-espresso text-espresso hover:bg-espresso hover:text-pearl text-xs font-medium inline-flex items-center gap-1.5 transition">
-                <i data-lucide="bell-ring" class="w-3.5 h-3.5"></i>
-                <span>ทดสอบส่งข้อความแจ้งเตือน</span>
-              </button>
+              <div class="flex flex-wrap gap-3">
+                <button type="submit"
+                  class="bg-espresso hover:bg-cocoa text-pearl text-xs sm:text-sm font-medium px-6 py-3 rounded-full transition shadow-card">
+                  บันทึกการตั้งค่าทั้งหมด
+                </button>
+                <button type="button" onclick="testWebhookNotification()"
+                  class="border border-gold text-espresso hover:bg-ivory text-xs sm:text-sm font-medium px-5 py-3 rounded-full transition">
+                  ทดสอบส่งแจ้งเตือน
+                </button>
+              </div>
             </div>
-
-            <button type="submit"
-              class="bg-espresso hover:bg-cocoa text-pearl text-xs tracking-[0.18em] uppercase font-medium px-8 py-4 rounded-full transition shadow-card flex items-center gap-2">
-              <i data-lucide="save" class="w-4 h-4 text-goldLight"></i>
-              <span>บันทึกการตั้งค่าทั้งหมด</span>
-            </button>
           </form>
         </section>
       </main>
+    </div>
 
-      <!-- Mobile Admin Bottom Navigation -->
-      <nav class="lg:hidden fixed bottom-0 left-0 right-0 bg-pearl border-t border-hairline flex justify-around py-2.5 z-20">
-        <button onclick="switchAdminTab('orders')" data-tab-btn="orders" class="admin-tab-btn active flex flex-col items-center gap-1 text-[11px] font-medium text-espresso px-4 relative">
-          <i data-lucide="clipboard-list" class="w-4 h-4"></i>
-          <span>ออเดอร์</span>
-          <span id="mobile-tab-order-badge" class="hidden absolute -top-1 right-2 bg-rose text-white text-[9px] font-bold px-1.5 rounded-full">0</span>
-        </button>
-        <button onclick="switchAdminTab('products')" data-tab-btn="products" class="admin-tab-btn flex flex-col items-center gap-1 text-[11px] font-medium text-muted px-4">
-          <i data-lucide="cake-slice" class="w-4 h-4"></i>
-          <span>สินค้า/รูป</span>
-        </button>
-        <button onclick="switchAdminTab('settings')" data-tab-btn="settings" class="admin-tab-btn flex flex-col items-center gap-1 text-[11px] font-medium text-muted px-4">
-          <i data-lucide="sliders-horizontal" class="w-4 h-4"></i>
-          <span>ตั้งค่าร้าน</span>
-        </button>
-      </nav>
-    </section>
+    <!-- Mobile Bottom Nav for Admin -->
+    <nav class="lg:hidden fixed bottom-0 inset-x-0 bg-pearl border-t border-hairline z-30 grid grid-cols-3 py-2 px-2 shadow-lg">
+      <button type="button" onclick="switchAdminTab('orders')" data-tab-btn="orders"
+        class="admin-tab-btn relative flex flex-col items-center justify-center gap-1 py-1 text-xs font-semibold text-espresso">
+        <i data-lucide="receipt" class="w-4 h-4 text-gold"></i>
+        <span>ออเดอร์</span>
+        <span id="mobile-tab-order-badge" class="hidden absolute top-0.5 right-6 bg-rose text-white text-[9px] font-bold px-1.5 rounded-full">0</span>
+      </button>
+      <button type="button" onclick="switchAdminTab('products')" data-tab-btn="products"
+        class="admin-tab-btn flex flex-col items-center justify-center gap-1 py-1 text-xs text-muted">
+        <i data-lucide="cake-slice" class="w-4 h-4 text-gold"></i>
+        <span>สินค้า/รูป</span>
+      </button>
+      <button type="button" onclick="switchAdminTab('settings')" data-tab-btn="settings"
+        class="admin-tab-btn flex flex-col items-center justify-center gap-1 py-1 text-xs text-muted">
+        <i data-lucide="sliders-horizontal" class="w-4 h-4 text-gold"></i>
+        <span>ตั้งค่าร้าน</span>
+      </button>
+    </nav>
   </div>
 
-  <!-- ==================== LUXURY MODALS & DRAWERS ==================== -->
+  <!-- ==================== MODALS & DRAWERS ==================== -->
 
-  <!-- 1. Quick View Product Detail Modal -->
-  <div id="quickview-modal" class="fixed inset-0 bg-espresso/60 backdrop-blur-xs z-40 hidden items-center justify-center p-4" onclick="if(event.target===this)closeModal('quickview-modal')">
-    <div class="bg-pearl rounded-3xl w-full max-w-2xl overflow-hidden shadow-2xl border border-hairline grid grid-cols-1 md:grid-cols-2">
-      <div class="h-64 md:h-auto bg-[#EFE7DC] relative">
-        <img id="qv-image" src="" alt="" class="w-full h-full object-cover" />
-        <span id="qv-badge" class="absolute top-4 left-4 px-3.5 py-1 rounded-full text-[10px] tracking-[0.16em] uppercase font-semibold bg-pearl/95 text-espresso">
-          พร้อมส่ง
-        </span>
+  <!-- 1. Product Quick View Modal -->
+  <div id="quickview-modal" class="fixed inset-0 bg-espresso/60 backdrop-blur-xs z-50 hidden items-center justify-center p-4" onclick="if(event.target===this)closeModal('quickview-modal')">
+    <div class="bg-pearl rounded-3xl w-full max-w-2xl max-h-[92vh] overflow-y-auto shadow-2xl border border-hairline grid grid-cols-1 md:grid-cols-2 overflow-hidden">
+      <div class="h-64 md:h-full bg-[#EFE7DC]">
+        <img id="qv-image" src="" alt="Product Detail" class="w-full h-full object-cover" />
       </div>
-      <div class="p-6 sm:p-8 flex flex-col justify-between space-y-5">
-        <div>
-          <div class="flex items-start justify-between gap-2">
-            <span class="text-[10px] tracking-[0.24em] uppercase text-gold font-semibold">La Sélection</span>
-            <button onclick="closeModal('quickview-modal')" class="w-8 h-8 rounded-full bg-ivory hover:bg-hairline flex items-center justify-center text-espresso">
+      <div class="p-6 sm:p-7 flex flex-col justify-between space-y-5">
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <span id="qv-badge" class="px-3 py-1 rounded-full text-xs font-semibold bg-ivory text-espresso border border-hairline">พร้อมส่งวันนี้</span>
+            <button type="button" onclick="closeModal('quickview-modal')" class="w-8 h-8 rounded-full bg-ivory flex items-center justify-center text-espresso">
               <i data-lucide="x" class="w-4 h-4"></i>
             </button>
           </div>
-          <h3 id="qv-title" class="font-editorial text-2xl sm:text-3xl font-semibold text-espresso mt-1 leading-snug"></h3>
-          <div id="qv-price" class="font-editorial text-2xl text-gold font-semibold mt-2"></div>
-          <p id="qv-desc" class="font-thai-serif text-xs sm:text-sm text-cocoa/80 leading-relaxed mt-4 font-light"></p>
-
-          <div class="mt-5 pt-4 border-t border-hairline space-y-2 text-[11px] text-muted">
-            <div class="flex justify-between">
-              <span>ระดับความหวาน:</span>
-              <span class="text-espresso font-medium">หวานน้อยละมุน (Less Sweet)</span>
-            </div>
-            <div class="flex justify-between">
-              <span>การเก็บรักษา:</span>
-              <span class="text-espresso font-medium">แช่เย็น 2–5°C ได้นาน 2–3 วัน</span>
-            </div>
-            <div class="flex justify-between">
-              <span>สต็อกคงเหลือ:</span>
-              <span id="qv-stock" class="text-espresso font-medium"></span>
-            </div>
+          <h3 id="qv-title" class="text-xl sm:text-2xl font-bold text-espresso leading-snug">ชื่อเมนู</h3>
+          <div id="qv-price" class="text-xl font-bold text-gold">฿185 / ชิ้น</div>
+          <p id="qv-desc" class="text-xs sm:text-sm text-muted leading-relaxed">รายละเอียดขนม</p>
+          <div class="pt-2 border-t border-hairline text-xs text-cocoa flex items-center justify-between">
+            <span>สถานะคงเหลือ:</span>
+            <strong id="qv-stock">12 ชิ้น</strong>
           </div>
         </div>
 
-        <button id="qv-add-btn" class="w-full bg-espresso hover:bg-cocoa text-pearl text-xs tracking-[0.18em] uppercase font-medium py-4 rounded-full transition shadow-card">
-          เพิ่มลงถุงช้อปปิ้ง
+        <button type="button" id="qv-add-btn" class="w-full bg-espresso hover:bg-cocoa text-pearl text-sm font-medium py-3.5 rounded-full transition shadow-card">
+          + เพิ่มลงตะกร้าสินค้า
         </button>
       </div>
     </div>
   </div>
 
-  <!-- 2. Slide-Over Luxury Shopping Bag Drawer -->
-  <div id="cart-drawer" class="fixed inset-0 bg-espresso/55 backdrop-blur-xs z-40 hidden justify-end" onclick="if(event.target===this)closeCartDrawer()">
+  <!-- 2. Slide-over Cart Drawer -->
+  <div id="cart-drawer" class="fixed inset-0 bg-espresso/60 backdrop-blur-xs z-50 hidden justify-end" onclick="if(event.target===this)closeCartDrawer()">
     <div class="bg-pearl w-full max-w-md h-full flex flex-col justify-between shadow-2xl border-l border-hairline">
-      <div class="p-6 border-b border-hairline flex items-center justify-between">
+      <div class="p-5 sm:p-6 border-b border-hairline flex items-center justify-between">
         <div>
-          <span class="text-[10px] tracking-[0.26em] uppercase text-gold font-semibold block">Your Selection</span>
-          <h2 class="font-editorial text-2xl font-semibold text-espresso">ถุงช้อปปิ้งของคุณ</h2>
+          <span class="text-xs font-semibold text-gold block">ตะกร้าสินค้าของคุณ</span>
+          <h2 class="text-xl font-bold text-espresso">รายการที่เลือกไว้</h2>
         </div>
-        <button onclick="closeCartDrawer()" class="w-9 h-9 rounded-full bg-ivory hover:bg-hairline flex items-center justify-center text-espresso transition">
+        <button type="button" onclick="closeCartDrawer()" class="w-9 h-9 rounded-full bg-ivory flex items-center justify-center text-espresso">
           <i data-lucide="x" class="w-4 h-4"></i>
         </button>
       </div>
 
-      <div id="cart-items-container" class="p-6 overflow-y-auto flex-1 space-y-4">
-        <!-- Cart items -->
-      </div>
+      <div id="cart-items-container" class="flex-1 overflow-y-auto p-5 sm:p-6 space-y-4"></div>
 
-      <div class="p-6 border-t border-hairline bg-ivory/70 space-y-4">
+      <div class="p-5 sm:p-6 border-t border-hairline bg-ivory/70 space-y-4">
         <div class="flex items-center justify-between">
-          <span class="text-xs uppercase tracking-widest text-muted">ยอดรวมสุทธิ</span>
-          <span id="cart-drawer-total" class="font-editorial text-3xl font-semibold text-espresso">฿0</span>
+          <span class="text-sm text-cocoa font-medium">ยอดรวมทั้งหมด</span>
+          <strong id="cart-drawer-total" class="text-2xl font-bold text-espresso">฿0</strong>
         </div>
-        <button id="proceed-checkout-btn" onclick="openCheckoutModal()"
-          class="w-full bg-espresso hover:bg-cocoa text-pearl text-xs tracking-[0.2em] uppercase font-medium py-4 rounded-full transition shadow-luxury">
+        <button type="button" id="proceed-checkout-btn" onclick="openCheckoutModal()"
+          class="w-full bg-espresso hover:bg-cocoa text-pearl text-sm font-medium py-3.5 rounded-full transition shadow-card">
           ดำเนินการสั่งซื้อ
         </button>
       </div>
@@ -1053,107 +1032,99 @@
   </div>
 
   <!-- 3. Checkout Modal -->
-  <div id="checkout-modal" class="fixed inset-0 bg-espresso/60 backdrop-blur-xs z-40 hidden items-center justify-center p-4" onclick="if(event.target===this)closeModal('checkout-modal')">
-    <div class="bg-pearl rounded-3xl w-full max-w-lg max-h-[92vh] overflow-y-auto p-6 sm:p-8 shadow-2xl border border-hairline">
-      <div class="flex items-center justify-between mb-6">
+  <div id="checkout-modal" class="fixed inset-0 bg-espresso/60 backdrop-blur-xs z-50 hidden items-center justify-center p-4" onclick="if(event.target===this)closeModal('checkout-modal')">
+    <div class="bg-pearl rounded-3xl w-full max-w-lg max-h-[92vh] overflow-y-auto p-6 sm:p-8 shadow-2xl border border-hairline space-y-5">
+      <div class="flex items-center justify-between">
         <div>
-          <span class="text-[10px] tracking-[0.26em] uppercase text-gold font-semibold block">Order Details</span>
-          <h2 class="font-editorial text-2xl sm:text-3xl font-semibold text-espresso">รายละเอียดการจัดเตรียมออเดอร์</h2>
+          <span class="text-xs font-semibold text-gold block">ยืนยันคำสั่งซื้อ</span>
+          <h2 class="text-xl sm:text-2xl font-bold text-espresso">ข้อมูลผู้สั่งและวันรับขนม</h2>
         </div>
-        <button onclick="closeModal('checkout-modal')" class="w-9 h-9 rounded-full bg-ivory flex items-center justify-center text-espresso">
+        <button type="button" onclick="closeModal('checkout-modal')" class="w-9 h-9 rounded-full bg-ivory flex items-center justify-center text-espresso">
           <i data-lucide="x" class="w-4 h-4"></i>
         </button>
       </div>
 
+      <div class="bg-ivory border border-hairline rounded-2xl p-4 flex items-center justify-between text-sm">
+        <span class="text-cocoa">จำนวน <strong id="checkout-item-count">0</strong> ชิ้น</span>
+        <strong id="checkout-total-display" class="text-lg font-bold text-gold">฿0</strong>
+      </div>
+
       <form id="checkout-form" class="space-y-4">
         <div>
-          <label class="block text-xs font-medium text-cocoa mb-1">ชื่อผู้สั่งซื้อ *</label>
-          <input name="customer_name" required placeholder="ชื่อ-นามสกุล หรือชื่อเล่น"
+          <label class="block text-xs font-medium text-cocoa mb-1">ชื่อ-นามสกุล ผู้สั่งซื้อ *</label>
+          <input name="customer_name" required placeholder="กรอกชื่อผู้ติดต่อ"
             class="w-full px-4 py-2.5 rounded-xl border border-hairline bg-ivory/40 text-sm focus:outline-none focus:border-gold" />
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
             <label class="block text-xs font-medium text-cocoa mb-1">เบอร์โทรศัพท์ *</label>
-            <input name="phone" required type="tel" placeholder="08X-XXX-XXXX"
+            <input name="phone" required inputmode="tel" placeholder="08X-XXX-XXXX"
               class="w-full px-4 py-2.5 rounded-xl border border-hairline bg-ivory/40 text-sm focus:outline-none focus:border-gold" />
           </div>
           <div>
-            <label class="block text-xs font-medium text-cocoa mb-1">วันที่ต้องการรับสินค้า *</label>
+            <label class="block text-xs font-medium text-cocoa mb-1">วันที่ต้องการรับขนม *</label>
             <input id="checkout-date" name="pickup_date" type="date" required
               class="w-full px-4 py-2.5 rounded-xl border border-hairline bg-ivory/40 text-sm focus:outline-none focus:border-gold" />
           </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
-            <label class="block text-xs font-medium text-cocoa mb-1">ประเภทการสั่ง</label>
-            <select name="order_type" class="w-full px-4 py-2.5 rounded-xl border border-hairline bg-ivory/40 text-sm focus:outline-none focus:border-gold">
+            <label class="block text-xs font-medium text-cocoa mb-1">ประเภทออเดอร์</label>
+            <select name="order_type" class="w-full px-3.5 py-2.5 rounded-xl border border-hairline bg-ivory/40 text-sm focus:outline-none focus:border-gold">
               <option value="พร้อมส่ง">พร้อมส่งวันนี้</option>
               <option value="Pre-order">สั่งล่วงหน้า (Pre-order)</option>
             </select>
           </div>
           <div>
             <label class="block text-xs font-medium text-cocoa mb-1">วิธีรับสินค้า</label>
-            <select name="delivery_method" class="w-full px-4 py-2.5 rounded-xl border border-hairline bg-ivory/40 text-sm focus:outline-none focus:border-gold">
-              <option value="รับหน้าร้าน">รับหน้าร้าน</option>
-              <option value="ส่งแมสเซ็นเจอร์">ส่งแมสเซ็นเจอร์</option>
+            <select name="delivery_method" class="w-full px-3.5 py-2.5 rounded-xl border border-hairline bg-ivory/40 text-sm focus:outline-none focus:border-gold">
+              <option value="รับหน้าร้าน">รับเองที่หน้าร้าน</option>
+              <option value="ส่งแมสเซ็นเจอร์">จัดส่งแมสเซ็นเจอร์</option>
             </select>
           </div>
         </div>
 
         <div>
-          <label class="block text-xs font-medium text-cocoa mb-1">ข้อความการ์ดอวยพร / ที่อยู่จัดส่ง</label>
-          <textarea name="note" rows="2" placeholder="ระบุข้อความบนการ์ดของขวัญ หรือสถานที่จัดส่ง"
+          <label class="block text-xs font-medium text-cocoa mb-1">ข้อความการ์ดอวยพร / หมายเหตุเพิ่มเติม</label>
+          <textarea name="note" rows="2" placeholder="ระบุข้อความเขียนการ์ดฟรี หรือที่อยู่จัดส่ง..."
             class="w-full px-4 py-2.5 rounded-xl border border-hairline bg-ivory/40 text-sm focus:outline-none focus:border-gold"></textarea>
         </div>
 
-        <div class="p-4 rounded-2xl bg-ivory border border-hairline flex items-center justify-between">
-          <span class="text-xs text-muted">ยอดชำระสุทธิ (<span id="checkout-item-count">0</span> ชิ้น)</span>
-          <strong id="checkout-total-display" class="font-editorial text-2xl font-semibold text-espresso">฿0</strong>
-        </div>
-
         <button type="submit"
-          class="w-full bg-espresso hover:bg-cocoa text-pearl text-xs tracking-[0.2em] uppercase font-medium py-4 rounded-full transition shadow-luxury">
-          ยืนยันคำสั่งซื้อ
+          class="w-full bg-espresso hover:bg-cocoa text-pearl text-sm font-medium py-3.5 rounded-full transition shadow-card">
+          ยืนยันสั่งซื้อขนม
         </button>
       </form>
     </div>
   </div>
 
-  <!-- 4. Luxury Order Receipt Modal -->
+  <!-- 4. Order Receipt Modal -->
   <div id="receipt-modal" class="fixed inset-0 bg-espresso/60 backdrop-blur-xs z-50 hidden items-center justify-center p-4" onclick="if(event.target===this)closeModal('receipt-modal')">
-    <div class="bg-pearl rounded-3xl w-full max-w-md max-h-[92vh] overflow-y-auto p-7 text-center shadow-2xl border border-gold/50 space-y-5">
-      <div class="w-14 h-14 rounded-full border border-gold bg-ivory text-gold flex items-center justify-center mx-auto">
+    <div class="bg-pearl rounded-3xl w-full max-w-md max-h-[92vh] overflow-y-auto p-6 sm:p-8 shadow-2xl border border-hairline space-y-5 text-center">
+      <div class="w-14 h-14 rounded-full bg-[#E8EFE5] text-[#455B41] flex items-center justify-center mx-auto">
         <i data-lucide="check" class="w-7 h-7"></i>
       </div>
-
       <div>
-        <span class="text-[10px] tracking-[0.28em] uppercase text-gold font-semibold block">Order Confirmed</span>
-        <h2 class="font-editorial text-3xl font-semibold text-espresso mt-1">ขอบพระคุณสำหรับคำสั่งซื้อ</h2>
-        <p class="text-xs text-muted font-light mt-1">ระบบได้แจ้งเตือนไปยังห้องอบขนมเรียบร้อยแล้ว</p>
+        <span class="text-xs font-semibold text-gold block">บันทึกคำสั่งซื้อสำเร็จ</span>
+        <h2 class="text-2xl font-bold text-espresso mt-1">ขอบคุณที่อุดหนุน Crust &amp; Cream</h2>
+        <p class="text-xs text-muted mt-1">ห้องอบได้รับรายการของคุณแล้ว สามารถคัดลอกสรุปออเดอร์ส่งแชทร้านได้ทันที</p>
       </div>
 
-      <div id="receipt-details" class="bg-ivory border border-hairline rounded-2xl p-4 text-left text-xs space-y-2.5">
-        <!-- Receipt content -->
-      </div>
+      <div id="receipt-details" class="bg-ivory border border-hairline rounded-2xl p-4 text-left text-xs space-y-2"></div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-        <button onclick="copyReceiptSummary()"
-          class="w-full bg-espresso hover:bg-cocoa text-pearl font-medium py-3 px-4 rounded-full text-xs transition flex items-center justify-center gap-1.5">
-          <i data-lucide="copy" class="w-3.5 h-3.5 text-goldLight"></i>
-          <span>คัดลอกส่งแชทร้าน</span>
+      <div class="space-y-2.5 pt-1">
+        <button type="button" onclick="copyReceiptSummary()"
+          class="w-full bg-espresso hover:bg-cocoa text-pearl text-xs sm:text-sm font-medium py-3 rounded-full transition flex items-center justify-center gap-2">
+          <i data-lucide="copy" class="w-4 h-4 text-goldLight"></i>
+          <span>คัดลอกข้อความส่งแชทร้าน</span>
         </button>
-        <button onclick="trackCurrentReceiptOrder()"
-          class="w-full border border-espresso text-espresso hover:bg-ivory font-medium py-3 px-4 rounded-full text-xs transition flex items-center justify-center gap-1.5">
-          <i data-lucide="package-search" class="w-3.5 h-3.5 text-gold"></i>
-          <span>ติดตามสถานะ</span>
+        <button type="button" onclick="trackCurrentReceiptOrder()"
+          class="w-full border border-gold text-espresso hover:bg-ivory text-xs sm:text-sm font-medium py-3 rounded-full transition">
+          ติดตามสถานะออเดอร์นี้
         </button>
       </div>
-
-      <button onclick="closeModal('receipt-modal')" class="text-xs text-muted hover:text-espresso underline">
-        กลับสู่หน้าร้าน
-      </button>
     </div>
   </div>
 
@@ -1162,10 +1133,10 @@
     <div class="bg-pearl rounded-3xl w-full max-w-lg max-h-[92vh] overflow-y-auto p-6 sm:p-8 shadow-2xl border border-hairline space-y-5">
       <div class="flex items-center justify-between">
         <div>
-          <span class="text-[10px] tracking-[0.26em] uppercase text-gold font-semibold block">Order Concierge</span>
-          <h2 class="font-editorial text-2xl sm:text-3xl font-semibold text-espresso">ติดตามสถานะคำสั่งซื้อ</h2>
+          <span class="text-xs text-gold font-semibold block">เช็กสถานะขนมของคุณ</span>
+          <h2 class="text-xl sm:text-2xl font-bold text-espresso">ติดตามสถานะคำสั่งซื้อ</h2>
         </div>
-        <button onclick="closeModal('track-modal')" class="w-9 h-9 rounded-full bg-ivory flex items-center justify-center text-espresso">
+        <button type="button" onclick="closeModal('track-modal')" class="w-9 h-9 rounded-full bg-ivory flex items-center justify-center text-espresso">
           <i data-lucide="x" class="w-4 h-4"></i>
         </button>
       </div>
@@ -1173,13 +1144,13 @@
       <form id="track-search-form" class="flex gap-2">
         <input id="track-query-input" required placeholder="เลขที่ออเดอร์ (เช่น CC-1043) หรือเบอร์โทร"
           class="flex-1 px-4 py-2.5 rounded-full border border-hairline bg-ivory/50 text-xs sm:text-sm focus:outline-none focus:border-gold" />
-        <button type="submit" class="bg-espresso hover:bg-cocoa text-pearl text-xs tracking-wider uppercase font-medium px-5 py-2.5 rounded-full transition">
+        <button type="submit" class="bg-espresso hover:bg-cocoa text-pearl text-xs sm:text-sm font-medium px-5 py-2.5 rounded-full transition shrink-0">
           ค้นหา
         </button>
       </form>
 
       <div id="track-results-container" class="space-y-4">
-        <div class="text-center py-8 bg-ivory/60 rounded-2xl border border-hairline text-xs text-muted font-light">
+        <div class="text-center py-8 bg-ivory/60 rounded-2xl border border-hairline text-xs text-muted">
           ระบุเลขที่คำสั่งซื้อหรือเบอร์โทรศัพท์ เพื่อตรวจสอบความคืบหน้าของขนมคุณแบบเรียลไทม์
         </div>
       </div>
@@ -1190,8 +1161,8 @@
   <div id="product-modal" class="fixed inset-0 bg-espresso/60 backdrop-blur-xs z-50 hidden items-center justify-center p-4" onclick="if(event.target===this)closeModal('product-modal')">
     <div class="bg-pearl rounded-3xl w-full max-w-xl max-h-[92vh] overflow-y-auto p-6 sm:p-8 shadow-2xl border border-hairline">
       <div class="flex items-center justify-between mb-5">
-        <h2 id="product-modal-title" class="font-editorial text-2xl sm:text-3xl font-semibold text-espresso">เพิ่มสินค้าใหม่</h2>
-        <button onclick="closeModal('product-modal')" class="w-9 h-9 rounded-full bg-ivory flex items-center justify-center text-espresso">
+        <h2 id="product-modal-title" class="text-xl sm:text-2xl font-bold text-espresso">เพิ่มสินค้าใหม่</h2>
+        <button type="button" onclick="closeModal('product-modal')" class="w-9 h-9 rounded-full bg-ivory flex items-center justify-center text-espresso">
           <i data-lucide="x" class="w-4 h-4"></i>
         </button>
       </div>
@@ -1205,7 +1176,7 @@
             class="w-full px-4 py-2.5 rounded-xl border border-hairline bg-ivory/40 text-sm focus:outline-none focus:border-gold" />
         </div>
 
-        <div class="grid grid-cols-3 gap-3">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <div>
             <label class="block text-xs font-medium text-cocoa mb-1">ราคา (บาท) *</label>
             <input name="price" type="number" min="0" required placeholder="185"
@@ -1266,7 +1237,7 @@
         </div>
 
         <button type="submit"
-          class="w-full bg-espresso hover:bg-cocoa text-pearl text-xs tracking-[0.2em] uppercase font-medium py-4 rounded-full transition shadow-card">
+          class="w-full bg-espresso hover:bg-cocoa text-pearl text-sm font-medium py-3.5 rounded-full transition shadow-card">
           บันทึกข้อมูลสินค้า
         </button>
       </form>
@@ -1279,9 +1250,8 @@
     <span id="toast-msg">ดำเนินการสำเร็จ</span>
   </div>
 
-  <!-- ==================== JAVASCRIPT: SUPABASE + REALTIME + STORE LOGIC ==================== -->
+  <!-- ==================== JAVASCRIPT ==================== -->
   <script>
-    // Supabase Configuration (Public Client Credentials)
     const SUPABASE_URL = 'https://bhtgrxqprhbcxoncqgad.supabase.co';
     const SUPABASE_ANON_KEY = 'sb_publishable_eeQXxejpdkNGzXfg1rIyUw_0zrvLzor';
     let supabaseClient = null;
@@ -1290,7 +1260,6 @@
         supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
       }
     } catch (initErr) {
-      console.warn('Supabase client init skipped:', initErr);
       supabaseClient = null;
     }
 
@@ -1299,12 +1268,9 @@
         if (window.lucide && typeof window.lucide.createIcons === 'function') {
           window.lucide.createIcons();
         }
-      } catch (iconErr) {
-        // Ignore icon rendering issues so UI transitions remain smooth
-      }
+      } catch (iconErr) {}
     }
 
-    // Single Owner Admin Configuration (No password hint rendered in UI)
     const ADMIN_OWNER_EMAIL = 'admin@crustandcream.com';
     const OFFLINE_ADMIN_PASSCODE = 'admin1234';
     const MAX_FAILED_ATTEMPTS = 5;
@@ -1317,31 +1283,23 @@
     }
 
     async function verifySupabaseOwnerAccess(user) {
-      if (!user || !isOwnerEmail(user.email)) {
-        return false;
-      }
+      if (!user || !isOwnerEmail(user.email)) return false;
       if (!supabaseClient) return true;
       try {
         const { data: rpcAllowed, error: rpcErr } = await supabaseClient.rpc('is_store_admin');
-        if (!rpcErr && typeof rpcAllowed === 'boolean') {
-          return rpcAllowed;
-        }
+        if (!rpcErr && typeof rpcAllowed === 'boolean') return rpcAllowed;
         const { data: adminRow, error: rowErr } = await supabaseClient
           .from('admin_users')
           .select('user_id')
           .eq('user_id', user.id)
           .maybeSingle();
-        if (!rowErr && adminRow) {
-          return true;
-        }
+        if (!rowErr && adminRow) return true;
         return isOwnerEmail(user.email);
       } catch (err) {
-        console.warn('Admin allow-list check fallback:', err);
         return isOwnerEmail(user.email);
       }
     }
 
-    // Curated Luxury Tart Photography
     const PRESET_IMAGES = [
       { label: 'สตรอว์เบอร์รี', url: 'https://images.unsplash.com/photo-1519915028121-7d3463d20b13?auto=format&fit=crop&w=900&q=85' },
       { label: 'มิกซ์เบอร์รี', url: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=900&q=85' },
@@ -1436,6 +1394,7 @@
       supabaseConnected: false,
       soundEnabled: true,
       unreadNewOrdersCount: 0,
+      liveFeedItems: [],
       lastReceiptOrder: null,
       activeTrackedQuery: ''
     };
@@ -1445,12 +1404,9 @@
         localStorage.setItem(STORAGE_KEYS.PRODUCTS, JSON.stringify(state.products));
         localStorage.setItem(STORAGE_KEYS.SETTINGS, JSON.stringify(state.settings));
         localStorage.setItem(STORAGE_KEYS.ORDERS, JSON.stringify(state.orders));
-      } catch (e) {
-        console.warn('LocalStorage quota warning:', e);
-      }
+      } catch (e) {}
     }
 
-    // ==================== SUPABASE INTEGRATION & REAL-TIME ====================
     let orderPollTimer = null;
 
     function applyRealtimeOrderChange(eventType, row) {
@@ -1497,9 +1453,7 @@
               }
             }
           }
-        } catch (err) {
-          // Ignore transient polling network issues
-        }
+        } catch (err) {}
       }, 12000);
     }
 
@@ -1542,7 +1496,6 @@
           }
         }
 
-        // Guard realtime WebSocket subscriptions in sandboxed/Canvas frames
         let realtimeSubscribed = false;
         if (typeof window.WebSocket === 'function' && typeof supabaseClient.channel === 'function') {
           try {
@@ -1578,7 +1531,6 @@
         renderProducts();
         updateConnectionBadge(state.supabaseConnected);
       } catch (err) {
-        console.warn('Supabase sync note:', err);
         updateConnectionBadge(false);
       }
     }
@@ -1617,7 +1569,6 @@
       }
     }
 
-    // ==================== AUDIO & NOTIFICATION SYSTEM ====================
     function playLuxuryBell(type = 'order') {
       if (!state.soundEnabled) return;
       try {
@@ -1649,15 +1600,6 @@
       const icon = document.getElementById('admin-sound-icon');
       if (label) label.textContent = state.soundEnabled ? 'เสียงกระดิ่ง: เปิด' : 'เสียงกระดิ่ง: ปิด';
       if (icon) icon.setAttribute('data-lucide', state.soundEnabled ? 'volume-2' : 'volume-x');
-      lucide.createIcons();
-      if (state.soundEnabled) {
-        label.textContent = 'เสียงกระดิ่ง: เปิด';
-      } else {
-        label.textContent = 'เสียงกระดิ่ง: ปิด';
-      }
-      if (icon) {
-        icon.setAttribute('data-lucide', state.soundEnabled ? 'volume-2' : 'volume-x');
-      }
       safeRefreshIcons();
       playLuxuryBell('ping');
       showToast(state.soundEnabled ? 'เปิดเสียงกระดิ่งแจ้งเตือนแล้ว' : 'ปิดเสียงกระดิ่งแจ้งเตือนแล้ว');
@@ -1681,7 +1623,20 @@
 
     function triggerIncomingOrderAlert(order) {
       state.unreadNewOrdersCount += 1;
+      state.liveFeedItems.unshift({
+        id: order.id || ('feed-' + Date.now()),
+        order_no: order.order_no,
+        customer_name: order.customer_name,
+        phone: order.phone,
+        total: order.total,
+        itemsCount: (order.items || []).reduce((sum, i) => sum + Number(i.qty || i.quantity || 1), 0),
+        time: new Date().toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
+        isNew: true
+      });
+      if (state.liveFeedItems.length > 20) state.liveFeedItems.pop();
+
       updateOrderBadges();
+      renderAdminLiveFeed();
       playLuxuryBell('order');
 
       const banner = document.getElementById('live-order-banner');
@@ -1700,6 +1655,61 @@
           });
         } catch (e) {}
       }
+    }
+
+    function renderAdminLiveFeed() {
+      const container = document.getElementById('admin-live-feed-list');
+      if (!container) return;
+
+      if (state.liveFeedItems.length === 0 && state.orders.length > 0) {
+        state.liveFeedItems = state.orders.slice(0, 5).map(o => ({
+          id: o.id,
+          order_no: o.order_no,
+          customer_name: o.customer_name,
+          phone: o.phone,
+          total: o.total,
+          itemsCount: (o.items || []).reduce((sum, i) => sum + Number(i.qty || i.quantity || 1), 0),
+          time: o.created_at ? new Date(o.created_at).toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' }) : 'ล่าสุด',
+          isNew: o.status === 'รอยืนยัน'
+        }));
+      }
+
+      if (state.liveFeedItems.length === 0) {
+        container.innerHTML = `
+          <div class="text-xs text-muted text-center py-4 bg-ivory/60 rounded-xl border border-hairline">
+            ยังไม่มีการแจ้งเตือนใหม่ • ระบบกำลังรอรับออเดอร์แบบเรียลไทม์
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = state.liveFeedItems.map(item => `
+        <div onclick="acknowledgeNewOrders()" class="cursor-pointer flex items-center justify-between gap-3 p-3 rounded-xl border transition ${
+          item.isNew ? 'bg-roseSoft/40 border-rose/40 hover:bg-roseSoft/60' : 'bg-ivory/70 border-hairline hover:bg-ivory'
+        }">
+          <div class="flex items-center gap-2.5 min-w-0">
+            <span class="w-2 h-2 rounded-full shrink-0 ${item.isNew ? 'bg-rose' : 'bg-gold'}"></span>
+            <div class="min-w-0">
+              <div class="text-xs font-semibold text-espresso truncate">
+                ออเดอร์ <span class="text-rose">${esc(item.order_no)}</span> • คุณ ${esc(item.customer_name)} (${item.itemsCount} ชิ้น)
+              </div>
+              <div class="text-[11px] text-muted">เวลา ${esc(item.time)} น. • โทร ${esc(item.phone || '-')}</div>
+            </div>
+          </div>
+          <div class="text-right shrink-0">
+            <strong class="text-xs sm:text-sm font-bold text-espresso block">${formatMoney(item.total)}</strong>
+            ${item.isNew ? '<span class="text-[10px] font-semibold text-rose">ใหม่!</span>' : '<span class="text-[10px] text-muted">ดูรายการ</span>'}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function clearAdminFeed() {
+      state.liveFeedItems = [];
+      state.unreadNewOrdersCount = 0;
+      updateOrderBadges();
+      renderAdminLiveFeed();
+      document.getElementById('live-order-banner')?.classList.add('hidden');
     }
 
     function updateOrderBadges() {
@@ -1722,12 +1732,13 @@
 
     function acknowledgeNewOrders() {
       state.unreadNewOrdersCount = 0;
+      state.liveFeedItems.forEach(item => { item.isNew = false; });
       updateOrderBadges();
+      renderAdminLiveFeed();
       document.getElementById('live-order-banner')?.classList.add('hidden');
       switchAdminTab('orders');
     }
 
-    // ==================== WEBHOOK INTEGRATION ====================
     function formatOrderSummaryText(order) {
       const itemsLines = (order.items || [])
         .map(i => `• ${i.name} ×${i.qty || i.quantity} = ${formatMoney(i.price * (i.qty || i.quantity))}`)
@@ -1801,7 +1812,6 @@
       await sendWebhookOrderAlert(null, true);
     }
 
-    // ==================== UI HELPERS ====================
     const formatMoney = (n) => '฿' + Number(n || 0).toLocaleString('th-TH');
     const esc = (s = '') => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
@@ -1838,7 +1848,6 @@
       closeModal('cart-drawer');
     }
 
-    // ==================== STOREFRONT RENDERING ====================
     function renderStorefrontSettings() {
       const s = state.settings;
       document.getElementById('announcement-bar').textContent = s.announcement;
@@ -1848,7 +1857,7 @@
       const lines = (s.hero_title || '').split('\n');
       const heroTitleEl = document.getElementById('hero-title');
       if (lines.length > 1) {
-        heroTitleEl.innerHTML = `${esc(lines[0])}<br><span class="italic text-rose font-normal">${esc(lines.slice(1).join(' '))}</span>`;
+        heroTitleEl.innerHTML = `${esc(lines[0])}<br><span class="text-rose font-semibold">${esc(lines.slice(1).join(' '))}</span>`;
       } else {
         heroTitleEl.innerHTML = esc(s.hero_title);
       }
@@ -1894,28 +1903,28 @@
                   class="w-full h-full object-cover group-hover:scale-105 transition duration-700" />
 
                 <div class="absolute top-4 left-4 flex items-center gap-2">
-                  <span class="px-3.5 py-1 rounded-full text-[10px] tracking-[0.16em] uppercase font-semibold backdrop-blur-md ${
+                  <span class="px-3.5 py-1 rounded-full text-xs font-semibold backdrop-blur-md ${
                     isReady ? 'bg-pearl/95 text-espresso border border-hairline' : 'bg-espresso/90 text-goldLight'
                   }">
-                    ${isReady ? 'Ready Today' : 'Pre-order'}
+                    ${isReady ? 'พร้อมส่งวันนี้' : 'Pre-order'}
                   </span>
                 </div>
 
                 <div class="absolute inset-x-0 bottom-3.5 flex justify-center opacity-0 group-hover:opacity-100 transition duration-300">
-                  <span class="bg-pearl/95 backdrop-blur-md text-espresso text-[10px] tracking-[0.18em] uppercase font-medium px-4 py-1.5 rounded-full shadow-md border border-hairline">
+                  <span class="bg-pearl/95 backdrop-blur-md text-espresso text-xs font-medium px-4 py-1.5 rounded-full shadow-md border border-hairline">
                     ดูรายละเอียดขนม
                   </span>
                 </div>
               </div>
 
               <div class="p-6 sm:p-7 text-center space-y-2">
-                <div class="text-[10px] tracking-[0.22em] uppercase text-gold font-medium">
+                <div class="text-xs text-gold font-medium">
                   ${isReady ? `พร้อมส่ง • เหลือ ${p.stock} ชิ้น` : 'อบสดใหม่ตามคำสั่งซื้อล่วงหน้า'}
                 </div>
-                <h3 onclick="openQuickView('${esc(p.id)}')" class="font-editorial text-2xl font-semibold text-espresso cursor-pointer hover:text-gold transition leading-snug">
+                <h3 onclick="openQuickView('${esc(p.id)}')" class="text-xl sm:text-2xl font-bold text-espresso cursor-pointer hover:text-gold transition leading-snug">
                   ${esc(p.name)}
                 </h3>
-                <p class="font-thai-serif text-muted text-xs leading-relaxed line-clamp-2 font-light min-h-[38px]">
+                <p class="text-muted text-xs leading-relaxed line-clamp-2 min-h-[38px]">
                   ${esc(p.description || 'ทาร์ตผลไม้โฮมเมด อบสดใหม่ด้วยวัตถุดิบพรีเมียม')}
                 </p>
               </div>
@@ -1923,17 +1932,17 @@
 
             <div class="px-6 sm:px-7 pb-6 sm:pb-7 pt-4 border-t border-hairline/70 flex items-center justify-between">
               <div class="text-left">
-                <span class="font-editorial text-2xl font-semibold text-espresso">${formatMoney(p.price)}</span>
-                <span class="text-[10px] text-muted uppercase tracking-wider"> / piece</span>
+                <span class="text-xl sm:text-2xl font-bold text-espresso">${formatMoney(p.price)}</span>
+                <span class="text-xs text-muted"> / ชิ้น</span>
               </div>
 
               ${outOfStock ? `
-                <span class="text-[11px] text-muted border border-hairline px-4 py-2 rounded-full bg-ivory">สินค้าหมด</span>
+                <span class="text-xs text-muted border border-hairline px-4 py-2 rounded-full bg-ivory">สินค้าหมด</span>
               ` : `
-                <button onclick="addToCart('${esc(p.id)}')"
-                  class="bg-espresso hover:bg-gold hover:text-espresso text-pearl text-[11px] tracking-[0.15em] uppercase font-medium px-5 py-2.5 rounded-full transition flex items-center gap-1.5">
+                <button type="button" onclick="addToCart('${esc(p.id)}')"
+                  class="bg-espresso hover:bg-gold hover:text-espresso text-pearl text-xs font-medium px-5 py-2.5 rounded-full transition flex items-center gap-1.5">
                   <i data-lucide="plus" class="w-3.5 h-3.5"></i>
-                  <span>Add to Bag</span>
+                  <span>ใส่ตะกร้า</span>
                 </button>
               `}
             </div>
@@ -1965,7 +1974,6 @@
       safeRefreshIcons();
     }
 
-    // ==================== CART & CHECKOUT ====================
     function addGiftBoxToCart(id, name, price, imageUrl) {
       const existing = state.cart.find(item => String(item.id) === String(id));
       if (existing) {
@@ -1974,7 +1982,7 @@
         state.cart.push({ id, name, price: Number(price), image_url: imageUrl, qty: 1 });
       }
       updateCartUI();
-      showToast(`เพิ่ม "${name}" ลงถุงช้อปปิ้งแล้ว`);
+      showToast(`เพิ่ม "${name}" ลงตะกร้าแล้ว`);
     }
 
     function addToCart(id) {
@@ -2005,7 +2013,7 @@
       }
 
       updateCartUI();
-      showToast(`เพิ่ม "${p.name}" ลงถุงช้อปปิ้งแล้ว`);
+      showToast(`เพิ่ม "${p.name}" ลงตะกร้าแล้ว`);
     }
 
     function changeCartQty(id, delta) {
@@ -2045,8 +2053,8 @@
             <div class="w-14 h-14 rounded-full border border-hairline bg-ivory mx-auto flex items-center justify-center text-gold">
               <i data-lucide="shopping-bag" class="w-6 h-6"></i>
             </div>
-            <p class="font-editorial text-2xl text-espresso">ถุงช้อปปิ้งของคุณยังว่างอยู่</p>
-            <p class="text-xs text-muted font-light">เลือกทาร์ตผลไม้รสโปรดจากคอลเลกชันได้เลยค่ะ</p>
+            <p class="text-xl font-bold text-espresso">ตะกร้าของคุณยังว่างอยู่</p>
+            <p class="text-xs text-muted">เลือกทาร์ตผลไม้หรือกล่องของขวัญได้เลยครับ</p>
           </div>
         `;
         btn.disabled = true;
@@ -2058,15 +2066,15 @@
           <div class="flex items-center justify-between gap-3 pb-4 border-b border-hairline">
             <img src="${esc(item.image_url || PRESET_IMAGES[0].url)}" class="w-16 h-16 rounded-xl object-cover border border-hairline shrink-0" />
             <div class="flex-1 min-w-0">
-              <strong class="font-thai-serif text-xs sm:text-sm font-medium text-espresso block truncate">${esc(item.name)}</strong>
+              <strong class="text-xs sm:text-sm font-medium text-espresso block truncate">${esc(item.name)}</strong>
               <span class="text-xs text-gold font-medium">${formatMoney(item.price)}</span>
               <div class="flex items-center gap-2.5 mt-2">
-                <button onclick="changeCartQty('${esc(item.id)}', -1)" class="w-6 h-6 rounded-full border border-hairline hover:border-espresso text-xs flex items-center justify-center">−</button>
+                <button type="button" onclick="changeCartQty('${esc(item.id)}', -1)" class="w-6 h-6 rounded-full border border-hairline hover:border-espresso text-xs flex items-center justify-center">−</button>
                 <span class="text-xs font-semibold w-4 text-center">${item.qty}</span>
-                <button onclick="changeCartQty('${esc(item.id)}', 1)" class="w-6 h-6 rounded-full border border-hairline hover:border-espresso text-xs flex items-center justify-center">+</button>
+                <button type="button" onclick="changeCartQty('${esc(item.id)}', 1)" class="w-6 h-6 rounded-full border border-hairline hover:border-espresso text-xs flex items-center justify-center">+</button>
               </div>
             </div>
-            <div class="font-editorial text-lg font-semibold text-espresso">
+            <div class="text-base font-bold text-espresso">
               ${formatMoney(item.price * item.qty)}
             </div>
           </div>
@@ -2240,7 +2248,7 @@
         container.innerHTML = `
           <div class="text-center py-8 bg-ivory rounded-2xl border border-hairline space-y-1">
             <p class="text-sm font-medium text-espresso">ไม่พบคำสั่งซื้อ "${esc(query)}"</p>
-            <p class="text-xs text-muted font-light">กรุณาตรวจสอบเลขที่ออเดอร์หรือเบอร์โทรศัพท์อีกครั้ง</p>
+            <p class="text-xs text-muted">กรุณาตรวจสอบเลขที่ออเดอร์หรือเบอร์โทรศัพท์อีกครั้ง</p>
           </div>
         `;
         return;
@@ -2256,8 +2264,8 @@
           <div class="bg-ivory border border-hairline rounded-2xl p-5 space-y-4">
             <div class="flex items-center justify-between border-b border-hairline pb-3">
               <div>
-                <span class="text-[10px] uppercase tracking-wider text-muted block">Order Reference</span>
-                <strong class="font-editorial text-xl font-bold text-espresso">${esc(ord.order_no)}</strong>
+                <span class="text-xs text-muted block">เลขที่คำสั่งซื้อ</span>
+                <strong class="text-xl font-bold text-espresso">${esc(ord.order_no)}</strong>
               </div>
               <span class="px-3.5 py-1 rounded-full text-xs font-medium ${
                 isCancelled ? 'bg-red-100 text-red-700' :
@@ -2305,7 +2313,6 @@
       }).join('');
     }
 
-    // ==================== ADMIN STUDIO LOGIC ====================
     function switchToAdmin() {
       const storeEl = document.getElementById('storefront-view');
       const adminEl = document.getElementById('admin-view');
@@ -2427,6 +2434,7 @@
       document.getElementById('sidebar-admin-email').textContent = state.adminEmail;
       state.unreadNewOrdersCount = 0;
       updateOrderBadges();
+      renderAdminLiveFeed();
       updateAdminStats();
       renderAdminOrders();
       renderAdminProducts();
@@ -2483,7 +2491,7 @@
       const list = state.orders.filter(o => filter === 'all' || o.status === filter);
 
       if (list.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="6" class="py-12 text-center text-muted font-light">ยังไม่มีรายการคำสั่งซื้อในหมวดหมู่นี้</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="6" class="py-12 text-center text-muted">ยังไม่มีรายการคำสั่งซื้อในหมวดหมู่นี้</td></tr>`;
         return;
       }
 
@@ -2500,7 +2508,7 @@
         return `
           <tr class="hover:bg-ivory/60 transition">
             <td class="py-4 px-3 align-top">
-              <strong class="font-editorial text-base font-bold text-espresso block">${esc(o.order_no || o.id)}</strong>
+              <strong class="text-base font-bold text-espresso block">${esc(o.order_no || o.id)}</strong>
               <span class="text-[11px] text-muted">${timeStr}</span>
             </td>
             <td class="py-4 px-3 align-top">
@@ -2515,7 +2523,7 @@
               <div class="font-medium text-espresso">${esc(o.pickup_date || '-')}</div>
               <div class="text-muted">${esc(o.order_type || '')}</div>
             </td>
-            <td class="py-4 px-3 align-top font-editorial text-lg font-semibold text-espresso">
+            <td class="py-4 px-3 align-top text-base font-bold text-espresso">
               ${formatMoney(o.total)}
             </td>
             <td class="py-4 px-3 align-top">
@@ -2546,7 +2554,6 @@
       showToast(`อัปเดตสถานะเป็น "${newStatus}" เรียบร้อย`);
     }
 
-    // ==================== ADMIN: PRODUCTS & IMAGES ====================
     function renderAdminProducts() {
       const tbody = document.getElementById('admin-products-tbody');
       if (!tbody) return;
@@ -2559,35 +2566,35 @@
                 onerror="this.src='https://placehold.co/100x100/EFE7DC/1E1714?text=Tart'"
                 class="w-14 h-14 rounded-xl object-cover border border-hairline shrink-0" />
               <div>
-                <strong class="font-thai-serif font-medium text-espresso block">${esc(p.name)}</strong>
-                <span class="text-[11px] text-muted font-light line-clamp-1 max-w-xs">${esc(p.description || '')}</span>
+                <strong class="font-medium text-espresso block">${esc(p.name)}</strong>
+                <span class="text-[11px] text-muted line-clamp-1 max-w-xs">${esc(p.description || '')}</span>
               </div>
             </div>
           </td>
-          <td class="py-4 px-3 font-editorial text-lg font-semibold text-espresso">${formatMoney(p.price)}</td>
+          <td class="py-4 px-3 text-base font-bold text-espresso">${formatMoney(p.price)}</td>
           <td class="py-4 px-3">
             <span class="px-3 py-1 rounded-full text-xs font-medium ${Number(p.stock) > 0 ? 'bg-ivory text-espresso border border-hairline' : 'bg-red-50 text-red-600'}">
               ${p.stock ?? 0} ชิ้น
             </span>
           </td>
           <td class="py-4 px-3">
-            <span class="px-3 py-1 rounded-full text-[10px] tracking-wider uppercase font-semibold ${p.status === 'ready' ? 'bg-ivory text-espresso border border-gold/40' : 'bg-espresso text-goldLight'}">
+            <span class="px-3 py-1 rounded-full text-xs font-semibold ${p.status === 'ready' ? 'bg-ivory text-espresso border border-gold/40' : 'bg-espresso text-goldLight'}">
               ${p.status === 'ready' ? 'พร้อมส่ง' : 'Pre-order'}
             </span>
           </td>
           <td class="py-4 px-3">
-            <button onclick="toggleProductActive('${esc(p.id)}')"
+            <button type="button" onclick="toggleProductActive('${esc(p.id)}')"
               class="text-xs font-medium px-3 py-1 rounded-full border transition ${p.is_active !== false ? 'bg-[#E8EFE5] text-[#455B41] border-[#C8D9C3]' : 'bg-gray-100 text-gray-500 border-gray-200'}">
               ${p.is_active !== false ? 'แสดงหน้าร้าน' : 'ซ่อนอยู่'}
             </button>
           </td>
           <td class="py-4 px-3 text-right space-x-1.5 whitespace-nowrap">
-            <button onclick="openProductModal('${esc(p.id)}')"
+            <button type="button" onclick="openProductModal('${esc(p.id)}')"
               class="px-3.5 py-1.5 rounded-full bg-ivory hover:bg-gold/20 border border-hairline text-espresso text-xs font-medium transition">
               แก้ไข / เปลี่ยนรูป
             </button>
-            <button onclick="deleteProduct('${esc(p.id)}')"
-              class="px-3 py-1.5 rounded-full border border-hairline hover:bg-red-50 hover:text-red-600 text-muted text-xs transition">
+            <button type="button" onclick="deleteProduct('${esc(p.id)}')"
+              class="px-3.5 py-1.5 rounded-full border border-hairline hover:bg-red-50 hover:text-red-600 text-muted text-xs transition">
               ลบ
             </button>
           </td>
@@ -2752,7 +2759,6 @@
       showToast('นำสินค้าออกจากรายการแล้ว');
     }
 
-    // ==================== ADMIN: SETTINGS ====================
     function populateAdminSettingsForm() {
       const form = document.getElementById('admin-settings-form');
       if (!form) return;
@@ -2812,7 +2818,6 @@
       showToast('บันทึกการตั้งค่าหน้าร้านเรียบร้อยแล้ว');
     });
 
-    // ==================== FILTER & SEARCH LISTENERS ====================
     document.querySelectorAll('.filter-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         state.filter = btn.dataset.filter;
@@ -2834,7 +2839,6 @@
       renderProducts();
     });
 
-    // ==================== INITIAL BOOT ====================
     window.addEventListener('DOMContentLoaded', () => {
       renderStorefrontSettings();
       renderProducts();

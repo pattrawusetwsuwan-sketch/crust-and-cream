@@ -1,0 +1,2847 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Crust &amp; Cream — Haute Pâtisserie &amp; Artisanal Fruit Tarts</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Luxury Editorial Fonts: Cormorant Garamond + Noto Serif Thai + Prompt -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Noto+Serif+Thai:wght@300;400;500;600;700&family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Supabase JS Client & Lucide Icons -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ivory: '#FAF7F2',
+            pearl: '#FFFDFB',
+            espresso: '#1E1714',
+            cocoa: '#3B2F2A',
+            muted: '#7A6D65',
+            gold: '#B8925A',
+            goldLight: '#DFC79E',
+            rose: '#A65E58',
+            roseSoft: '#F3E5E2',
+            hairline: '#E8DFD3'
+          },
+          fontFamily: {
+            editorial: ['"Cormorant Garamond"', '"Noto Serif Thai"', 'serif'],
+            serifThai: ['"Noto Serif Thai"', 'serif'],
+            sans: ['"Prompt"', 'sans-serif']
+          },
+          boxShadow: {
+            luxury: '0 24px 60px -15px rgba(30, 23, 20, 0.08)',
+            card: '0 10px 35px -10px rgba(30, 23, 20, 0.05)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #FAF7F2;
+      color: #1E1714;
+      font-family: 'Prompt', sans-serif;
+      overflow-x: hidden;
+    }
+
+    .font-editorial {
+      font-family: 'Cormorant Garamond', 'Noto Serif Thai', serif;
+    }
+
+    .font-thai-serif {
+      font-family: 'Noto Serif Thai', serif;
+    }
+
+    /* Double-line luxury arch frame */
+    .luxury-arch {
+      border-radius: 999px 999px 12px 12px;
+    }
+
+    /* Rotating Artisanal Seal */
+    @keyframes spinSlow {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .animate-spin-slow {
+      animation: spinSlow 24s linear infinite;
+    }
+
+    /* Infinite Luxury Marquee */
+    @keyframes marqueeScroll {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-50%); }
+    }
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: marqueeScroll 32s linear infinite;
+    }
+    .marquee-track:hover {
+      animation-play-state: paused;
+    }
+
+    /* Subtle grain overlay for paper texture */
+    .paper-texture {
+      background-image: radial-gradient(rgba(184, 146, 90, 0.07) 1px, transparent 0);
+      background-size: 24px 24px;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: #FAF7F2; }
+    ::-webkit-scrollbar-thumb { background: #D4C5B4; border-radius: 99px; }
+    ::-webkit-scrollbar-thumb:hover { background: #B8925A; }
+  </style>
+</head>
+<body class="antialiased selection:bg-gold/20 selection:text-espresso">
+
+  <!-- ==================== LUXURY STOREFRONT ==================== -->
+  <div id="storefront-view" class="min-h-screen flex flex-col">
+
+    <!-- Top Couture Ribbon -->
+    <div id="announcement-bar" class="bg-espresso text-[#F5EDE3] text-center py-2.5 px-4 text-[11px] sm:text-xs tracking-[0.14em] uppercase font-light border-b border-gold/30">
+      อบสดใหม่จากเตาทุกเช้า • สั่งล่วงหน้า (Pre-order) 1 วัน หรือเลือกเมนูพร้อมส่งวันนี้
+    </div>
+
+    <!-- Minimalist Boutique Header -->
+    <header class="sticky top-0 z-30 bg-ivory/90 backdrop-blur-md border-b border-hairline">
+      <div class="max-w-7xl mx-auto px-4 sm:px-8 h-20 sm:h-24 flex items-center justify-between">
+        <!-- Left Navigation (Desktop) -->
+        <nav class="hidden lg:flex items-center gap-8 text-xs tracking-[0.18em] uppercase text-cocoa font-medium">
+          <a href="#collection" class="hover:text-gold transition">Collection</a>
+          <a href="#gift-sets" class="hover:text-gold transition">Gift Sets</a>
+          <a href="#ordering-steps" class="hover:text-gold transition">How to Order</a>
+          <a href="#savoir-faire" class="hover:text-gold transition">Savoir-Faire</a>
+        </nav>
+
+        <!-- Center Brand Emblem -->
+        <a href="#home" class="flex flex-col items-center text-center group">
+          <div class="flex items-center gap-2 text-gold text-xs tracking-[0.3em] uppercase mb-0.5">
+            <span>✦</span>
+            <span class="text-[9px] font-medium">Parisian Inspired</span>
+            <span>✦</span>
+          </div>
+          <strong id="nav-brand-name" class="font-editorial text-2xl sm:text-4xl font-semibold tracking-[0.06em] text-espresso leading-none">
+            Crust &amp; Cream
+          </strong>
+          <span class="text-[9px] tracking-[0.34em] uppercase text-muted mt-1">
+            Haute Pâtisserie
+          </span>
+        </a>
+
+        <!-- Right Boutique Controls -->
+        <div class="flex items-center gap-2 sm:gap-4">
+          <button onclick="openTrackModal()" title="ติดตามสถานะคำสั่งซื้อ"
+            class="flex items-center gap-1.5 text-xs tracking-wider text-cocoa hover:text-gold border border-hairline bg-pearl px-3 sm:px-4 py-2 rounded-full transition">
+            <i data-lucide="package-search" class="w-3.5 h-3.5 text-gold"></i>
+            <span>ติดตามออเดอร์</span>
+          </button>
+
+          <button onclick="switchToAdmin()" title="เข้าสู่ระบบหลังร้าน"
+            class="relative flex items-center gap-1.5 text-xs tracking-wider text-muted hover:text-espresso border border-hairline bg-pearl/70 px-3 sm:px-3.5 py-2 rounded-full transition">
+            <i data-lucide="crown" class="w-3.5 h-3.5 text-gold"></i>
+            <span>แอดมิน</span>
+            <span id="store-admin-badge" class="hidden absolute -top-1 -right-1 w-4 h-4 rounded-full bg-rose text-white text-[9px] font-bold items-center justify-center animate-bounce">!</span>
+          </button>
+
+          <button onclick="openCartDrawer()"
+            class="flex items-center gap-2 bg-espresso hover:bg-cocoa text-pearl text-xs tracking-[0.12em] uppercase px-4 sm:px-5 py-2.5 rounded-full transition shadow-card">
+            <i data-lucide="shopping-bag" class="w-3.5 h-3.5 text-goldLight"></i>
+            <span>ตะกร้า</span>
+            <span id="nav-cart-count" class="bg-gold text-espresso font-bold text-[11px] px-2 py-0.5 rounded-full">0</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="home" class="flex-1">
+
+      <!-- Editorial Hero Section -->
+      <section class="relative paper-texture border-b border-hairline overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-8 py-14 sm:py-24 lg:py-28">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-12 items-center">
+
+            <!-- Left Typography Column -->
+            <div class="lg:col-span-6 space-y-6 text-center lg:text-left order-2 lg:order-1">
+              <div class="inline-flex items-center gap-3 text-gold text-[11px] tracking-[0.28em] uppercase font-medium">
+                <span class="w-8 h-[1px] bg-gold"></span>
+                <span>ทาร์ตผลไม้โฮมเมดระดับบูทีค</span>
+              </div>
+
+              <h1 id="hero-title" class="font-editorial text-4xl sm:text-6xl lg:text-[68px] font-medium leading-[1.12] text-espresso">
+                ความสุขชิ้นเล็ก<br>
+                <span class="italic text-rose font-normal">อบสดใหม่จากใจ</span>
+              </h1>
+
+              <p id="hero-desc" class="font-thai-serif text-cocoa/80 text-sm sm:text-base leading-[1.95] max-w-lg mx-auto lg:mx-0 font-light">
+                ทาร์ตผลไม้โฮมเมดระดับบูทีค รังสรรค์จากแป้งพายเนยสดฝรั่งเศสกรอบร่วน ครีมคัสตาร์ดวานิลลามาดากัสการ์หวานละมุน และผลไม้สดคัดพิเศษตามฤดูกาล
+              </p>
+
+              <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-3">
+                <a href="#collection"
+                  class="bg-espresso hover:bg-cocoa text-pearl text-xs tracking-[0.18em] uppercase px-8 py-4 rounded-full transition shadow-luxury flex items-center gap-3">
+                  <span>เลือกเมนูทาร์ต</span>
+                  <i data-lucide="arrow-right" class="w-4 h-4 text-goldLight"></i>
+                </a>
+                <a href="#gift-sets"
+                  class="border border-espresso/30 hover:border-espresso text-espresso text-xs tracking-[0.15em] uppercase px-6 py-4 rounded-full transition">
+                  กล่องของขวัญตามฤดูกาล
+                </a>
+              </div>
+
+              <!-- Signature Pillars -->
+              <div class="grid grid-cols-3 gap-4 pt-8 border-t border-hairline max-w-md mx-auto lg:mx-0 text-left">
+                <div>
+                  <span class="font-editorial italic text-xl text-gold block">01.</span>
+                  <strong class="text-xs font-medium text-espresso block mt-0.5">เนยสดแท้คัดพิเศษ</strong>
+                  <span class="text-[11px] text-muted font-light">แป้งพายอบกรอบหอมกรุ่น</span>
+                </div>
+                <div>
+                  <span class="font-editorial italic text-xl text-gold block">02.</span>
+                  <strong class="text-xs font-medium text-espresso block mt-0.5">วานิลลาแท้ 100%</strong>
+                  <span class="text-[11px] text-muted font-light">คัสตาร์ดสูตรหวานน้อย</span>
+                </div>
+                <div>
+                  <span class="font-editorial italic text-xl text-gold block">03.</span>
+                  <strong class="text-xs font-medium text-espresso block mt-0.5">ผลไม้ตามฤดูกาล</strong>
+                  <span class="text-[11px] text-muted font-light">คัดสรรสดใหม่ทุกเช้า</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Arch Showcase Column -->
+            <div class="lg:col-span-6 relative flex justify-center order-1 lg:order-2">
+              <div class="relative w-full max-w-[460px]">
+                <!-- Offset Gold Hairline Arch Frame -->
+                <div class="absolute -inset-3 sm:-inset-4 translate-x-2.5 translate-y-2.5 border border-gold/60 luxury-arch pointer-events-none"></div>
+
+                <!-- Main Arch Full-Bleed Image -->
+                <div class="relative luxury-arch overflow-hidden shadow-luxury border-4 border-pearl bg-[#EFE7DC]">
+                  <img id="hero-image"
+                    src="https://images.unsplash.com/photo-1519915028121-7d3463d20b13?auto=format&fit=crop&w=1000&q=85"
+                    onerror="this.src='https://placehold.co/800x1000/EFE7DC/1E1714?text=Crust+%26+Cream'"
+                    alt="Crust & Cream Signature Fruit Tart"
+                    class="w-full h-[400px] sm:h-[520px] object-cover hover:scale-105 transition duration-1000" />
+                </div>
+
+                <!-- Rotating Luxury Seal -->
+                <div class="hidden sm:flex absolute -left-10 top-12 w-28 h-28 rounded-full bg-pearl/95 backdrop-blur-md border border-gold/50 shadow-card items-center justify-center p-2">
+                  <svg viewBox="0 0 100 100" class="w-full h-full animate-spin-slow">
+                    <defs>
+                      <path id="sealCircle" d="M 50, 50 m -36, 0 a 36,36 0 1,1 72,0 a 36,36 0 1,1 -72,0" />
+                    </defs>
+                    <text fill="#1E1714" font-size="8.2" font-weight="600" letter-spacing="2.4">
+                      <textPath href="#sealCircle">HANDCRAFTED DAILY • CRUST &amp; CREAM •</textPath>
+                    </text>
+                  </svg>
+                  <span class="absolute font-editorial italic text-xl text-gold">C&amp;C</span>
+                </div>
+
+                <!-- Floating Editorial Card -->
+                <div class="absolute -bottom-5 right-2 sm:-right-6 bg-pearl/95 backdrop-blur-md border border-hairline px-5 py-4 rounded-2xl shadow-luxury max-w-[240px]">
+                  <div class="text-[10px] tracking-[0.22em] uppercase text-gold font-semibold">La Signature</div>
+                  <div class="font-editorial text-xl text-espresso mt-0.5">Artisanal Fruit Tarts</div>
+                  <p class="text-[11px] text-muted font-light mt-0.5">บรรจุกล่องของขวัญริบบิ้นทองทุกออเดอร์</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- Luxury Scrolling Marquee -->
+      <div class="bg-pearl border-b border-hairline py-3.5 overflow-hidden select-none">
+        <div class="marquee-track flex items-center gap-10 text-xs tracking-[0.24em] uppercase text-cocoa/80 font-editorial">
+          <span>✦ อบสดใหม่ทุกเช้าจากเตา</span>
+          <span>✦ แป้งพายเนยสดแท้คัดพิเศษ</span>
+          <span>✦ ครีมคัสตาร์ดวานิลลาหวานน้อย</span>
+          <span>✦ ผลไม้สดตามฤดูกาลคัดสรรทุกวัน</span>
+          <span>✦ ฟรีกล่องของขวัญสุดหรูทุกออเดอร์</span>
+          <span>✦ อบสดใหม่ทุกเช้าจากเตา</span>
+          <span>✦ แป้งพายเนยสดแท้คัดพิเศษ</span>
+          <span>✦ ครีมคัสตาร์ดวานิลลาหวานน้อย</span>
+          <span>✦ ผลไม้สดตามฤดูกาลคัดสรรทุกวัน</span>
+          <span>✦ ฟรีกล่องของขวัญสุดหรูทุกออเดอร์</span>
+        </div>
+      </div>
+
+      <!-- Product Collection Section -->
+      <section id="collection" class="max-w-7xl mx-auto px-4 sm:px-8 py-20 sm:py-28">
+        <div class="text-center max-w-2xl mx-auto mb-14 space-y-3">
+          <div class="text-gold text-[11px] tracking-[0.3em] uppercase font-medium">คอลเลกชันพิเศษ</div>
+          <h2 class="font-editorial text-3xl sm:text-5xl font-medium text-espresso">เมนูทาร์ตผลไม้ซิกเนเจอร์</h2>
+          <p class="font-thai-serif text-muted text-xs sm:text-sm font-light">
+            เลือกสรรความละมุนที่รังสรรค์ขึ้นอย่างพิถีพิถัน ทั้งเมนูพร้อมเสิร์ฟวันนี้และเมนูสั่งอบพิเศษล่วงหน้า
+          </p>
+        </div>
+
+        <!-- Boutique Filter & Search Bar -->
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4 pb-8 mb-12 border-b border-hairline">
+          <div class="flex flex-wrap items-center justify-center gap-2" id="filter-buttons">
+            <button data-filter="all"
+              class="filter-btn active px-5 py-2.5 rounded-full text-xs tracking-[0.14em] uppercase border border-espresso bg-espresso text-pearl transition">
+              ทั้งหมด
+            </button>
+            <button data-filter="ready"
+              class="filter-btn px-5 py-2.5 rounded-full text-xs tracking-[0.14em] uppercase border border-hairline bg-pearl text-cocoa hover:border-gold transition">
+              พร้อมส่งวันนี้
+            </button>
+            <button data-filter="preorder"
+              class="filter-btn px-5 py-2.5 rounded-full text-xs tracking-[0.14em] uppercase border border-hairline bg-pearl text-cocoa hover:border-gold transition">
+              Pre-order
+            </button>
+          </div>
+
+          <div class="relative w-full md:w-72">
+            <i data-lucide="search" class="w-4 h-4 text-gold absolute left-4 top-1/2 -translate-y-1/2"></i>
+            <input id="search-input" type="text" placeholder="ค้นหารสชาติทาร์ต..."
+              class="w-full pl-11 pr-4 py-2.5 rounded-full bg-pearl border border-hairline text-xs text-espresso placeholder:text-muted focus:outline-none focus:border-gold transition" />
+          </div>
+        </div>
+
+        <!-- Product Grid -->
+        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
+          <!-- Cards populated by JS -->
+        </div>
+
+        <div id="empty-products" class="hidden text-center py-16 bg-pearl rounded-3xl border border-hairline">
+          <p class="font-thai-serif text-muted text-sm">ไม่พบเมนูทาร์ตที่ตรงกับคำค้นหาของคุณ</p>
+        </div>
+
+        <!-- Sync Status Footer -->
+        <div class="mt-12 pt-5 border-t border-hairline flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-muted">
+          <span id="db-status-badge" class="inline-flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-gold animate-pulse"></span>
+            กำลังเชื่อมต่อระบบร้านค้าออนไลน์...
+          </span>
+          <span class="tracking-wider">บรรจุกล่องของขวัญสุดหรูพร้อมการ์ดข้อความฟรีทุกออเดอร์</span>
+        </div>
+      </section>
+
+      <!-- Seasonal Gift Sets & Assortments Section -->
+      <section id="gift-sets" class="bg-pearl border-y border-hairline py-20 sm:py-28">
+        <div class="max-w-7xl mx-auto px-4 sm:px-8">
+          <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
+            <div class="space-y-3 max-w-2xl">
+              <div class="inline-flex items-center gap-3 text-gold text-[11px] tracking-[0.28em] uppercase font-medium">
+                <span class="w-8 h-[1px] bg-gold"></span>
+                <span>กล่องของขวัญตามฤดูกาล</span>
+              </div>
+              <h2 class="font-editorial text-3xl sm:text-5xl font-medium text-espresso">
+                เซตกล่องของขวัญทาร์ตผลไม้สุดพิเศษ
+              </h2>
+              <p class="font-thai-serif text-muted text-xs sm:text-sm font-light leading-relaxed">
+                ออกแบบมาเพื่อโอกาสสำคัญ วันเฉลิมฉลอง และของฝากคนพิเศษ จัดเรียงทาร์ตผลไม้โฮมเมดในกล่องบูทีคผูกริบบิ้นแชมเปญ พร้อมการ์ดเขียนข้อความส่วนตัว
+              </p>
+            </div>
+            <span class="text-xs tracking-[0.18em] uppercase text-gold font-medium">เหมาะสำหรับมอบเป็นของขวัญ</span>
+          </div>
+              <h2 class="font-editorial text-3xl sm:text-5xl font-medium text-espresso">
+                เซตกล่องของขวัญทาร์ตผลไม้สุดพิเศษ
+              </h2>
+              <p class="font-thai-serif text-muted text-xs sm:text-sm font-light leading-relaxed">
+                ออกแบบมาเพื่อโอกาสสำคัญ วันเฉลิมฉลอง และของฝากคนพิเศษ จัดเรียงทาร์ตผลไม้โฮมเมดในกล่องบูทีคผูกริบบิ้นแชมเปญ พร้อมการ์ดเขียนข้อความส่วนตัว
+              </p>
+            </div>
+            <span class="text-xs tracking-[0.18em] uppercase text-gold font-medium">Curated for Gifting</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Gift Box 1 -->
+            <article class="bg-ivory border border-hairline rounded-3xl overflow-hidden flex flex-col justify-between shadow-card hover:border-gold/70 transition duration-500 group">
+              <div>
+                <div class="relative h-72 overflow-hidden bg-[#EFE7DC]">
+                  <img src="https://images.unsplash.com/photo-1519915028121-7d3463d20b13?auto=format&fit=crop&w=900&q=85"
+                    onerror="this.src='https://placehold.co/800x600/EFE7DC/1E1714?text=Duo+Gift+Box'"
+                    alt="La Boîte Duo Gift Box"
+                    class="w-full h-full object-cover group-hover:scale-105 transition duration-700" />
+                  <span class="absolute top-4 left-4 bg-pearl/95 text-espresso border border-hairline px-3.5 py-1 rounded-full text-[10px] tracking-[0.16em] uppercase font-semibold">
+                    Gift Box • 2 ชิ้น
+                  </span>
+                </div>
+                <div class="p-7 text-center space-y-2">
+                  <div class="text-[10px] tracking-[0.22em] uppercase text-gold font-medium">Petit Cadeau</div>
+                  <h3 class="font-editorial text-2xl font-semibold text-espresso">กล่องของขวัญคู่ละมุน (2 ชิ้น)</h3>
+                  <p class="font-thai-serif text-muted text-xs leading-relaxed font-light">
+                    จับคู่ทาร์ตสตรอว์เบอร์รีครีมวานิลลา และทาร์ตมิกซ์เบอร์รีโฮมเมด ในกล่องของขวัญสีงาช้างพร้อมริบบิ้นทอง
+                  </p>
+                </div>
+              </div>
+              <div class="px-7 pb-7 pt-4 border-t border-hairline flex items-center justify-between">
+                <div>
+                  <span class="font-editorial text-2xl font-semibold text-espresso">฿370</span>
+                  <span class="text-[10px] text-muted uppercase tracking-wider"> / box</span>
+                </div>
+                <button onclick="addGiftBoxToCart('gift-duo', 'กล่องของขวัญคู่ละมุน (2 ชิ้น)', 370, 'https://images.unsplash.com/photo-1519915028121-7d3463d20b13?auto=format&fit=crop&w=900&q=85')"
+                  class="bg-espresso hover:bg-gold hover:text-espresso text-pearl text-[11px] tracking-[0.15em] uppercase font-medium px-5 py-2.5 rounded-full transition">
+                  เพิ่มลงถุง
+                </button>
+              </div>
+            </article>
+
+            <!-- Gift Box 2 -->
+            <article class="bg-ivory border border-gold/60 rounded-3xl overflow-hidden flex flex-col justify-between shadow-luxury hover:-translate-y-1 transition duration-500 group">
+              <div>
+                <div class="relative h-72 overflow-hidden bg-[#EFE7DC]">
+                  <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=900&q=85"
+                    onerror="this.src='https://placehold.co/800x600/EFE7DC/1E1714?text=Signature+Assortment+4'"
+                    alt="Le Coffret Signature 4 Pieces"
+                    class="w-full h-full object-cover group-hover:scale-105 transition duration-700" />
+                  <span class="absolute top-4 left-4 bg-espresso text-goldLight px-3.5 py-1 rounded-full text-[10px] tracking-[0.16em] uppercase font-semibold">
+                    Best Seller • 4 ชิ้น
+                  </span>
+                </div>
+                <div class="p-7 text-center space-y-2">
+                  <div class="text-[10px] tracking-[0.22em] uppercase text-gold font-medium">Le Coffret Signature</div>
+                  <h3 class="font-editorial text-2xl font-semibold text-espresso">เซตของขวัญรวมรสซิกเนเจอร์ (4 ชิ้น)</h3>
+                  <p class="font-thai-serif text-muted text-xs leading-relaxed font-light">
+                    รวม 4 รสยอดนิยม (สตรอว์เบอร์รี มิกซ์เบอร์รี มะม่วงเสาวรส และองุ่นไซมัสแคท) พร้อมการ์ดข้อความฟรี
+                  </p>
+                </div>
+              </div>
+              <div class="px-7 pb-7 pt-4 border-t border-hairline flex items-center justify-between">
+                <div>
+                  <span class="font-editorial text-2xl font-semibold text-espresso">฿750</span>
+                  <span class="text-[10px] text-muted uppercase tracking-wider"> / box</span>
+                </div>
+                <button onclick="addGiftBoxToCart('gift-quad', 'เซตของขวัญรวมรสซิกเนเจอร์ (4 ชิ้น)', 750, 'https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=900&q=85')"
+                  class="bg-espresso hover:bg-gold hover:text-espresso text-pearl text-[11px] tracking-[0.15em] uppercase font-medium px-5 py-2.5 rounded-full transition">
+                  เพิ่มลงถุง
+                </button>
+              </div>
+            </article>
+
+            <!-- Gift Box 3 -->
+            <article class="bg-ivory border border-hairline rounded-3xl overflow-hidden flex flex-col justify-between shadow-card hover:border-gold/70 transition duration-500 group">
+              <div>
+                <div class="relative h-72 overflow-hidden bg-[#EFE7DC]">
+                  <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=900&q=85"
+                    onerror="this.src='https://placehold.co/800x600/EFE7DC/1E1714?text=Grand+Celebration+6'"
+                    alt="Grand Celebration Box 6 Pieces"
+                    class="w-full h-full object-cover group-hover:scale-105 transition duration-700" />
+                  <span class="absolute top-4 left-4 bg-pearl/95 text-espresso border border-hairline px-3.5 py-1 rounded-full text-[10px] tracking-[0.16em] uppercase font-semibold">
+                    Celebration • 6 ชิ้น
+                  </span>
+                </div>
+                <div class="p-7 text-center space-y-2">
+                  <div class="text-[10px] tracking-[0.22em] uppercase text-gold font-medium">Grand Celebration</div>
+                  <h3 class="font-editorial text-2xl font-semibold text-espresso">กล่องใหญ่ฉลองวาระพิเศษ (6 ชิ้น)</h3>
+                  <p class="font-thai-serif text-muted text-xs leading-relaxed font-light">
+                    ครบทั้ง 5 รสชาติซิกเนเจอร์พร้อมทาร์ตผลไม้พรีเมียมอีก 1 ชิ้น เหมาะสำหรับงานเลี้ยง วันเกิด หรือมอบให้ผู้ใหญ่
+                  </p>
+                </div>
+              </div>
+              <div class="px-7 pb-7 pt-4 border-t border-hairline flex items-center justify-between">
+                <div>
+                  <span class="font-editorial text-2xl font-semibold text-espresso">฿1,120</span>
+                  <span class="text-[10px] text-muted uppercase tracking-wider"> / box</span>
+                </div>
+                <button onclick="addGiftBoxToCart('gift-grand', 'กล่องใหญ่ฉลองวาระพิเศษ (6 ชิ้น)', 1120, 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=900&q=85')"
+                  class="bg-espresso hover:bg-gold hover:text-espresso text-pearl text-[11px] tracking-[0.15em] uppercase font-medium px-5 py-2.5 rounded-full transition">
+                  เพิ่มลงถุง
+                </button>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Clear Ordering Steps Section -->
+      <section id="ordering-steps" class="max-w-7xl mx-auto px-4 sm:px-8 py-20 sm:py-24">
+        <div class="text-center max-w-xl mx-auto mb-14 space-y-2">
+          <div class="text-gold text-[11px] tracking-[0.3em] uppercase font-medium">Seamless Ordering</div>
+          <h2 class="font-editorial text-3xl sm:text-5xl font-medium text-espresso">ขั้นตอนการสั่งความอร่อย</h2>
+          <p class="font-thai-serif text-muted text-xs sm:text-sm font-light">
+            สั่งจองทาร์ตผลไม้โฮมเมดได้ง่ายๆ ใน 4 ขั้นตอน พร้อมติดตามสถานะได้ตลอดเวลา
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="bg-pearl border border-hairline rounded-2xl p-7 space-y-3 hover:border-gold/60 transition">
+            <span class="font-editorial italic text-3xl text-gold block">01</span>
+            <h3 class="font-thai-serif text-base font-semibold text-espresso">เลือกเมนูหรือกล่องของขวัญ</h3>
+            <p class="text-xs text-muted font-light leading-relaxed">
+              เลือกทาร์ตผลไม้พร้อมส่งวันนี้ สั่ง Pre-order ล่วงหน้า หรือเลือกเซตกล่องของขวัญเพิ่มลงถุงช้อปปิ้ง
+            </p>
+          </div>
+
+          <div class="bg-pearl border border-hairline rounded-2xl p-7 space-y-3 hover:border-gold/60 transition">
+            <span class="font-editorial italic text-3xl text-gold block">02</span>
+            <h3 class="font-thai-serif text-base font-semibold text-espresso">ระบุวันรับและข้อความการ์ด</h3>
+            <p class="text-xs text-muted font-light leading-relaxed">
+              กรอกข้อมูลผู้สั่ง เลือกวันที่ต้องการรับสินค้า วิธีรับ/จัดส่ง และข้อความอวยพรบนการ์ดได้ตามต้องการ
+            </p>
+          </div>
+
+          <div class="bg-pearl border border-hairline rounded-2xl p-7 space-y-3 hover:border-gold/60 transition">
+            <span class="font-editorial italic text-3xl text-gold block">03</span>
+            <h3 class="font-thai-serif text-base font-semibold text-espresso">รับเลขที่ออเดอร์ &amp; ส่งแชทร้าน</h3>
+            <p class="text-xs text-muted font-light leading-relaxed">
+              ระบบออกเลขที่คำสั่งซื้อ (CC-xxxx) และแจ้งเตือนห้องอบทันที พร้อมปุ่มคัดลอกใบเสร็จส่งแชทร้าน
+            </p>
+          </div>
+
+          <div class="bg-pearl border border-hairline rounded-2xl p-7 space-y-3 hover:border-gold/60 transition">
+            <span class="font-editorial italic text-3xl text-gold block">04</span>
+            <h3 class="font-thai-serif text-base font-semibold text-espresso">ติดตามสถานะแบบ Real-time</h3>
+            <p class="text-xs text-muted font-light leading-relaxed">
+              ตรวจสอบสถานะการอบและการจัดส่งได้ทุกเมื่อผ่านปุ่ม “ติดตามออเดอร์” ด้วยเลขที่ออเดอร์หรือเบอร์โทร
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Savoir-Faire (Brand Story) Section -->
+      <section id="savoir-faire" class="bg-espresso text-[#F6EFE6] py-20 sm:py-28 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div class="lg:col-span-6 relative">
+            <div class="relative rounded-2xl overflow-hidden border border-gold/40 shadow-2xl">
+              <img id="story-image"
+                src="https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?auto=format&fit=crop&w=1000&q=85"
+                onerror="this.src='https://placehold.co/800x600/3B2F2A/DFC79E?text=Savoir-Faire'"
+                alt="เรื่องราวของ Crust & Cream"
+                class="w-full h-72 sm:h-[420px] object-cover" />
+            </div>
+          </div>
+
+          <div class="lg:col-span-6 space-y-6">
+            <div class="inline-flex items-center gap-3 text-goldLight text-[11px] tracking-[0.28em] uppercase">
+              <span class="w-8 h-[1px] bg-goldLight"></span>
+              <span>เรื่องราวของแบรนด์</span>
+            </div>
+            <h2 class="font-editorial text-3xl sm:text-5xl font-medium leading-tight text-pearl">
+              ความประณีตที่ซ่อนอยู่ใน<br><span class="italic text-goldLight font-normal">ทุกสัมผัสของแป้งและครีม</span>
+            </h2>
+            <p id="story-desc" class="font-thai-serif text-[#D8CEC2] text-sm sm:text-base leading-[1.95] font-light">
+              เราเชื่อว่าขนมหวานชั้นเลิศเริ่มต้นจากความใส่ใจในรายละเอียดที่เล็กที่สุด ทาร์ตทุกชิ้นของ Crust &amp; Cream จึงอบสดใหม่แบบชิ้นต่อชิ้น ใช้เนยสดแท้เกรดพรีเมียม ผสานกับครีมวานิลลาสูตรหวานน้อย และผลไม้สดตามฤดูกาล เพื่อมอบประสบการณ์ความอร่อยที่สง่างามในทุกคำ
+            </p>
+            <div class="pt-3">
+              <a href="#collection"
+                class="inline-flex items-center gap-3 border border-goldLight/60 hover:bg-goldLight hover:text-espresso text-goldLight text-xs tracking-[0.2em] uppercase px-7 py-3.5 rounded-full transition">
+                <span>เลือกชมเมนูทั้งหมด</span>
+                <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Boutique Concierge & Contact Section -->
+      <section id="boutique" class="max-w-7xl mx-auto px-4 sm:px-8 py-16 sm:py-24">
+        <div class="text-center max-w-xl mx-auto mb-12">
+          <div class="text-gold text-[11px] tracking-[0.3em] uppercase font-medium">Concierge &amp; Boutique</div>
+          <h2 class="font-editorial text-3xl sm:text-4xl font-medium text-espresso mt-1">บริการและการรับสินค้า</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="bg-pearl border border-hairline p-8 rounded-2xl text-center space-y-3 hover:border-gold/60 transition">
+            <div class="w-12 h-12 rounded-full border border-gold/40 bg-ivory text-gold flex items-center justify-center mx-auto">
+              <i data-lucide="clock" class="w-5 h-5"></i>
+            </div>
+            <div class="text-[10px] tracking-[0.22em] uppercase text-gold font-semibold">Opening Hours</div>
+            <h3 class="font-thai-serif text-base font-semibold text-espresso">เวลาทำการ</h3>
+            <p id="shop-hours" class="text-xs sm:text-sm text-muted font-light">เปิดทุกวัน 09:00 – 18:30 น.</p>
+          </div>
+
+          <div class="bg-pearl border border-hairline p-8 rounded-2xl text-center space-y-3 hover:border-gold/60 transition">
+            <div class="w-12 h-12 rounded-full border border-gold/40 bg-ivory text-gold flex items-center justify-center mx-auto">
+              <i data-lucide="sparkles" class="w-5 h-5"></i>
+            </div>
+            <div class="text-[10px] tracking-[0.22em] uppercase text-gold font-semibold">Delivery &amp; Pick-up</div>
+            <h3 class="font-thai-serif text-base font-semibold text-espresso">การรับสินค้า</h3>
+            <p id="shop-address" class="text-xs sm:text-sm text-muted font-light">รับหน้าร้าน / ส่งแมสเซ็นเจอร์ควบคุมอุณหภูมิ</p>
+          </div>
+
+          <div class="bg-pearl border border-hairline p-8 rounded-2xl text-center space-y-3 hover:border-gold/60 transition">
+            <div class="w-12 h-12 rounded-full border border-gold/40 bg-ivory text-gold flex items-center justify-center mx-auto">
+              <i data-lucide="mail" class="w-5 h-5"></i>
+            </div>
+            <div class="text-[10px] tracking-[0.22em] uppercase text-gold font-semibold">Private Concierge</div>
+            <h3 class="font-thai-serif text-base font-semibold text-espresso">ติดต่อสอบถาม</h3>
+            <p id="shop-contact" class="text-xs sm:text-sm text-muted font-light">Instagram: @crustandcream • Line: @crustandcream</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Haute Couture Footer -->
+    <footer class="bg-espresso text-[#EAE0D5] border-t border-gold/30 py-14">
+      <div class="max-w-7xl mx-auto px-4 sm:px-8 flex flex-col md:flex-row items-center justify-between gap-8">
+        <div class="text-center md:text-left">
+          <strong id="footer-brand-name" class="font-editorial text-3xl font-semibold tracking-[0.06em] text-pearl block">
+            Crust &amp; Cream
+          </strong>
+          <span class="text-[10px] tracking-[0.3em] uppercase text-goldLight block mt-1">
+            Haute Pâtisserie • Artisanal Fruit Tarts
+          </span>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-center gap-6 text-xs tracking-wider text-[#C7B9AA]">
+          <a href="#collection" class="hover:text-goldLight transition">เมนูทาร์ต</a>
+          <a href="#gift-sets" class="hover:text-goldLight transition">กล่องของขวัญ</a>
+          <a href="#savoir-faire" class="hover:text-goldLight transition">เรื่องราวของเรา</a>
+          <button onclick="openTrackModal()" class="hover:text-goldLight transition">ติดตามออเดอร์</button>
+          <button onclick="switchToAdmin()" class="text-goldLight hover:underline flex items-center gap-1.5">
+            <i data-lucide="crown" class="w-3.5 h-3.5"></i>
+            <span>ระบบแอดมิน</span>
+          </button>
+        </div>
+
+        <p class="text-[11px] text-[#9E8F80] font-light">
+          © 2026 Crust &amp; Cream. สงวนลิขสิทธิ์ทั้งหมด
+        </p>
+      </div>
+    </footer>
+
+    <!-- Floating Boutique Bag Button -->
+    <button onclick="openCartDrawer()"
+      class="fixed right-5 bottom-6 sm:right-8 sm:bottom-8 z-20 bg-espresso hover:bg-cocoa text-pearl border border-gold/50 px-5 py-3.5 rounded-full shadow-2xl flex items-center gap-3 transition hover:-translate-y-0.5">
+      <i data-lucide="shopping-bag" class="w-4 h-4 text-goldLight"></i>
+      <span class="text-xs tracking-[0.14em] uppercase font-medium">ตะกร้าสินค้า</span>
+      <span class="bg-gold text-espresso font-bold text-xs px-2 py-0.5 rounded-full" id="fab-cart-count">0</span>
+      <span class="font-editorial text-lg text-goldLight border-l border-white/20 pl-3" id="fab-cart-total">฿0</span>
+    </button>
+  </div>
+
+  <!-- ==================== ADMIN STUDIO VIEW ==================== -->
+  <div id="admin-view" class="hidden min-h-screen bg-[#F5F1EA]">
+    <!-- Admin Login -->
+    <section id="admin-login-screen" class="min-h-screen flex items-center justify-center p-4 paper-texture">
+      <div class="w-full max-w-md bg-pearl border border-hairline rounded-3xl p-8 sm:p-10 shadow-luxury">
+        <div class="flex items-center justify-between mb-8">
+          <div>
+            <span class="text-[10px] tracking-[0.28em] uppercase text-gold font-semibold block">ระบบจัดการหลังร้าน</span>
+            <strong class="font-editorial text-3xl font-semibold text-espresso">Crust &amp; Cream</strong>
+          </div>
+          <button onclick="switchToStore()" class="text-xs text-muted hover:text-espresso flex items-center gap-1.5 border border-hairline px-3.5 py-2 rounded-full transition">
+            <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+            หน้าร้าน
+          </button>
+        </div>
+
+        <h1 class="font-thai-serif text-xl font-semibold text-espresso">เข้าสู่ระบบผู้ดูแลร้าน (Admin Studio)</h1>
+        <p class="text-muted text-xs mt-1 mb-6 font-light">กรอกอีเมลและรหัสผ่านเพื่อจัดการเมนูสินค้า รูปภาพ สต็อก คำสั่งซื้อ และการแจ้งเตือนออนไลน์</p>
+
+        <form id="admin-login-form" class="space-y-4" autocomplete="off">
+          <div>
+            <label class="block text-xs font-medium text-cocoa mb-1.5">อีเมลผู้ดูแลร้าน</label>
+            <input id="admin-email-input" type="email" required value="" placeholder="admin@crustandcream.com" autocomplete="username"
+              class="w-full px-4 py-3 rounded-xl border border-hairline bg-ivory/60 text-sm focus:outline-none focus:border-gold" />
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-cocoa mb-1.5">รหัสผ่าน</label>
+            <input id="admin-pass-input" type="password" required value="" placeholder="กรอกรหัสผ่านแอดมิน" autocomplete="current-password"
+              class="w-full px-4 py-3 rounded-xl border border-hairline bg-ivory/60 text-sm focus:outline-none focus:border-gold" />
+          </div>
+          <button type="submit" class="w-full bg-espresso hover:bg-cocoa text-pearl text-xs tracking-[0.18em] uppercase font-medium py-4 rounded-full transition shadow-card">
+            เข้าสู่ระบบจัดการร้าน
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Admin Dashboard -->
+    <section id="admin-dashboard-screen" class="hidden min-h-screen flex flex-col lg:flex-row">
+      <!-- Desktop Sidebar -->
+      <aside class="hidden lg:flex lg:w-68 bg-espresso text-[#F5EDE3] flex-col justify-between p-7 shrink-0 border-r border-gold/20">
+        <div>
+          <div class="mb-10">
+            <span class="text-[9px] tracking-[0.3em] uppercase text-goldLight block">Admin Studio</span>
+            <strong class="font-editorial text-3xl font-semibold text-pearl block mt-0.5">Crust &amp; Cream</strong>
+          </div>
+
+          <div class="text-[10px] tracking-[0.22em] text-[#9E8F80] uppercase mb-3 px-3">Management</div>
+          <nav class="space-y-1.5">
+            <button onclick="switchAdminTab('orders')" data-tab-btn="orders"
+              class="admin-tab-btn active w-full flex items-center justify-between px-4 py-3.5 rounded-xl text-xs tracking-wider font-medium bg-cocoa text-pearl border border-gold/30 transition">
+              <span class="flex items-center gap-3">
+                <i data-lucide="clipboard-list" class="w-4 h-4 text-goldLight"></i>
+                <span>คำสั่งซื้อ (Orders)</span>
+              </span>
+              <span id="sidebar-new-order-badge" class="hidden bg-rose text-white text-[10px] font-bold px-2 py-0.5 rounded-full animate-pulse">0</span>
+            </button>
+
+            <button onclick="switchAdminTab('products')" data-tab-btn="products"
+              class="admin-tab-btn w-full flex items-center gap-3 px-4 py-3.5 rounded-xl text-xs tracking-wider font-medium text-[#D6C8BB] hover:bg-cocoa/60 transition">
+              <i data-lucide="cake-slice" class="w-4 h-4 text-goldLight"></i>
+              <span>สินค้า &amp; รูปภาพ</span>
+            </button>
+
+            <button onclick="switchAdminTab('settings')" data-tab-btn="settings"
+              class="admin-tab-btn w-full flex items-center gap-3 px-4 py-3.5 rounded-xl text-xs tracking-wider font-medium text-[#D6C8BB] hover:bg-cocoa/60 transition">
+              <i data-lucide="sliders-horizontal" class="w-4 h-4 text-goldLight"></i>
+              <span>ตั้งค่าร้าน &amp; แจ้งเตือน</span>
+            </button>
+          </nav>
+        </div>
+
+        <div class="pt-6 border-t border-white/10 space-y-3">
+          <div class="px-3">
+            <div class="text-[9px] tracking-[0.2em] text-[#9E8F80] uppercase">Signed in as</div>
+            <div id="sidebar-admin-email" class="text-xs text-goldLight truncate mt-0.5">admin@crustandcream.com</div>
+          </div>
+          <button onclick="switchToStore()" class="w-full flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-xs bg-white/10 hover:bg-white/15 text-pearl transition">
+            <i data-lucide="external-link" class="w-3.5 h-3.5 text-goldLight"></i>
+            <span>ดูหน้าร้านลูกค้า</span>
+          </button>
+          <button onclick="adminLogout()" class="w-full flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-xs text-[#E5B8B3] hover:bg-white/5 transition">
+            <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
+            <span>ออกจากระบบ</span>
+          </button>
+        </div>
+      </aside>
+
+      <!-- Admin Main Content -->
+      <main class="flex-1 p-4 sm:p-8 lg:p-10 pb-24 lg:pb-12 max-w-6xl mx-auto w-full">
+        <!-- Header Bar -->
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
+          <div>
+            <span class="text-gold text-[10px] tracking-[0.26em] uppercase font-semibold">Boutique Atelier Control</span>
+            <h1 id="admin-header-title" class="font-editorial text-3xl sm:text-4xl font-semibold text-espresso">จัดการคำสั่งซื้อ</h1>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2">
+            <button id="admin-sound-toggle" onclick="toggleAdminSound()"
+              class="px-3.5 py-2 rounded-full bg-pearl border border-hairline text-xs font-medium text-espresso hover:border-gold flex items-center gap-1.5 transition">
+              <i id="admin-sound-icon" data-lucide="volume-2" class="w-3.5 h-3.5 text-gold"></i>
+              <span id="admin-sound-label" class="hidden sm:inline">เสียงกระดิ่ง: เปิด</span>
+            </button>
+
+            <button onclick="requestBrowserNotifPermission()"
+              class="px-3.5 py-2 rounded-full bg-pearl border border-hairline text-xs font-medium text-espresso hover:border-gold flex items-center gap-1.5 transition relative">
+              <i data-lucide="bell" class="w-3.5 h-3.5 text-rose"></i>
+              <span class="hidden sm:inline">แจ้งเตือนหน้าจอ</span>
+              <span id="admin-bell-badge" class="hidden bg-rose text-white text-[10px] font-bold px-1.5 rounded-full">0</span>
+            </button>
+
+            <button onclick="switchToStore()"
+              class="px-4 py-2 rounded-full bg-espresso text-pearl text-xs font-medium hover:bg-cocoa flex items-center gap-1.5 transition">
+              <span>หน้าร้าน</span>
+              <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 text-goldLight"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Incoming Order Banner -->
+        <div id="live-order-banner" class="hidden mb-6 bg-espresso text-pearl border border-gold rounded-2xl p-4 sm:p-5 shadow-luxury flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div class="flex items-center gap-3.5">
+            <div class="w-11 h-11 rounded-full bg-gold/20 border border-gold flex items-center justify-center shrink-0">
+              <i data-lucide="bell-ring" class="w-5 h-5 text-goldLight animate-bounce"></i>
+            </div>
+            <div>
+              <div class="text-[10px] font-semibold uppercase tracking-[0.22em] text-goldLight">New Order Received • มีคำสั่งซื้อใหม่</div>
+              <p id="live-order-banner-text" class="text-sm font-medium mt-0.5">มีออเดอร์ใหม่เข้ามาในระบบ</p>
+            </div>
+          </div>
+          <button onclick="acknowledgeNewOrders()" class="bg-gold hover:bg-goldLight text-espresso font-semibold text-xs px-5 py-2.5 rounded-full transition self-end sm:self-center">
+            รับทราบ / ดูรายการ
+          </button>
+        </div>
+
+        <!-- KPI Stats -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          <div class="bg-pearl border border-hairline rounded-2xl p-5 shadow-card">
+            <span class="text-[11px] uppercase tracking-wider text-muted">เมนูทั้งหมด</span>
+            <strong id="stat-total-products" class="font-editorial text-3xl sm:text-4xl font-semibold text-espresso block mt-1">0</strong>
+          </div>
+          <div class="bg-pearl border border-hairline rounded-2xl p-5 shadow-card">
+            <span class="text-[11px] uppercase tracking-wider text-muted">คำสั่งซื้อทั้งหมด</span>
+            <strong id="stat-total-orders" class="font-editorial text-3xl sm:text-4xl font-semibold text-espresso block mt-1">0</strong>
+          </div>
+          <div class="bg-pearl border border-hairline rounded-2xl p-5 shadow-card">
+            <span class="text-[11px] uppercase tracking-wider text-muted">รอดำเนินการ</span>
+            <strong id="stat-pending-orders" class="font-editorial text-3xl sm:text-4xl font-semibold text-rose block mt-1">0</strong>
+          </div>
+          <div class="bg-pearl border border-hairline rounded-2xl p-5 shadow-card">
+            <span class="text-[11px] uppercase tracking-wider text-muted">ยอดขายสำเร็จ</span>
+            <strong id="stat-total-sales" class="font-editorial text-3xl sm:text-4xl font-semibold text-gold block mt-1">฿0</strong>
+          </div>
+        </div>
+
+        <!-- TAB 1: ORDERS -->
+        <section id="admin-panel-orders" class="admin-panel bg-pearl border border-hairline rounded-3xl p-6 shadow-card">
+          <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+            <h2 class="font-editorial text-2xl font-semibold text-espresso">รายการคำสั่งซื้อล่าสุด</h2>
+            <select id="admin-order-filter" onchange="renderAdminOrders()"
+              class="text-xs border border-hairline rounded-full px-4 py-2 bg-ivory text-espresso focus:outline-none focus:border-gold">
+              <option value="all">ทุกสถานะออเดอร์</option>
+              <option value="รอยืนยัน">รอยืนยัน</option>
+              <option value="กำลังอบ">กำลังอบ</option>
+              <option value="พร้อมรับ/จัดส่ง">พร้อมรับ/จัดส่ง</option>
+              <option value="เสร็จสิ้น">เสร็จสิ้น</option>
+              <option value="ยกเลิก">ยกเลิก</option>
+            </select>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse min-w-[700px]">
+              <thead>
+                <tr class="border-b border-hairline text-[11px] uppercase tracking-wider text-muted">
+                  <th class="py-3.5 px-3 font-medium">เลขที่ / เวลาสั่ง</th>
+                  <th class="py-3.5 px-3 font-medium">ลูกค้า</th>
+                  <th class="py-3.5 px-3 font-medium">รายการขนม</th>
+                  <th class="py-3.5 px-3 font-medium">วันรับสินค้า</th>
+                  <th class="py-3.5 px-3 font-medium">ยอดรวม</th>
+                  <th class="py-3.5 px-3 font-medium">สถานะ</th>
+                </tr>
+              </thead>
+              <tbody id="admin-orders-tbody" class="text-xs sm:text-sm divide-y divide-hairline">
+                <!-- Orders rows -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- TAB 2: PRODUCTS & IMAGES -->
+        <section id="admin-panel-products" class="admin-panel hidden bg-pearl border border-hairline rounded-3xl p-6 shadow-card">
+          <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+            <div>
+              <h2 class="font-editorial text-2xl font-semibold text-espresso">คอลเลกชันสินค้า &amp; รูปภาพ</h2>
+              <p class="text-xs text-muted font-light mt-0.5">เพิ่มเมนูใหม่ แก้ไขราคา อัปโหลดรูปภาพ หรือจัดการสต็อกหน้าร้าน</p>
+            </div>
+            <button onclick="openProductModal()"
+              class="bg-espresso hover:bg-cocoa text-pearl text-xs tracking-[0.14em] uppercase font-medium px-5 py-3 rounded-full flex items-center gap-2 transition shadow-card">
+              <i data-lucide="plus" class="w-4 h-4 text-goldLight"></i>
+              <span>เพิ่มเมนูใหม่</span>
+            </button>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse min-w-[700px]">
+              <thead>
+                <tr class="border-b border-hairline text-[11px] uppercase tracking-wider text-muted">
+                  <th class="py-3.5 px-3 font-medium">เมนูทาร์ต</th>
+                  <th class="py-3.5 px-3 font-medium">ราคา</th>
+                  <th class="py-3.5 px-3 font-medium">สต็อก</th>
+                  <th class="py-3.5 px-3 font-medium">ประเภท</th>
+                  <th class="py-3.5 px-3 font-medium">การแสดงผล</th>
+                  <th class="py-3.5 px-3 font-medium text-right">จัดการ</th>
+                </tr>
+              </thead>
+              <tbody id="admin-products-tbody" class="text-xs sm:text-sm divide-y divide-hairline">
+                <!-- Product rows -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- TAB 3: SETTINGS & NOTIFICATIONS -->
+        <section id="admin-panel-settings" class="admin-panel hidden bg-pearl border border-hairline rounded-3xl p-6 sm:p-8 shadow-card">
+          <div class="mb-6">
+            <h2 class="font-editorial text-2xl font-semibold text-espresso">ตั้งค่าแบรนด์และระบบแจ้งเตือน</h2>
+            <p class="text-xs text-muted font-light mt-0.5">ปรับแต่งข้อมูลหน้าแรก รูปภาพแบนเนอร์ และการเชื่อมต่อแจ้งเตือนเข้ามือถือ</p>
+          </div>
+
+          <form id="admin-settings-form" class="space-y-6 max-w-3xl">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-medium text-cocoa mb-1.5">ชื่อแบรนด์ (Brand Name)</label>
+                <input name="brand_name" required class="w-full px-4 py-2.5 rounded-xl border border-hairline bg-ivory/50 text-sm focus:outline-none focus:border-gold" />
+              </div>
+              <div>
+                <label class="block text-xs font-medium text-cocoa mb-1.5">เวลาทำการ</label>
+                <input name="hours" class="w-full px-4 py-2.5 rounded-xl border border-hairline bg-ivory/50 text-sm focus:outline-none focus:border-gold" />
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-medium text-cocoa mb-1.5">ข้อความประกาศด้านบนสุด</label>
+              <input name="announcement" class="w-full px-4 py-2.5 rounded-xl border border-hairline bg-ivory/50 text-sm focus:outline-none focus:border-gold" />
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-medium text-cocoa mb-1.5">พาดหัวหน้าแรก (ขึ้นบรรทัดใหม่ด้วย Enter)</label>
+                <textarea name="hero_title" rows="2" class="w-full px-4 py-2.5 rounded-xl border border-hairline bg-ivory/50 text-sm focus:outline-none focus:border-gold"></textarea>
+              </div>
+              <div>
+                <label class="block text-xs font-medium text-cocoa mb-1.5">คำโปรยหน้าแรก</label>
+                <textarea name="hero_desc" rows="2" class="w-full px-4 py-2.5 rounded-xl border border-hairline bg-ivory/50 text-sm focus:outline-none focus:border-gold"></textarea>
+              </div>
+            </div>
+
+            <!-- Hero Image Upload -->
+            <div class="p-5 rounded-2xl bg-ivory border border-hairline space-y-3">
+              <label class="block text-xs font-semibold text-espresso">รูปภาพหลักหน้าแรก (Hero Arch Image)</label>
+              <div class="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+                <img id="settings-hero-preview" src="" alt="Hero Preview" class="w-24 h-28 object-cover luxury-arch border border-gold/50 bg-white shrink-0" />
+                <div class="flex-1 w-full space-y-2.5">
+                  <input id="settings-hero-url" name="hero_image" placeholder="วางลิงก์รูปภาพ URL หรืออัปโหลดด้านล่าง"
+                    oninput="document.getElementById('settings-hero-preview').src = this.value"
+                    class="w-full px-3.5 py-2 rounded-xl border border-hairline bg-white text-xs focus:outline-none focus:border-gold" />
+                  <label class="cursor-pointer inline-flex items-center gap-2 px-4 py-2 rounded-full bg-espresso text-pearl text-xs font-medium hover:bg-cocoa transition">
+                    <i data-lucide="upload" class="w-3.5 h-3.5 text-goldLight"></i>
+                    <span>อัปโหลดรูปแบนเนอร์จากเครื่อง</span>
+                    <input type="file" accept="image/*" class="hidden" onchange="handleImageFileUpload(event, 'settings-hero-url', 'settings-hero-preview')" />
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-medium text-cocoa mb-1.5">เรื่องราวของแบรนด์ (Notre Savoir-Faire)</label>
+              <textarea name="story_desc" rows="3" class="w-full px-4 py-2.5 rounded-xl border border-hairline bg-ivory/50 text-sm focus:outline-none focus:border-gold"></textarea>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-medium text-cocoa mb-1.5">รูปแบบการรับสินค้า</label>
+                <input name="address" class="w-full px-4 py-2.5 rounded-xl border border-hairline bg-ivory/50 text-sm focus:outline-none focus:border-gold" />
+              </div>
+              <div>
+                <label class="block text-xs font-medium text-cocoa mb-1.5">ช่องทางติดต่อร้าน</label>
+                <input name="contact" class="w-full px-4 py-2.5 rounded-xl border border-hairline bg-ivory/50 text-sm focus:outline-none focus:border-gold" />
+              </div>
+            </div>
+
+            <!-- Webhook Notification Config -->
+            <div class="p-5 rounded-2xl bg-ivory border border-hairline space-y-4">
+              <div>
+                <h3 class="text-sm font-semibold text-espresso flex items-center gap-2">
+                  <i data-lucide="send" class="w-4 h-4 text-gold"></i>
+                  <span>ส่งแจ้งเตือนออเดอร์เข้ามือถืออัตโนมัติ (Telegram / Discord / Webhook)</span>
+                </h3>
+                <p class="text-xs text-muted font-light mt-0.5">รับข้อความสรุปออเดอร์ทันทีที่มีลูกค้ากดสั่งซื้อบนหน้าเว็บ</p>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div>
+                  <label class="block text-xs font-medium text-cocoa mb-1">ช่องทางแจ้งเตือน</label>
+                  <select id="webhook-type-select" name="webhook_type" onchange="toggleWebhookFields()"
+                    class="w-full px-3.5 py-2.5 rounded-xl border border-hairline bg-white text-xs focus:outline-none focus:border-gold">
+                    <option value="none">ปิดการส่ง Webhook</option>
+                    <option value="telegram">Telegram Bot (แนะนำ)</option>
+                    <option value="discord">Discord Webhook</option>
+                    <option value="custom">Custom Webhook (Make / LINE)</option>
+                  </select>
+                </div>
+                <div class="sm:col-span-2">
+                  <label class="block text-xs font-medium text-cocoa mb-1">Bot Token หรือ Webhook URL</label>
+                  <input name="webhook_url" placeholder="วาง Telegram Bot Token หรือ Webhook URL"
+                    class="w-full px-3.5 py-2.5 rounded-xl border border-hairline bg-white text-xs focus:outline-none focus:border-gold" />
+                </div>
+              </div>
+
+              <div id="telegram-chat-id-group" class="hidden">
+                <label class="block text-xs font-medium text-cocoa mb-1">Telegram Chat ID</label>
+                <input name="telegram_chat_id" placeholder="เช่น 123456789"
+                  class="w-full px-3.5 py-2.5 rounded-xl border border-hairline bg-white text-xs focus:outline-none focus:border-gold" />
+              </div>
+
+              <button type="button" onclick="testWebhookNotification()"
+                class="px-4 py-2 rounded-full border border-espresso text-espresso hover:bg-espresso hover:text-pearl text-xs font-medium inline-flex items-center gap-1.5 transition">
+                <i data-lucide="bell-ring" class="w-3.5 h-3.5"></i>
+                <span>ทดสอบส่งข้อความแจ้งเตือน</span>
+              </button>
+            </div>
+
+            <button type="submit"
+              class="bg-espresso hover:bg-cocoa text-pearl text-xs tracking-[0.18em] uppercase font-medium px-8 py-4 rounded-full transition shadow-card flex items-center gap-2">
+              <i data-lucide="save" class="w-4 h-4 text-goldLight"></i>
+              <span>บันทึกการตั้งค่าทั้งหมด</span>
+            </button>
+          </form>
+        </section>
+      </main>
+
+      <!-- Mobile Admin Bottom Navigation -->
+      <nav class="lg:hidden fixed bottom-0 left-0 right-0 bg-pearl border-t border-hairline flex justify-around py-2.5 z-20">
+        <button onclick="switchAdminTab('orders')" data-tab-btn="orders" class="admin-tab-btn active flex flex-col items-center gap-1 text-[11px] font-medium text-espresso px-4 relative">
+          <i data-lucide="clipboard-list" class="w-4 h-4"></i>
+          <span>ออเดอร์</span>
+          <span id="mobile-tab-order-badge" class="hidden absolute -top-1 right-2 bg-rose text-white text-[9px] font-bold px-1.5 rounded-full">0</span>
+        </button>
+        <button onclick="switchAdminTab('products')" data-tab-btn="products" class="admin-tab-btn flex flex-col items-center gap-1 text-[11px] font-medium text-muted px-4">
+          <i data-lucide="cake-slice" class="w-4 h-4"></i>
+          <span>สินค้า/รูป</span>
+        </button>
+        <button onclick="switchAdminTab('settings')" data-tab-btn="settings" class="admin-tab-btn flex flex-col items-center gap-1 text-[11px] font-medium text-muted px-4">
+          <i data-lucide="sliders-horizontal" class="w-4 h-4"></i>
+          <span>ตั้งค่าร้าน</span>
+        </button>
+      </nav>
+    </section>
+  </div>
+
+  <!-- ==================== LUXURY MODALS & DRAWERS ==================== -->
+
+  <!-- 1. Quick View Product Detail Modal -->
+  <div id="quickview-modal" class="fixed inset-0 bg-espresso/60 backdrop-blur-xs z-40 hidden items-center justify-center p-4" onclick="if(event.target===this)closeModal('quickview-modal')">
+    <div class="bg-pearl rounded-3xl w-full max-w-2xl overflow-hidden shadow-2xl border border-hairline grid grid-cols-1 md:grid-cols-2">
+      <div class="h-64 md:h-auto bg-[#EFE7DC] relative">
+        <img id="qv-image" src="" alt="" class="w-full h-full object-cover" />
+        <span id="qv-badge" class="absolute top-4 left-4 px-3.5 py-1 rounded-full text-[10px] tracking-[0.16em] uppercase font-semibold bg-pearl/95 text-espresso">
+          พร้อมส่ง
+        </span>
+      </div>
+      <div class="p-6 sm:p-8 flex flex-col justify-between space-y-5">
+        <div>
+          <div class="flex items-start justify-between gap-2">
+            <span class="text-[10px] tracking-[0.24em] uppercase text-gold font-semibold">La Sélection</span>
+            <button onclick="closeModal('quickview-modal')" class="w-8 h-8 rounded-full bg-ivory hover:bg-hairline flex items-center justify-center text-espresso">
+              <i data-lucide="x" class="w-4 h-4"></i>
+            </button>
+          </div>
+          <h3 id="qv-title" class="font-editorial text-2xl sm:text-3xl font-semibold text-espresso mt-1 leading-snug"></h3>
+          <div id="qv-price" class="font-editorial text-2xl text-gold font-semibold mt-2"></div>
+          <p id="qv-desc" class="font-thai-serif text-xs sm:text-sm text-cocoa/80 leading-relaxed mt-4 font-light"></p>
+
+          <div class="mt-5 pt-4 border-t border-hairline space-y-2 text-[11px] text-muted">
+            <div class="flex justify-between">
+              <span>ระดับความหวาน:</span>
+              <span class="text-espresso font-medium">หวานน้อยละมุน (Less Sweet)</span>
+            </div>
+            <div class="flex justify-between">
+              <span>การเก็บรักษา:</span>
+              <span class="text-espresso font-medium">แช่เย็น 2–5°C ได้นาน 2–3 วัน</span>
+            </div>
+            <div class="flex justify-between">
+              <span>สต็อกคงเหลือ:</span>
+              <span id="qv-stock" class="text-espresso font-medium"></span>
+            </div>
+          </div>
+        </div>
+
+        <button id="qv-add-btn" class="w-full bg-espresso hover:bg-cocoa text-pearl text-xs tracking-[0.18em] uppercase font-medium py-4 rounded-full transition shadow-card">
+          เพิ่มลงถุงช้อปปิ้ง
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Slide-Over Luxury Shopping Bag Drawer -->
+  <div id="cart-drawer" class="fixed inset-0 bg-espresso/55 backdrop-blur-xs z-40 hidden justify-end" onclick="if(event.target===this)closeCartDrawer()">
+    <div class="bg-pearl w-full max-w-md h-full flex flex-col justify-between shadow-2xl border-l border-hairline">
+      <div class="p-6 border-b border-hairline flex items-center justify-between">
+        <div>
+          <span class="text-[10px] tracking-[0.26em] uppercase text-gold font-semibold block">Your Selection</span>
+          <h2 class="font-editorial text-2xl font-semibold text-espresso">ถุงช้อปปิ้งของคุณ</h2>
+        </div>
+        <button onclick="closeCartDrawer()" class="w-9 h-9 rounded-full bg-ivory hover:bg-hairline flex items-center justify-center text-espresso transition">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <div id="cart-items-container" class="p-6 overflow-y-auto flex-1 space-y-4">
+        <!-- Cart items -->
+      </div>
+
+      <div class="p-6 border-t border-hairline bg-ivory/70 space-y-4">
+        <div class="flex items-center justify-between">
+          <span class="text-xs uppercase tracking-widest text-muted">ยอดรวมสุทธิ</span>
+          <span id="cart-drawer-total" class="font-editorial text-3xl font-semibold text-espresso">฿0</span>
+        </div>
+        <button id="proceed-checkout-btn" onclick="openCheckoutModal()"
+          class="w-full bg-espresso hover:bg-cocoa text-pearl text-xs tracking-[0.2em] uppercase font-medium py-4 rounded-full transition shadow-luxury">
+          ดำเนินการสั่งซื้อ
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Checkout Modal -->
+  <div id="checkout-modal" class="fixed inset-0 bg-espresso/60 backdrop-blur-xs z-40 hidden items-center justify-center p-4" onclick="if(event.target===this)closeModal('checkout-modal')">
+    <div class="bg-pearl rounded-3xl w-full max-w-lg max-h-[92vh] overflow-y-auto p-6 sm:p-8 shadow-2xl border border-hairline">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <span class="text-[10px] tracking-[0.26em] uppercase text-gold font-semibold block">Order Details</span>
+          <h2 class="font-editorial text-2xl sm:text-3xl font-semibold text-espresso">รายละเอียดการจัดเตรียมออเดอร์</h2>
+        </div>
+        <button onclick="closeModal('checkout-modal')" class="w-9 h-9 rounded-full bg-ivory flex items-center justify-center text-espresso">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <form id="checkout-form" class="space-y-4">
+        <div>
+          <label class="block text-xs font-medium text-cocoa mb-1">ชื่อผู้สั่งซื้อ *</label>
+          <input name="customer_name" required placeholder="ชื่อ-นามสกุล หรือชื่อเล่น"
+            class="w-full px-4 py-2.5 rounded-xl border border-hairline bg-ivory/40 text-sm focus:outline-none focus:border-gold" />
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          <div>
+            <label class="block text-xs font-medium text-cocoa mb-1">เบอร์โทรศัพท์ *</label>
+            <input name="phone" required type="tel" placeholder="08X-XXX-XXXX"
+              class="w-full px-4 py-2.5 rounded-xl border border-hairline bg-ivory/40 text-sm focus:outline-none focus:border-gold" />
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-cocoa mb-1">วันที่ต้องการรับสินค้า *</label>
+            <input id="checkout-date" name="pickup_date" type="date" required
+              class="w-full px-4 py-2.5 rounded-xl border border-hairline bg-ivory/40 text-sm focus:outline-none focus:border-gold" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          <div>
+            <label class="block text-xs font-medium text-cocoa mb-1">ประเภทการสั่ง</label>
+            <select name="order_type" class="w-full px-4 py-2.5 rounded-xl border border-hairline bg-ivory/40 text-sm focus:outline-none focus:border-gold">
+              <option value="พร้อมส่ง">พร้อมส่งวันนี้</option>
+              <option value="Pre-order">สั่งล่วงหน้า (Pre-order)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-cocoa mb-1">วิธีรับสินค้า</label>
+            <select name="delivery_method" class="w-full px-4 py-2.5 rounded-xl border border-hairline bg-ivory/40 text-sm focus:outline-none focus:border-gold">
+              <option value="รับหน้าร้าน">รับหน้าร้าน</option>
+              <option value="ส่งแมสเซ็นเจอร์">ส่งแมสเซ็นเจอร์</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-medium text-cocoa mb-1">ข้อความการ์ดอวยพร / ที่อยู่จัดส่ง</label>
+          <textarea name="note" rows="2" placeholder="ระบุข้อความบนการ์ดของขวัญ หรือสถานที่จัดส่ง"
+            class="w-full px-4 py-2.5 rounded-xl border border-hairline bg-ivory/40 text-sm focus:outline-none focus:border-gold"></textarea>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-ivory border border-hairline flex items-center justify-between">
+          <span class="text-xs text-muted">ยอดชำระสุทธิ (<span id="checkout-item-count">0</span> ชิ้น)</span>
+          <strong id="checkout-total-display" class="font-editorial text-2xl font-semibold text-espresso">฿0</strong>
+        </div>
+
+        <button type="submit"
+          class="w-full bg-espresso hover:bg-cocoa text-pearl text-xs tracking-[0.2em] uppercase font-medium py-4 rounded-full transition shadow-luxury">
+          ยืนยันคำสั่งซื้อ
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 4. Luxury Order Receipt Modal -->
+  <div id="receipt-modal" class="fixed inset-0 bg-espresso/60 backdrop-blur-xs z-50 hidden items-center justify-center p-4" onclick="if(event.target===this)closeModal('receipt-modal')">
+    <div class="bg-pearl rounded-3xl w-full max-w-md max-h-[92vh] overflow-y-auto p-7 text-center shadow-2xl border border-gold/50 space-y-5">
+      <div class="w-14 h-14 rounded-full border border-gold bg-ivory text-gold flex items-center justify-center mx-auto">
+        <i data-lucide="check" class="w-7 h-7"></i>
+      </div>
+
+      <div>
+        <span class="text-[10px] tracking-[0.28em] uppercase text-gold font-semibold block">Order Confirmed</span>
+        <h2 class="font-editorial text-3xl font-semibold text-espresso mt-1">ขอบพระคุณสำหรับคำสั่งซื้อ</h2>
+        <p class="text-xs text-muted font-light mt-1">ระบบได้แจ้งเตือนไปยังห้องอบขนมเรียบร้อยแล้ว</p>
+      </div>
+
+      <div id="receipt-details" class="bg-ivory border border-hairline rounded-2xl p-4 text-left text-xs space-y-2.5">
+        <!-- Receipt content -->
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+        <button onclick="copyReceiptSummary()"
+          class="w-full bg-espresso hover:bg-cocoa text-pearl font-medium py-3 px-4 rounded-full text-xs transition flex items-center justify-center gap-1.5">
+          <i data-lucide="copy" class="w-3.5 h-3.5 text-goldLight"></i>
+          <span>คัดลอกส่งแชทร้าน</span>
+        </button>
+        <button onclick="trackCurrentReceiptOrder()"
+          class="w-full border border-espresso text-espresso hover:bg-ivory font-medium py-3 px-4 rounded-full text-xs transition flex items-center justify-center gap-1.5">
+          <i data-lucide="package-search" class="w-3.5 h-3.5 text-gold"></i>
+          <span>ติดตามสถานะ</span>
+        </button>
+      </div>
+
+      <button onclick="closeModal('receipt-modal')" class="text-xs text-muted hover:text-espresso underline">
+        กลับสู่หน้าร้าน
+      </button>
+    </div>
+  </div>
+
+  <!-- 5. Customer Real-time Order Tracking Modal -->
+  <div id="track-modal" class="fixed inset-0 bg-espresso/60 backdrop-blur-xs z-50 hidden items-center justify-center p-4" onclick="if(event.target===this)closeModal('track-modal')">
+    <div class="bg-pearl rounded-3xl w-full max-w-lg max-h-[92vh] overflow-y-auto p-6 sm:p-8 shadow-2xl border border-hairline space-y-5">
+      <div class="flex items-center justify-between">
+        <div>
+          <span class="text-[10px] tracking-[0.26em] uppercase text-gold font-semibold block">Order Concierge</span>
+          <h2 class="font-editorial text-2xl sm:text-3xl font-semibold text-espresso">ติดตามสถานะคำสั่งซื้อ</h2>
+        </div>
+        <button onclick="closeModal('track-modal')" class="w-9 h-9 rounded-full bg-ivory flex items-center justify-center text-espresso">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <form id="track-search-form" class="flex gap-2">
+        <input id="track-query-input" required placeholder="เลขที่ออเดอร์ (เช่น CC-1043) หรือเบอร์โทร"
+          class="flex-1 px-4 py-2.5 rounded-full border border-hairline bg-ivory/50 text-xs sm:text-sm focus:outline-none focus:border-gold" />
+        <button type="submit" class="bg-espresso hover:bg-cocoa text-pearl text-xs tracking-wider uppercase font-medium px-5 py-2.5 rounded-full transition">
+          ค้นหา
+        </button>
+      </form>
+
+      <div id="track-results-container" class="space-y-4">
+        <div class="text-center py-8 bg-ivory/60 rounded-2xl border border-hairline text-xs text-muted font-light">
+          ระบุเลขที่คำสั่งซื้อหรือเบอร์โทรศัพท์ เพื่อตรวจสอบความคืบหน้าของขนมคุณแบบเรียลไทม์
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. Admin Add/Edit Product Modal -->
+  <div id="product-modal" class="fixed inset-0 bg-espresso/60 backdrop-blur-xs z-50 hidden items-center justify-center p-4" onclick="if(event.target===this)closeModal('product-modal')">
+    <div class="bg-pearl rounded-3xl w-full max-w-xl max-h-[92vh] overflow-y-auto p-6 sm:p-8 shadow-2xl border border-hairline">
+      <div class="flex items-center justify-between mb-5">
+        <h2 id="product-modal-title" class="font-editorial text-2xl sm:text-3xl font-semibold text-espresso">เพิ่มสินค้าใหม่</h2>
+        <button onclick="closeModal('product-modal')" class="w-9 h-9 rounded-full bg-ivory flex items-center justify-center text-espresso">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <form id="product-form" class="space-y-4">
+        <input type="hidden" name="id" />
+
+        <div>
+          <label class="block text-xs font-medium text-cocoa mb-1">ชื่อเมนูทาร์ต *</label>
+          <input name="name" required placeholder="เช่น ทาร์ตสตรอว์เบอร์รีครีมวานิลลา"
+            class="w-full px-4 py-2.5 rounded-xl border border-hairline bg-ivory/40 text-sm focus:outline-none focus:border-gold" />
+        </div>
+
+        <div class="grid grid-cols-3 gap-3">
+          <div>
+            <label class="block text-xs font-medium text-cocoa mb-1">ราคา (บาท) *</label>
+            <input name="price" type="number" min="0" required placeholder="185"
+              class="w-full px-4 py-2.5 rounded-xl border border-hairline bg-ivory/40 text-sm focus:outline-none focus:border-gold" />
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-cocoa mb-1">สต็อก (ชิ้น) *</label>
+            <input name="stock" type="number" min="0" required value="10"
+              class="w-full px-4 py-2.5 rounded-xl border border-hairline bg-ivory/40 text-sm focus:outline-none focus:border-gold" />
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-cocoa mb-1">ประเภท</label>
+            <select name="status" class="w-full px-3 py-2.5 rounded-xl border border-hairline bg-ivory/40 text-sm focus:outline-none focus:border-gold">
+              <option value="ready">พร้อมส่ง</option>
+              <option value="preorder">Pre-order</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Image Upload & Gallery -->
+        <div class="p-4 rounded-2xl bg-ivory border border-hairline space-y-3">
+          <label class="block text-xs font-semibold text-espresso">รูปภาพสินค้า (อัปโหลดจากเครื่อง / วาง URL / เลือกจากคลังภาพ)</label>
+
+          <div class="flex flex-col sm:flex-row gap-4 items-center">
+            <img id="product-img-preview"
+              src="https://images.unsplash.com/photo-1519915028121-7d3463d20b13?auto=format&fit=crop&w=400&q=80"
+              alt="Preview"
+              class="w-24 h-24 rounded-2xl object-cover border border-gold/40 bg-white shrink-0" />
+
+            <div class="flex-1 w-full space-y-2">
+              <input id="product-image-url" name="image_url" placeholder="https://..."
+                oninput="document.getElementById('product-img-preview').src = this.value"
+                class="w-full px-3.5 py-2 rounded-xl border border-hairline bg-white text-xs focus:outline-none focus:border-gold" />
+
+              <label class="cursor-pointer inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-espresso text-pearl text-xs font-medium hover:bg-cocoa transition">
+                <i data-lucide="image-plus" class="w-3.5 h-3.5 text-goldLight"></i>
+                <span>อัปโหลดรูปภาพจากเครื่อง</span>
+                <input type="file" accept="image/*" class="hidden" onchange="handleImageFileUpload(event, 'product-image-url', 'product-img-preview')" />
+              </label>
+            </div>
+          </div>
+
+          <div>
+            <div class="text-[11px] text-muted mb-1.5">หรือเลือกภาพตัวอย่างทาร์ตผลไม้:</div>
+            <div id="preset-gallery" class="grid grid-cols-5 gap-2"></div>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-medium text-cocoa mb-1">รายละเอียดและส่วนผสม</label>
+          <textarea name="description" rows="2" placeholder="บรรยายรสชาติและวัตถุดิบพิเศษของเมนูนี้"
+            class="w-full px-4 py-2.5 rounded-xl border border-hairline bg-ivory/40 text-sm focus:outline-none focus:border-gold"></textarea>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <input type="checkbox" id="product-active-check" name="is_active" checked class="w-4 h-4 accent-espresso rounded" />
+          <label for="product-active-check" class="text-xs text-espresso font-medium">แสดงเมนูนี้บนหน้าร้าน</label>
+        </div>
+
+        <button type="submit"
+          class="w-full bg-espresso hover:bg-cocoa text-pearl text-xs tracking-[0.2em] uppercase font-medium py-4 rounded-full transition shadow-card">
+          บันทึกข้อมูลสินค้า
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 translate-y-6 opacity-0 pointer-events-none bg-espresso text-pearl border border-gold/40 text-xs px-6 py-3.5 rounded-full shadow-2xl transition-all duration-300 z-50 flex items-center gap-2.5">
+    <span class="text-goldLight">✦</span>
+    <span id="toast-msg">ดำเนินการสำเร็จ</span>
+  </div>
+
+  <!-- ==================== JAVASCRIPT: SUPABASE + REALTIME + STORE LOGIC ==================== -->
+  <script>
+    // Supabase Configuration (Public Client Credentials)
+    const SUPABASE_URL = 'https://bhtgrxqprhbcxoncqgad.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_eeQXxejpdkNGzXfg1rIyUw_0zrvLzor';
+    let supabaseClient = null;
+    try {
+      if (window.supabase && typeof window.supabase.createClient === 'function') {
+        supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      }
+    } catch (initErr) {
+      console.warn('Supabase client init skipped:', initErr);
+      supabaseClient = null;
+    }
+
+    function safeRefreshIcons() {
+      try {
+        if (window.lucide && typeof window.lucide.createIcons === 'function') {
+          window.lucide.createIcons();
+        }
+      } catch (iconErr) {
+        // Ignore icon rendering issues so UI transitions remain smooth
+      }
+    }
+
+    // Single Owner Admin Configuration (No password hint rendered in UI)
+    const ADMIN_OWNER_EMAIL = 'admin@crustandcream.com';
+    const OFFLINE_ADMIN_PASSCODE = 'admin1234';
+    const MAX_FAILED_ATTEMPTS = 5;
+    const LOCKOUT_DURATION_MS = 60 * 1000;
+    let failedLoginAttempts = 0;
+    let lockoutUntil = 0;
+
+    function isOwnerEmail(email = '') {
+      return String(email || '').trim().toLowerCase() === ADMIN_OWNER_EMAIL.toLowerCase();
+    }
+
+    async function verifySupabaseOwnerAccess(user) {
+      if (!user || !isOwnerEmail(user.email)) {
+        return false;
+      }
+      if (!supabaseClient) return true;
+      try {
+        const { data: rpcAllowed, error: rpcErr } = await supabaseClient.rpc('is_store_admin');
+        if (!rpcErr && typeof rpcAllowed === 'boolean') {
+          return rpcAllowed;
+        }
+        const { data: adminRow, error: rowErr } = await supabaseClient
+          .from('admin_users')
+          .select('user_id')
+          .eq('user_id', user.id)
+          .maybeSingle();
+        if (!rowErr && adminRow) {
+          return true;
+        }
+        return isOwnerEmail(user.email);
+      } catch (err) {
+        console.warn('Admin allow-list check fallback:', err);
+        return isOwnerEmail(user.email);
+      }
+    }
+
+    // Curated Luxury Tart Photography
+    const PRESET_IMAGES = [
+      { label: 'สตรอว์เบอร์รี', url: 'https://images.unsplash.com/photo-1519915028121-7d3463d20b13?auto=format&fit=crop&w=900&q=85' },
+      { label: 'มิกซ์เบอร์รี', url: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=900&q=85' },
+      { label: 'มะม่วงเสาวรส', url: 'https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=900&q=85' },
+      { label: 'องุ่นไซมัสแคท', url: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=900&q=85' },
+      { label: 'พีชคาราเมล', url: 'https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?auto=format&fit=crop&w=900&q=85' }
+    ];
+
+    const DEFAULT_PRODUCTS = [
+      {
+        id: 'p1',
+        name: 'ทาร์ตสตรอว์เบอร์รีครีมวานิลลา',
+        price: 185,
+        status: 'ready',
+        stock: 12,
+        image_url: PRESET_IMAGES[0].url,
+        description: 'แป้งทาร์ตเนยสดโฮมเมด ไส้คัสตาร์ดวานิลลาแท้ ท็อปด้วยสตรอว์เบอร์รีสดลูกโต',
+        is_active: true
+      },
+      {
+        id: 'p2',
+        name: 'ทาร์ตมิกซ์เบอร์รีโฮมเมด',
+        price: 195,
+        status: 'ready',
+        stock: 10,
+        image_url: PRESET_IMAGES[1].url,
+        description: 'บลูเบอร์รี ราสป์เบอร์รี และแบล็กเบอร์รีสด บนครีมมาสคาโปเน่เนื้อเนียนนุ่ม',
+        is_active: true
+      },
+      {
+        id: 'p3',
+        name: 'ทาร์ตมะม่วงน้ำดอกไม้เสาวรส',
+        price: 175,
+        status: 'ready',
+        stock: 8,
+        image_url: PRESET_IMAGES[2].url,
+        description: 'มะม่วงน้ำดอกไม้สุกฉ่ำคู่ซอสเสาวรสโฮมเมด หอมหวานอมเปรี้ยวสดชื่น',
+        is_active: true
+      },
+      {
+        id: 'p4',
+        name: 'ทาร์ตองุ่นไซมัสแคท',
+        price: 220,
+        status: 'preorder',
+        stock: 20,
+        image_url: PRESET_IMAGES[3].url,
+        description: 'องุ่นไซมัสแคทไร้เมล็ดกรอบหวาน อบคู่ครีมชีสสูตรพิเศษละมุนลิ้น',
+        is_active: true
+      },
+      {
+        id: 'p5',
+        name: 'ทาร์ตพีชคาราเมลน้ำผึ้ง',
+        price: 190,
+        status: 'preorder',
+        stock: 20,
+        image_url: PRESET_IMAGES[4].url,
+        description: 'ลูกพีชย่างน้ำผึ้งหอมกรุ่นบนอัลมอนด์ครีมและแป้งทาร์ตเนยสดกรอบร่วน',
+        is_active: true
+      }
+    ];
+
+    const DEFAULT_SETTINGS = {
+      brand_name: 'Crust & Cream',
+      announcement: 'อบสดใหม่จากเตาทุกเช้า • สั่งล่วงหน้า (Pre-order) 1 วัน หรือเลือกเมนูพร้อมส่งวันนี้',
+      hero_title: 'ความสุขชิ้นเล็ก\nอบสดใหม่จากใจ',
+      hero_desc: 'ทาร์ตผลไม้โฮมเมดระดับบูทีค รังสรรค์จากแป้งพายเนยสดฝรั่งเศสกรอบร่วน ครีมคัสตาร์ดวานิลลามาดากัสการ์หวานละมุน และผลไม้สดคัดพิเศษตามฤดูกาล',
+      hero_image: PRESET_IMAGES[0].url,
+      story_desc: 'เราเชื่อว่าขนมหวานชั้นเลิศเริ่มต้นจากความใส่ใจในรายละเอียดที่เล็กที่สุด ทาร์ตทุกชิ้นของ Crust & Cream จึงอบสดใหม่แบบชิ้นต่อชิ้น ใช้เนยสดแท้เกรดพรีเมียม ผสานกับครีมวานิลลาสูตรหวานน้อย และผลไม้สดตามฤดูกาล เพื่อมอบประสบการณ์ความอร่อยที่สง่างามในทุกคำ',
+      hours: 'เปิดทุกวัน 09:00 – 18:30 น.',
+      address: 'รับหน้าร้าน / ส่งแมสเซ็นเจอร์ควบคุมอุณหภูมิ',
+      contact: 'Instagram: @crustandcream • Line: @crustandcream',
+      webhook_type: 'none',
+      webhook_url: '',
+      telegram_chat_id: ''
+    };
+
+    const STORAGE_KEYS = {
+      PRODUCTS: 'cc_luxury_products_v1',
+      SETTINGS: 'cc_luxury_settings_v1',
+      ORDERS: 'cc_luxury_orders_v1'
+    };
+
+    let state = {
+      products: JSON.parse(localStorage.getItem(STORAGE_KEYS.PRODUCTS) || 'null') || [...DEFAULT_PRODUCTS],
+      settings: { ...DEFAULT_SETTINGS, ...(JSON.parse(localStorage.getItem(STORAGE_KEYS.SETTINGS) || '{}')) },
+      orders: JSON.parse(localStorage.getItem(STORAGE_KEYS.ORDERS) || '[]'),
+      cart: [],
+      filter: 'all',
+      search: '',
+      isAdminAuthenticated: false,
+      adminEmail: 'admin@crustandcream.com',
+      supabaseConnected: false,
+      soundEnabled: true,
+      unreadNewOrdersCount: 0,
+      lastReceiptOrder: null,
+      activeTrackedQuery: ''
+    };
+
+    function persistLocalState() {
+      try {
+        localStorage.setItem(STORAGE_KEYS.PRODUCTS, JSON.stringify(state.products));
+        localStorage.setItem(STORAGE_KEYS.SETTINGS, JSON.stringify(state.settings));
+        localStorage.setItem(STORAGE_KEYS.ORDERS, JSON.stringify(state.orders));
+      } catch (e) {
+        console.warn('LocalStorage quota warning:', e);
+      }
+    }
+
+    // ==================== SUPABASE INTEGRATION & REAL-TIME ====================
+    let orderPollTimer = null;
+
+    function applyRealtimeOrderChange(eventType, row) {
+      if (!row) return;
+      if (eventType === 'INSERT') {
+        if (!state.orders.some(o => String(o.id) === String(row.id))) {
+          state.orders.unshift(row);
+          persistLocalState();
+          renderAdminOrders();
+          updateAdminStats();
+          triggerIncomingOrderAlert(row);
+        }
+      } else if (eventType === 'UPDATE') {
+        const idx = state.orders.findIndex(o => String(o.id) === String(row.id));
+        if (idx !== -1 && state.orders[idx].status !== row.status) {
+          state.orders[idx] = { ...state.orders[idx], ...row };
+          persistLocalState();
+          renderAdminOrders();
+          updateAdminStats();
+          if (state.activeTrackedQuery) {
+            renderTrackedOrders(state.activeTrackedQuery);
+          }
+        }
+      }
+    }
+
+    function startOrderPollingFallback() {
+      if (orderPollTimer || !supabaseClient || !state.supabaseConnected) return;
+      orderPollTimer = setInterval(async () => {
+        if (!state.isAdminAuthenticated && !state.activeTrackedQuery) return;
+        try {
+          const { data, error } = await supabaseClient
+            .from('orders')
+            .select('*')
+            .order('created_at', { ascending: false })
+            .limit(50);
+          if (!error && Array.isArray(data)) {
+            const knownIds = new Set(state.orders.map(o => String(o.id)));
+            for (const item of data) {
+              if (!knownIds.has(String(item.id))) {
+                applyRealtimeOrderChange('INSERT', item);
+              } else {
+                applyRealtimeOrderChange('UPDATE', item);
+              }
+            }
+          }
+        } catch (err) {
+          // Ignore transient polling network issues
+        }
+      }, 12000);
+    }
+
+    async function initSupabaseStore() {
+      if (!supabaseClient) {
+        updateConnectionBadge(false);
+        return;
+      }
+
+      try {
+        const [prodRes, setRes] = await Promise.all([
+          supabaseClient.from('products').select('*').order('created_at', { ascending: true }),
+          supabaseClient.from('shop_settings').select('*').eq('id', 1).maybeSingle()
+        ]);
+
+        if (!prodRes.error) {
+          state.supabaseConnected = true;
+          if (prodRes.data && prodRes.data.length > 0) {
+            state.products = prodRes.data.map(p => ({
+              ...p,
+              image_url: (p.image_url && !p.image_url.startsWith('assets/')) ? p.image_url : getFallbackImageByName(p.name)
+            }));
+          }
+        }
+
+        if (!setRes.error && setRes.data) {
+          state.settings = { ...state.settings, ...setRes.data };
+        }
+
+        const { data: sessionData } = await supabaseClient.auth.getSession();
+        if (sessionData?.session?.user) {
+          const allowed = await verifySupabaseOwnerAccess(sessionData.session.user);
+          if (allowed) {
+            state.isAdminAuthenticated = true;
+            state.adminEmail = sessionData.session.user.email;
+            await loadSupabaseOrders();
+          } else {
+            await supabaseClient.auth.signOut().catch(() => {});
+            state.isAdminAuthenticated = false;
+          }
+        }
+
+        // Guard realtime WebSocket subscriptions in sandboxed/Canvas frames
+        let realtimeSubscribed = false;
+        if (typeof window.WebSocket === 'function' && typeof supabaseClient.channel === 'function') {
+          try {
+            const channel = supabaseClient
+              .channel('public:orders')
+              .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'orders' }, (payload) => {
+                applyRealtimeOrderChange('INSERT', payload.new);
+              })
+              .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'orders' }, (payload) => {
+                applyRealtimeOrderChange('UPDATE', payload.new);
+              });
+
+            const subPromise = channel.subscribe((status) => {
+              if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT' || status === 'CLOSED') {
+                startOrderPollingFallback();
+              }
+            });
+            if (subPromise && typeof subPromise.catch === 'function') {
+              subPromise.catch(() => startOrderPollingFallback());
+            }
+            realtimeSubscribed = true;
+          } catch (wsErr) {
+            startOrderPollingFallback();
+          }
+        }
+
+        if (!realtimeSubscribed && state.supabaseConnected) {
+          startOrderPollingFallback();
+        }
+
+        persistLocalState();
+        renderStorefrontSettings();
+        renderProducts();
+        updateConnectionBadge(state.supabaseConnected);
+      } catch (err) {
+        console.warn('Supabase sync note:', err);
+        updateConnectionBadge(false);
+      }
+    }
+
+    async function loadSupabaseOrders() {
+      if (!supabaseClient) return;
+      const { data, error } = await supabaseClient
+        .from('orders')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (!error && data) {
+        state.orders = data;
+        persistLocalState();
+        renderAdminOrders();
+        updateAdminStats();
+      }
+    }
+
+    function getFallbackImageByName(name = '') {
+      if (name.includes('สตรอว์')) return PRESET_IMAGES[0].url;
+      if (name.includes('เบอร์รี')) return PRESET_IMAGES[1].url;
+      if (name.includes('มะม่วง')) return PRESET_IMAGES[2].url;
+      if (name.includes('องุ่น')) return PRESET_IMAGES[3].url;
+      if (name.includes('พีช')) return PRESET_IMAGES[4].url;
+      return PRESET_IMAGES[0].url;
+    }
+
+    function updateConnectionBadge(connected) {
+      const badge = document.getElementById('db-status-badge');
+      if (!badge) return;
+      if (connected) {
+        badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-gold"></span> เชื่อมต่อระบบออนไลน์ Crust &amp; Cream แล้ว`;
+      } else {
+        badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-gold"></span> ระบบร้านค้าออนไลน์พร้อมใช้งาน`;
+      }
+    }
+
+    // ==================== AUDIO & NOTIFICATION SYSTEM ====================
+    function playLuxuryBell(type = 'order') {
+      if (!state.soundEnabled) return;
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        const ctx = new AudioCtx();
+        const now = ctx.currentTime;
+        const notes = type === 'order' ? [523.25, 659.25, 783.99, 1046.50] : [659.25, 880.00];
+
+        notes.forEach((freq, i) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, now + i * 0.12);
+          gain.gain.setValueAtTime(0.001, now + i * 0.12);
+          gain.gain.exponentialRampToValueAtTime(0.16, now + i * 0.12 + 0.03);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + i * 0.12 + 0.6);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now + i * 0.12);
+          osc.stop(now + i * 0.12 + 0.65);
+        });
+      } catch (e) {}
+    }
+
+    function toggleAdminSound() {
+      state.soundEnabled = !state.soundEnabled;
+      const label = document.getElementById('admin-sound-label');
+      const icon = document.getElementById('admin-sound-icon');
+      if (label) label.textContent = state.soundEnabled ? 'เสียงกระดิ่ง: เปิด' : 'เสียงกระดิ่ง: ปิด';
+      if (icon) icon.setAttribute('data-lucide', state.soundEnabled ? 'volume-2' : 'volume-x');
+      lucide.createIcons();
+      if (state.soundEnabled) {
+        label.textContent = 'เสียงกระดิ่ง: เปิด';
+      } else {
+        label.textContent = 'เสียงกระดิ่ง: ปิด';
+      }
+      if (icon) {
+        icon.setAttribute('data-lucide', state.soundEnabled ? 'volume-2' : 'volume-x');
+      }
+      safeRefreshIcons();
+      playLuxuryBell('ping');
+      showToast(state.soundEnabled ? 'เปิดเสียงกระดิ่งแจ้งเตือนแล้ว' : 'ปิดเสียงกระดิ่งแจ้งเตือนแล้ว');
+    }
+
+    async function requestBrowserNotifPermission() {
+      if (!('Notification' in window)) {
+        showToast('เบราว์เซอร์นี้ไม่รองรับการแจ้งเตือนบนหน้าจอ');
+        return;
+      }
+      const res = await Notification.requestPermission();
+      if (res === 'granted') {
+        showToast('เปิดรับการแจ้งเตือนบนหน้าจอเรียบร้อยแล้ว');
+        new Notification('Crust & Cream Admin Studio', {
+          body: 'ระบบพร้อมแจ้งเตือนทันทีเมื่อมีคำสั่งซื้อใหม่เข้ามา'
+        });
+      } else {
+        showToast('กรุณาอนุญาตการแจ้งเตือนในการตั้งค่าเบราว์เซอร์');
+      }
+    }
+
+    function triggerIncomingOrderAlert(order) {
+      state.unreadNewOrdersCount += 1;
+      updateOrderBadges();
+      playLuxuryBell('order');
+
+      const banner = document.getElementById('live-order-banner');
+      const bannerText = document.getElementById('live-order-banner-text');
+      if (banner && bannerText) {
+        bannerText.textContent = `ออเดอร์ ${order.order_no} จากคุณ ${order.customer_name} • ยอดรวม ${formatMoney(order.total)}`;
+        banner.classList.remove('hidden');
+      }
+
+      showToast(`✦ มีออเดอร์ใหม่ ${order.order_no} (${order.customer_name}) ${formatMoney(order.total)}`);
+
+      if ('Notification' in window && Notification.permission === 'granted') {
+        try {
+          new Notification(`✦ ออเดอร์ใหม่ ${order.order_no} — Crust & Cream`, {
+            body: `ลูกค้า: ${order.customer_name}\nยอดรวม: ${formatMoney(order.total)}`
+          });
+        } catch (e) {}
+      }
+    }
+
+    function updateOrderBadges() {
+      const c = state.unreadNewOrdersCount;
+      const storeBadge = document.getElementById('store-admin-badge');
+      const sideBadge = document.getElementById('sidebar-new-order-badge');
+      const bellBadge = document.getElementById('admin-bell-badge');
+      const mobBadge = document.getElementById('mobile-tab-order-badge');
+
+      if (storeBadge) {
+        storeBadge.classList.toggle('hidden', c === 0);
+        storeBadge.classList.toggle('flex', c > 0);
+      }
+      [sideBadge, bellBadge, mobBadge].forEach(el => {
+        if (!el) return;
+        el.textContent = c;
+        el.classList.toggle('hidden', c === 0);
+      });
+    }
+
+    function acknowledgeNewOrders() {
+      state.unreadNewOrdersCount = 0;
+      updateOrderBadges();
+      document.getElementById('live-order-banner')?.classList.add('hidden');
+      switchAdminTab('orders');
+    }
+
+    // ==================== WEBHOOK INTEGRATION ====================
+    function formatOrderSummaryText(order) {
+      const itemsLines = (order.items || [])
+        .map(i => `• ${i.name} ×${i.qty || i.quantity} = ${formatMoney(i.price * (i.qty || i.quantity))}`)
+        .join('\n');
+      return [
+        `✦ คำสั่งซื้อใหม่ — ${state.settings.brand_name || 'Crust & Cream'}`,
+        `เลขที่ออเดอร์: ${order.order_no}`,
+        `ลูกค้า: ${order.customer_name} (${order.phone})`,
+        `วันรับสินค้า: ${order.pickup_date} (${order.order_type || 'พร้อมส่ง'})`,
+        order.note ? `หมายเหตุ: ${order.note}` : null,
+        `--------------------`,
+        itemsLines,
+        `--------------------`,
+        `ยอดรวมสุทธิ: ${formatMoney(order.total)}`
+      ].filter(Boolean).join('\n');
+    }
+
+    async function sendWebhookOrderAlert(order, isTest = false) {
+      const type = state.settings.webhook_type;
+      const url = (state.settings.webhook_url || '').trim();
+      const chatId = (state.settings.telegram_chat_id || '').trim();
+
+      if (!type || type === 'none' || !url) {
+        if (isTest) showToast('กรุณาเลือกช่องทางและกรอก Token/URL ก่อนทดสอบ');
+        return;
+      }
+
+      const message = isTest
+        ? `✦ ทดสอบระบบแจ้งเตือนร้าน ${state.settings.brand_name} สำเร็จ! พร้อมรับแจ้งเตือนคำสั่งซื้อแล้วค่ะ`
+        : formatOrderSummaryText(order);
+
+      try {
+        if (type === 'telegram') {
+          const endpoint = url.startsWith('http') ? url : `https://api.telegram.org/bot${url}/sendMessage`;
+          await fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ chat_id: chatId, text: message })
+          });
+        } else if (type === 'discord') {
+          await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username: `${state.settings.brand_name} Concierge`, content: message })
+          });
+        } else if (type === 'custom') {
+          await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ event: isTest ? 'test' : 'new_order', message, order })
+          });
+        }
+        if (isTest) showToast('ส่งข้อความทดสอบเรียบร้อยแล้ว!');
+      } catch (err) {
+        if (isTest) showToast('ส่งคำขอแจ้งเตือนแล้ว (โปรดตรวจสอบในแอปแชทของคุณ)');
+      }
+    }
+
+    function toggleWebhookFields() {
+      const type = document.getElementById('webhook-type-select')?.value;
+      document.getElementById('telegram-chat-id-group')?.classList.toggle('hidden', type !== 'telegram');
+    }
+
+    async function testWebhookNotification() {
+      const form = document.getElementById('admin-settings-form');
+      if (form) {
+        state.settings.webhook_type = form.elements.webhook_type.value;
+        state.settings.webhook_url = form.elements.webhook_url.value;
+        state.settings.telegram_chat_id = form.elements.telegram_chat_id.value;
+      }
+      await sendWebhookOrderAlert(null, true);
+    }
+
+    // ==================== UI HELPERS ====================
+    const formatMoney = (n) => '฿' + Number(n || 0).toLocaleString('th-TH');
+    const esc = (s = '') => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      const m = document.getElementById('toast-msg');
+      if (!t || !m) return;
+      m.textContent = msg;
+      t.classList.remove('opacity-0', 'translate-y-6');
+      t.classList.add('opacity-100', 'translate-y-0');
+      clearTimeout(window._toastTimer);
+      window._toastTimer = setTimeout(() => {
+        t.classList.add('opacity-0', 'translate-y-6');
+        t.classList.remove('opacity-100', 'translate-y-0');
+      }, 2800);
+    }
+
+    function openModal(id) {
+      const el = document.getElementById(id);
+      if (el) { el.classList.remove('hidden'); el.classList.add('flex'); }
+    }
+
+    function closeModal(id) {
+      const el = document.getElementById(id);
+      if (el) { el.classList.add('hidden'); el.classList.remove('flex'); }
+    }
+
+    function openCartDrawer() {
+      updateCartUI();
+      openModal('cart-drawer');
+    }
+
+    function closeCartDrawer() {
+      closeModal('cart-drawer');
+    }
+
+    // ==================== STOREFRONT RENDERING ====================
+    function renderStorefrontSettings() {
+      const s = state.settings;
+      document.getElementById('announcement-bar').textContent = s.announcement;
+      document.getElementById('nav-brand-name').textContent = s.brand_name;
+      document.getElementById('footer-brand-name').textContent = s.brand_name;
+
+      const lines = (s.hero_title || '').split('\n');
+      const heroTitleEl = document.getElementById('hero-title');
+      if (lines.length > 1) {
+        heroTitleEl.innerHTML = `${esc(lines[0])}<br><span class="italic text-rose font-normal">${esc(lines.slice(1).join(' '))}</span>`;
+      } else {
+        heroTitleEl.innerHTML = esc(s.hero_title);
+      }
+
+      document.getElementById('hero-desc').textContent = s.hero_desc;
+      if (s.hero_image) document.getElementById('hero-image').src = s.hero_image;
+      document.getElementById('story-desc').textContent = s.story_desc;
+      document.getElementById('shop-hours').textContent = s.hours;
+      document.getElementById('shop-address').textContent = s.address;
+      document.getElementById('shop-contact').textContent = s.contact;
+    }
+
+    function renderProducts() {
+      const grid = document.getElementById('product-grid');
+      const empty = document.getElementById('empty-products');
+      if (!grid) return;
+
+      const list = state.products.filter(p => {
+        if (p.is_active === false) return false;
+        const matchFilter = state.filter === 'all' || p.status === state.filter;
+        const q = state.search.trim().toLowerCase();
+        const matchSearch = !q || p.name.toLowerCase().includes(q) || (p.description || '').toLowerCase().includes(q);
+        return matchFilter && matchSearch;
+      });
+
+      if (list.length === 0) {
+        grid.innerHTML = '';
+        empty.classList.remove('hidden');
+        return;
+      }
+      grid.innerHTML = list.map(p => {
+        const isReady = p.status === 'ready';
+        const outOfStock = isReady && Number(p.stock) <= 0;
+        const imgUrl = p.image_url || PRESET_IMAGES[0].url;
+
+        return `
+          <article class="bg-pearl border border-hairline rounded-2xl overflow-hidden flex flex-col justify-between shadow-card hover:border-gold/70 hover:-translate-y-1 transition duration-500 group">
+            <div>
+              <div onclick="openQuickView('${esc(p.id)}')" class="relative h-72 sm:h-80 bg-[#EFE7DC] overflow-hidden cursor-pointer">
+                <img src="${esc(imgUrl)}"
+                  onerror="this.src='https://placehold.co/600x600/EFE7DC/1E1714?text=Crust+%26+Cream'"
+                  alt="${esc(p.name)}"
+                  class="w-full h-full object-cover group-hover:scale-105 transition duration-700" />
+
+                <div class="absolute top-4 left-4 flex items-center gap-2">
+                  <span class="px-3.5 py-1 rounded-full text-[10px] tracking-[0.16em] uppercase font-semibold backdrop-blur-md ${
+                    isReady ? 'bg-pearl/95 text-espresso border border-hairline' : 'bg-espresso/90 text-goldLight'
+                  }">
+                    ${isReady ? 'Ready Today' : 'Pre-order'}
+                  </span>
+                </div>
+
+                <div class="absolute inset-x-0 bottom-3.5 flex justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                  <span class="bg-pearl/95 backdrop-blur-md text-espresso text-[10px] tracking-[0.18em] uppercase font-medium px-4 py-1.5 rounded-full shadow-md border border-hairline">
+                    ดูรายละเอียดขนม
+                  </span>
+                </div>
+              </div>
+
+              <div class="p-6 sm:p-7 text-center space-y-2">
+                <div class="text-[10px] tracking-[0.22em] uppercase text-gold font-medium">
+                  ${isReady ? `พร้อมส่ง • เหลือ ${p.stock} ชิ้น` : 'อบสดใหม่ตามคำสั่งซื้อล่วงหน้า'}
+                </div>
+                <h3 onclick="openQuickView('${esc(p.id)}')" class="font-editorial text-2xl font-semibold text-espresso cursor-pointer hover:text-gold transition leading-snug">
+                  ${esc(p.name)}
+                </h3>
+                <p class="font-thai-serif text-muted text-xs leading-relaxed line-clamp-2 font-light min-h-[38px]">
+                  ${esc(p.description || 'ทาร์ตผลไม้โฮมเมด อบสดใหม่ด้วยวัตถุดิบพรีเมียม')}
+                </p>
+              </div>
+            </div>
+
+            <div class="px-6 sm:px-7 pb-6 sm:pb-7 pt-4 border-t border-hairline/70 flex items-center justify-between">
+              <div class="text-left">
+                <span class="font-editorial text-2xl font-semibold text-espresso">${formatMoney(p.price)}</span>
+                <span class="text-[10px] text-muted uppercase tracking-wider"> / piece</span>
+              </div>
+
+              ${outOfStock ? `
+                <span class="text-[11px] text-muted border border-hairline px-4 py-2 rounded-full bg-ivory">สินค้าหมด</span>
+              ` : `
+                <button onclick="addToCart('${esc(p.id)}')"
+                  class="bg-espresso hover:bg-gold hover:text-espresso text-pearl text-[11px] tracking-[0.15em] uppercase font-medium px-5 py-2.5 rounded-full transition flex items-center gap-1.5">
+                  <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+                  <span>Add to Bag</span>
+                </button>
+              `}
+            </div>
+          </article>
+        `;
+      }).join('');
+
+      safeRefreshIcons();
+    }
+
+    function openQuickView(id) {
+      const p = state.products.find(x => String(x.id) === String(id));
+      if (!p) return;
+
+      document.getElementById('qv-image').src = p.image_url || PRESET_IMAGES[0].url;
+      document.getElementById('qv-badge').textContent = p.status === 'ready' ? 'พร้อมส่งวันนี้' : 'Pre-order';
+      document.getElementById('qv-title').textContent = p.name;
+      document.getElementById('qv-price').textContent = `${formatMoney(p.price)} / ชิ้น`;
+      document.getElementById('qv-desc').textContent = p.description || 'ทาร์ตผลไม้โฮมเมด แป้งกรอบหอมเนยสดแท้ ครีมวานิลลาหวานน้อย';
+      document.getElementById('qv-stock').textContent = p.status === 'ready' ? `${p.stock} ชิ้น` : 'เปิดรับจองล่วงหน้า';
+
+      const btn = document.getElementById('qv-add-btn');
+      btn.onclick = () => {
+        addToCart(p.id);
+        closeModal('quickview-modal');
+      };
+
+      openModal('quickview-modal');
+      safeRefreshIcons();
+    }
+
+    // ==================== CART & CHECKOUT ====================
+    function addGiftBoxToCart(id, name, price, imageUrl) {
+      const existing = state.cart.find(item => String(item.id) === String(id));
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        state.cart.push({ id, name, price: Number(price), image_url: imageUrl, qty: 1 });
+      }
+      updateCartUI();
+      showToast(`เพิ่ม "${name}" ลงถุงช้อปปิ้งแล้ว`);
+    }
+
+    function addToCart(id) {
+      const p = state.products.find(x => String(x.id) === String(id));
+      if (!p) return;
+
+      const existing = state.cart.find(item => String(item.id) === String(id));
+      const maxStock = p.status === 'ready' ? Number(p.stock) : 99;
+
+      if (existing) {
+        if (existing.qty >= maxStock) {
+          showToast(`ขออภัย "${p.name}" มีพร้อมส่งสูงสุด ${maxStock} ชิ้น`);
+          return;
+        }
+        existing.qty += 1;
+      } else {
+        if (maxStock <= 0) {
+          showToast('ขออภัย สินค้านี้หมดชั่วคราว');
+          return;
+        }
+        state.cart.push({
+          id: p.id,
+          name: p.name,
+          price: Number(p.price),
+          image_url: p.image_url,
+          qty: 1
+        });
+      }
+
+      updateCartUI();
+      showToast(`เพิ่ม "${p.name}" ลงถุงช้อปปิ้งแล้ว`);
+    }
+
+    function changeCartQty(id, delta) {
+      const idx = state.cart.findIndex(x => String(x.id) === String(id));
+      if (idx === -1) return;
+
+      const p = state.products.find(x => String(x.id) === String(id));
+      const maxStock = p && p.status === 'ready' ? Number(p.stock) : 99;
+      const nextQty = state.cart[idx].qty + delta;
+
+      if (nextQty <= 0) {
+        state.cart.splice(idx, 1);
+      } else if (nextQty > maxStock) {
+        showToast(`มีสินค้าพร้อมส่งสูงสุด ${maxStock} ชิ้น`);
+        return;
+      } else {
+        state.cart[idx].qty = nextQty;
+      }
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      const totalItems = state.cart.reduce((s, i) => s + i.qty, 0);
+      const totalAmount = state.cart.reduce((s, i) => s + (i.price * i.qty), 0);
+
+      document.getElementById('nav-cart-count').textContent = totalItems;
+      document.getElementById('fab-cart-count').textContent = totalItems;
+      document.getElementById('fab-cart-total').textContent = formatMoney(totalAmount);
+      document.getElementById('cart-drawer-total').textContent = formatMoney(totalAmount);
+
+      const container = document.getElementById('cart-items-container');
+      const btn = document.getElementById('proceed-checkout-btn');
+
+      if (state.cart.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-16 space-y-3">
+            <div class="w-14 h-14 rounded-full border border-hairline bg-ivory mx-auto flex items-center justify-center text-gold">
+              <i data-lucide="shopping-bag" class="w-6 h-6"></i>
+            </div>
+            <p class="font-editorial text-2xl text-espresso">ถุงช้อปปิ้งของคุณยังว่างอยู่</p>
+            <p class="text-xs text-muted font-light">เลือกทาร์ตผลไม้รสโปรดจากคอลเลกชันได้เลยค่ะ</p>
+          </div>
+        `;
+        btn.disabled = true;
+        btn.classList.add('opacity-40', 'cursor-not-allowed');
+      } else {
+        btn.disabled = false;
+        btn.classList.remove('opacity-40', 'cursor-not-allowed');
+        container.innerHTML = state.cart.map(item => `
+          <div class="flex items-center justify-between gap-3 pb-4 border-b border-hairline">
+            <img src="${esc(item.image_url || PRESET_IMAGES[0].url)}" class="w-16 h-16 rounded-xl object-cover border border-hairline shrink-0" />
+            <div class="flex-1 min-w-0">
+              <strong class="font-thai-serif text-xs sm:text-sm font-medium text-espresso block truncate">${esc(item.name)}</strong>
+              <span class="text-xs text-gold font-medium">${formatMoney(item.price)}</span>
+              <div class="flex items-center gap-2.5 mt-2">
+                <button onclick="changeCartQty('${esc(item.id)}', -1)" class="w-6 h-6 rounded-full border border-hairline hover:border-espresso text-xs flex items-center justify-center">−</button>
+                <span class="text-xs font-semibold w-4 text-center">${item.qty}</span>
+                <button onclick="changeCartQty('${esc(item.id)}', 1)" class="w-6 h-6 rounded-full border border-hairline hover:border-espresso text-xs flex items-center justify-center">+</button>
+              </div>
+            </div>
+            <div class="font-editorial text-lg font-semibold text-espresso">
+              ${formatMoney(item.price * item.qty)}
+            </div>
+          </div>
+        `).join('');
+      }
+      safeRefreshIcons();
+    }
+
+    function openCheckoutModal() {
+      if (state.cart.length === 0) return;
+      closeCartDrawer();
+      const count = state.cart.reduce((s, i) => s + i.qty, 0);
+      const total = state.cart.reduce((s, i) => s + (i.price * i.qty), 0);
+
+      document.getElementById('checkout-item-count').textContent = count;
+      document.getElementById('checkout-total-display').textContent = formatMoney(total);
+
+      const dateInput = document.getElementById('checkout-date');
+      if (dateInput && !dateInput.value) {
+        dateInput.value = new Date().toISOString().split('T')[0];
+      }
+      openModal('checkout-modal');
+    }
+
+    document.getElementById('checkout-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (state.cart.length === 0) return;
+
+      const fd = new FormData(e.target);
+      const orderNo = 'CC-' + Math.floor(1043 + Math.random() * 8950);
+      const total = state.cart.reduce((s, i) => s + (i.price * i.qty), 0);
+      const combinedNote = `[${fd.get('delivery_method')}] ${fd.get('note') || ''}`.trim();
+
+      const newOrder = {
+        id: 'ord-' + Date.now(),
+        order_no: orderNo,
+        customer_name: fd.get('customer_name').trim(),
+        phone: fd.get('phone').trim(),
+        order_type: fd.get('order_type'),
+        pickup_date: fd.get('pickup_date'),
+        note: combinedNote,
+        items: state.cart.map(i => ({ product_id: i.id, name: i.name, price: i.price, quantity: i.qty, qty: i.qty })),
+        total,
+        status: 'รอยืนยัน',
+        created_at: new Date().toISOString()
+      };
+
+      for (const item of state.cart) {
+        const prod = state.products.find(p => String(p.id) === String(item.id));
+        if (prod && prod.status === 'ready') {
+          prod.stock = Math.max(0, Number(prod.stock) - item.qty);
+          if (supabaseClient && state.supabaseConnected) {
+            supabaseClient.from('products').update({ stock: prod.stock }).eq('id', prod.id).then(() => {});
+          }
+        }
+      }
+
+      state.orders.unshift(newOrder);
+      persistLocalState();
+
+      if (supabaseClient && state.supabaseConnected) {
+        const { error } = await supabaseClient.from('orders').insert({
+          order_no: newOrder.order_no,
+          customer_name: newOrder.customer_name,
+          phone: newOrder.phone,
+          order_type: newOrder.order_type,
+          pickup_date: newOrder.pickup_date,
+          note: newOrder.note,
+          items: newOrder.items,
+          total: newOrder.total,
+          status: newOrder.status
+        });
+        if (error) console.warn('Supabase insert order fallback:', error.message);
+      }
+
+      triggerIncomingOrderAlert(newOrder);
+      sendWebhookOrderAlert(newOrder, false);
+
+      state.lastReceiptOrder = newOrder;
+      state.cart = [];
+      updateCartUI();
+      renderProducts();
+      renderAdminOrders();
+      updateAdminStats();
+      e.target.reset();
+      closeModal('checkout-modal');
+
+      document.getElementById('receipt-details').innerHTML = `
+        <div class="flex justify-between border-b border-hairline pb-2">
+          <span class="text-muted">เลขที่คำสั่งซื้อ</span>
+          <strong class="text-espresso font-bold">${esc(newOrder.order_no)}</strong>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-muted">ผู้สั่งซื้อ</span>
+          <span class="text-espresso font-medium">${esc(newOrder.customer_name)} (${esc(newOrder.phone)})</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-muted">วันรับสินค้า</span>
+          <span class="text-espresso font-medium">${esc(newOrder.pickup_date)}</span>
+        </div>
+        <div class="border-t border-hairline pt-2 space-y-1">
+          ${newOrder.items.map(i => `<div class="flex justify-between"><span>${esc(i.name)} ×${i.qty}</span><span>${formatMoney(i.price * i.qty)}</span></div>`).join('')}
+        </div>
+        <div class="flex justify-between border-t border-hairline pt-2 text-sm font-semibold text-gold">
+          <span>ยอดรวมสุทธิ</span>
+          <span>${formatMoney(newOrder.total)}</span>
+        </div>
+      `;
+      openModal('receipt-modal');
+      safeRefreshIcons();
+    });
+
+    function copyReceiptSummary() {
+      if (!state.lastReceiptOrder) return;
+      const text = formatOrderSummaryText(state.lastReceiptOrder);
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand('copy');
+        showToast('คัดลอกข้อความสรุปออเดอร์แล้ว นำไปวางส่งในแชทร้านได้เลย!');
+      } catch (e) {
+        showToast('กรุณาแคปหน้าจอใบเสร็จเพื่อส่งให้ร้านค้า');
+      }
+      document.body.removeChild(ta);
+    }
+
+    function trackCurrentReceiptOrder() {
+      if (!state.lastReceiptOrder) return;
+      const no = state.lastReceiptOrder.order_no;
+      closeModal('receipt-modal');
+      openTrackModal(no);
+    }
+
+    function openTrackModal(prefill = '') {
+      openModal('track-modal');
+      const input = document.getElementById('track-query-input');
+      if (prefill && input) {
+        input.value = prefill;
+        state.activeTrackedQuery = prefill;
+        renderTrackedOrders(prefill);
+      } else if (state.lastReceiptOrder && input && !input.value) {
+        input.value = state.lastReceiptOrder.order_no;
+        state.activeTrackedQuery = state.lastReceiptOrder.order_no;
+        renderTrackedOrders(state.lastReceiptOrder.order_no);
+      }
+      safeRefreshIcons();
+    }
+
+    document.getElementById('track-search-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const q = document.getElementById('track-query-input').value.trim();
+      if (!q) return;
+      state.activeTrackedQuery = q;
+      renderTrackedOrders(q);
+    });
+
+    function renderTrackedOrders(query) {
+      const container = document.getElementById('track-results-container');
+      if (!container) return;
+
+      const q = query.toLowerCase().replace(/\s+/g, '');
+      const matches = state.orders.filter(o => {
+        const noMatch = (o.order_no || '').toLowerCase().includes(q);
+        const phMatch = (o.phone || '').replace(/[-\s]/g, '').includes(q.replace(/[-\s]/g, ''));
+        return noMatch || phMatch;
+      });
+
+      if (matches.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-8 bg-ivory rounded-2xl border border-hairline space-y-1">
+            <p class="text-sm font-medium text-espresso">ไม่พบคำสั่งซื้อ "${esc(query)}"</p>
+            <p class="text-xs text-muted font-light">กรุณาตรวจสอบเลขที่ออเดอร์หรือเบอร์โทรศัพท์อีกครั้ง</p>
+          </div>
+        `;
+        return;
+      }
+
+      const steps = ['รอยืนยัน', 'กำลังอบ', 'พร้อมรับ/จัดส่ง', 'เสร็จสิ้น'];
+
+      container.innerHTML = matches.map(ord => {
+        const isCancelled = ord.status === 'ยกเลิก';
+        const stepIdx = steps.indexOf(ord.status);
+
+        return `
+          <div class="bg-ivory border border-hairline rounded-2xl p-5 space-y-4">
+            <div class="flex items-center justify-between border-b border-hairline pb-3">
+              <div>
+                <span class="text-[10px] uppercase tracking-wider text-muted block">Order Reference</span>
+                <strong class="font-editorial text-xl font-bold text-espresso">${esc(ord.order_no)}</strong>
+              </div>
+              <span class="px-3.5 py-1 rounded-full text-xs font-medium ${
+                isCancelled ? 'bg-red-100 text-red-700' :
+                ord.status === 'เสร็จสิ้น' ? 'bg-[#E8EFE5] text-[#455B41]' :
+                'bg-espresso text-goldLight'
+              }">
+                ${esc(ord.status)}
+              </span>
+            </div>
+
+            ${!isCancelled ? `
+              <div class="grid grid-cols-4 gap-1.5 text-center">
+                ${steps.map((st, idx) => {
+                  const active = idx <= stepIdx;
+                  return `
+                    <div class="space-y-1.5">
+                      <div class="h-1 rounded-full ${active ? 'bg-gold' : 'bg-hairline'}"></div>
+                      <div class="text-[10px] ${active ? 'text-espresso font-semibold' : 'text-muted'}">${st}</div>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            ` : ''}
+
+            <div class="text-xs space-y-1.5">
+              <div class="flex justify-between text-muted">
+                <span>ลูกค้า: <strong class="text-espresso">${esc(ord.customer_name)}</strong></span>
+                <span>รับสินค้า: <strong class="text-espresso">${esc(ord.pickup_date)}</strong></span>
+              </div>
+              <div class="bg-pearl rounded-xl p-3 border border-hairline space-y-1">
+                ${(ord.items || []).map(i => `
+                  <div class="flex justify-between">
+                    <span>${esc(i.name)} ×${i.qty || i.quantity}</span>
+                    <span>${formatMoney(i.price * (i.qty || i.quantity))}</span>
+                  </div>
+                `).join('')}
+                <div class="flex justify-between border-t border-hairline pt-1.5 mt-1.5 font-semibold text-gold">
+                  <span>ยอดรวมสุทธิ</span>
+                  <span>${formatMoney(ord.total)}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // ==================== ADMIN STUDIO LOGIC ====================
+    function switchToAdmin() {
+      const storeEl = document.getElementById('storefront-view');
+      const adminEl = document.getElementById('admin-view');
+      const loginScreen = document.getElementById('admin-login-screen');
+      const dashScreen = document.getElementById('admin-dashboard-screen');
+
+      if (storeEl) storeEl.classList.add('hidden');
+      if (adminEl) adminEl.classList.remove('hidden');
+
+      try {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } catch (e) {}
+
+      if (state.isAdminAuthenticated) {
+        showAdminDashboard();
+      } else {
+        const emailInput = document.getElementById('admin-email-input');
+        const passInput = document.getElementById('admin-pass-input');
+        if (emailInput && !emailInput.value) emailInput.value = ADMIN_OWNER_EMAIL;
+        if (passInput) passInput.value = '';
+        if (loginScreen) loginScreen.classList.remove('hidden');
+        if (dashScreen) dashScreen.classList.add('hidden');
+      }
+      safeRefreshIcons();
+    }
+
+    function switchToStore() {
+      const adminEl = document.getElementById('admin-view');
+      const storeEl = document.getElementById('storefront-view');
+      if (adminEl) adminEl.classList.add('hidden');
+      if (storeEl) storeEl.classList.remove('hidden');
+      try {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } catch (e) {}
+      renderStorefrontSettings();
+      renderProducts();
+      safeRefreshIcons();
+    }
+
+    document.getElementById('admin-login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const now = Date.now();
+      if (now < lockoutUntil) {
+        const secLeft = Math.ceil((lockoutUntil - now) / 1000);
+        showToast(`กรอกรหัสผ่านผิดหลายครั้ง กรุณารอ ${secLeft} วินาทีแล้วลองใหม่`);
+        return;
+      }
+
+      const email = document.getElementById('admin-email-input').value.trim();
+      const password = document.getElementById('admin-pass-input').value;
+
+      if (!isOwnerEmail(email)) {
+        failedLoginAttempts += 1;
+        if (failedLoginAttempts >= MAX_FAILED_ATTEMPTS) {
+          lockoutUntil = Date.now() + LOCKOUT_DURATION_MS;
+          failedLoginAttempts = 0;
+          showToast('เข้าสู่ระบบไม่สำเร็จ ระบบล็อกการเข้าใช้งานชั่วคราว 60 วินาที');
+          return;
+        }
+        showToast('บัญชีนี้ไม่ได้รับอนุญาตให้เข้าถึงระบบผู้ดูแลร้าน');
+        return;
+      }
+
+      if (supabaseClient && state.supabaseConnected) {
+        const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+        if (!error && data?.user) {
+          const allowed = await verifySupabaseOwnerAccess(data.user);
+          if (!allowed) {
+            await supabaseClient.auth.signOut().catch(() => {});
+            showToast('บัญชีนี้ไม่มีสิทธิ์เข้าถึงระบบหลังร้าน');
+            return;
+          }
+          failedLoginAttempts = 0;
+          lockoutUntil = 0;
+          state.isAdminAuthenticated = true;
+          state.adminEmail = data.user.email;
+          await loadSupabaseOrders();
+          showAdminDashboard();
+          showToast('เข้าสู่ระบบผู้ดูแลร้านสำเร็จ');
+          return;
+        }
+      }
+
+      if (password === OFFLINE_ADMIN_PASSCODE) {
+        failedLoginAttempts = 0;
+        lockoutUntil = 0;
+        state.isAdminAuthenticated = true;
+        state.adminEmail = email;
+        showAdminDashboard();
+        showToast('เข้าสู่ระบบผู้ดูแลร้านสำเร็จ');
+        return;
+      }
+
+      failedLoginAttempts += 1;
+      if (failedLoginAttempts >= MAX_FAILED_ATTEMPTS) {
+        lockoutUntil = Date.now() + LOCKOUT_DURATION_MS;
+        failedLoginAttempts = 0;
+        showToast('รหัสผ่านไม่ถูกต้อง ระบบล็อกการเข้าใช้งานชั่วคราว 60 วินาที');
+      } else {
+        showToast('อีเมลหรือรหัสผ่านผู้ดูแลร้านไม่ถูกต้อง');
+      }
+    });
+
+    async function adminLogout() {
+      state.isAdminAuthenticated = false;
+      if (supabaseClient) {
+        await supabaseClient.auth.signOut().catch(() => {});
+      }
+      const passInput = document.getElementById('admin-pass-input');
+      if (passInput) passInput.value = '';
+      document.getElementById('admin-dashboard-screen').classList.add('hidden');
+      document.getElementById('admin-login-screen').classList.remove('hidden');
+      showToast('ออกจากระบบแล้ว');
+    }
+
+    function showAdminDashboard() {
+      document.getElementById('admin-login-screen').classList.add('hidden');
+      document.getElementById('admin-dashboard-screen').classList.remove('hidden');
+      document.getElementById('sidebar-admin-email').textContent = state.adminEmail;
+      state.unreadNewOrdersCount = 0;
+      updateOrderBadges();
+      updateAdminStats();
+      renderAdminOrders();
+      renderAdminProducts();
+      populateAdminSettingsForm();
+      safeRefreshIcons();
+    }
+
+    function switchAdminTab(tab) {
+      document.querySelectorAll('.admin-panel').forEach(p => p.classList.add('hidden'));
+      document.getElementById(`admin-panel-${tab}`)?.classList.remove('hidden');
+
+      const titles = {
+        orders: 'จัดการคำสั่งซื้อ',
+        products: 'คอลเลกชันสินค้า & รูปภาพ',
+        settings: 'ตั้งค่าแบรนด์และระบบแจ้งเตือน'
+      };
+      document.getElementById('admin-header-title').textContent = titles[tab] || 'Admin Studio';
+
+      document.querySelectorAll('.admin-tab-btn').forEach(btn => {
+        const active = btn.dataset.tabBtn === tab;
+        if (btn.closest('aside')) {
+          btn.classList.toggle('bg-cocoa', active);
+          btn.classList.toggle('text-pearl', active);
+          btn.classList.toggle('border', active);
+          btn.classList.toggle('border-gold/30', active);
+          btn.classList.toggle('text-[#D6C8BB]', !active);
+        } else {
+          btn.classList.toggle('text-espresso', active);
+          btn.classList.toggle('font-semibold', active);
+          btn.classList.toggle('text-muted', !active);
+        }
+      });
+      safeRefreshIcons();
+    }
+
+    function updateAdminStats() {
+      document.getElementById('stat-total-products').textContent = state.products.length;
+      document.getElementById('stat-total-orders').textContent = state.orders.length;
+
+      const pending = state.orders.filter(o => o.status !== 'เสร็จสิ้น' && o.status !== 'ยกเลิก').length;
+      document.getElementById('stat-pending-orders').textContent = pending;
+
+      const sales = state.orders
+        .filter(o => o.status === 'เสร็จสิ้น')
+        .reduce((sum, o) => sum + Number(o.total || 0), 0);
+      document.getElementById('stat-total-sales').textContent = formatMoney(sales);
+    }
+
+    function renderAdminOrders() {
+      const tbody = document.getElementById('admin-orders-tbody');
+      if (!tbody) return;
+
+      const filter = document.getElementById('admin-order-filter')?.value || 'all';
+      const list = state.orders.filter(o => filter === 'all' || o.status === filter);
+
+      if (list.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" class="py-12 text-center text-muted font-light">ยังไม่มีรายการคำสั่งซื้อในหมวดหมู่นี้</td></tr>`;
+        return;
+      }
+
+      const statuses = ['รอยืนยัน', 'กำลังอบ', 'พร้อมรับ/จัดส่ง', 'เสร็จสิ้น', 'ยกเลิก'];
+
+      tbody.innerHTML = list.map(o => {
+        const timeStr = o.created_at ? new Date(o.created_at).toLocaleString('th-TH', { dateStyle: 'short', timeStyle: 'short' }) : '-';
+        const badgeStyle =
+          o.status === 'เสร็จสิ้น' ? 'bg-[#E8EFE5] text-[#455B41] border-[#C8D9C3]' :
+          o.status === 'ยกเลิก' ? 'bg-red-50 text-red-700 border-red-200' :
+          o.status === 'กำลังอบ' ? 'bg-amber-50 text-amber-800 border-amber-200' :
+          'bg-ivory text-espresso border-gold/50';
+
+        return `
+          <tr class="hover:bg-ivory/60 transition">
+            <td class="py-4 px-3 align-top">
+              <strong class="font-editorial text-base font-bold text-espresso block">${esc(o.order_no || o.id)}</strong>
+              <span class="text-[11px] text-muted">${timeStr}</span>
+            </td>
+            <td class="py-4 px-3 align-top">
+              <div class="font-medium text-espresso">${esc(o.customer_name)}</div>
+              <div class="text-xs text-muted">${esc(o.phone)}</div>
+              ${o.note ? `<div class="text-[11px] text-rose mt-1 bg-roseSoft/50 px-2 py-0.5 rounded inline-block">${esc(o.note)}</div>` : ''}
+            </td>
+            <td class="py-4 px-3 align-top space-y-1">
+              ${(o.items || []).map(i => `<div class="text-xs text-espresso">• ${esc(i.name)} <strong class="text-gold">×${i.qty || i.quantity}</strong></div>`).join('')}
+            </td>
+            <td class="py-4 px-3 align-top text-xs">
+              <div class="font-medium text-espresso">${esc(o.pickup_date || '-')}</div>
+              <div class="text-muted">${esc(o.order_type || '')}</div>
+            </td>
+            <td class="py-4 px-3 align-top font-editorial text-lg font-semibold text-espresso">
+              ${formatMoney(o.total)}
+            </td>
+            <td class="py-4 px-3 align-top">
+              <select onchange="updateOrderStatus('${esc(o.id)}', this.value)"
+                class="text-xs font-medium px-3 py-1.5 rounded-full border ${badgeStyle} focus:outline-none cursor-pointer">
+                ${statuses.map(st => `<option value="${st}" ${o.status === st ? 'selected' : ''}>${st}</option>`).join('')}
+              </select>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    async function updateOrderStatus(orderId, newStatus) {
+      const ord = state.orders.find(o => String(o.id) === String(orderId));
+      if (ord) ord.status = newStatus;
+      persistLocalState();
+
+      if (supabaseClient && state.supabaseConnected) {
+        await supabaseClient.from('orders').update({ status: newStatus }).eq('id', orderId).catch(() => {});
+      }
+
+      updateAdminStats();
+      renderAdminOrders();
+      if (state.activeTrackedQuery) {
+        renderTrackedOrders(state.activeTrackedQuery);
+      }
+      showToast(`อัปเดตสถานะเป็น "${newStatus}" เรียบร้อย`);
+    }
+
+    // ==================== ADMIN: PRODUCTS & IMAGES ====================
+    function renderAdminProducts() {
+      const tbody = document.getElementById('admin-products-tbody');
+      if (!tbody) return;
+
+      tbody.innerHTML = state.products.map(p => `
+        <tr class="hover:bg-ivory/60 transition">
+          <td class="py-4 px-3">
+            <div class="flex items-center gap-3.5">
+              <img src="${esc(p.image_url || PRESET_IMAGES[0].url)}"
+                onerror="this.src='https://placehold.co/100x100/EFE7DC/1E1714?text=Tart'"
+                class="w-14 h-14 rounded-xl object-cover border border-hairline shrink-0" />
+              <div>
+                <strong class="font-thai-serif font-medium text-espresso block">${esc(p.name)}</strong>
+                <span class="text-[11px] text-muted font-light line-clamp-1 max-w-xs">${esc(p.description || '')}</span>
+              </div>
+            </div>
+          </td>
+          <td class="py-4 px-3 font-editorial text-lg font-semibold text-espresso">${formatMoney(p.price)}</td>
+          <td class="py-4 px-3">
+            <span class="px-3 py-1 rounded-full text-xs font-medium ${Number(p.stock) > 0 ? 'bg-ivory text-espresso border border-hairline' : 'bg-red-50 text-red-600'}">
+              ${p.stock ?? 0} ชิ้น
+            </span>
+          </td>
+          <td class="py-4 px-3">
+            <span class="px-3 py-1 rounded-full text-[10px] tracking-wider uppercase font-semibold ${p.status === 'ready' ? 'bg-ivory text-espresso border border-gold/40' : 'bg-espresso text-goldLight'}">
+              ${p.status === 'ready' ? 'พร้อมส่ง' : 'Pre-order'}
+            </span>
+          </td>
+          <td class="py-4 px-3">
+            <button onclick="toggleProductActive('${esc(p.id)}')"
+              class="text-xs font-medium px-3 py-1 rounded-full border transition ${p.is_active !== false ? 'bg-[#E8EFE5] text-[#455B41] border-[#C8D9C3]' : 'bg-gray-100 text-gray-500 border-gray-200'}">
+              ${p.is_active !== false ? 'แสดงหน้าร้าน' : 'ซ่อนอยู่'}
+            </button>
+          </td>
+          <td class="py-4 px-3 text-right space-x-1.5 whitespace-nowrap">
+            <button onclick="openProductModal('${esc(p.id)}')"
+              class="px-3.5 py-1.5 rounded-full bg-ivory hover:bg-gold/20 border border-hairline text-espresso text-xs font-medium transition">
+              แก้ไข / เปลี่ยนรูป
+            </button>
+            <button onclick="deleteProduct('${esc(p.id)}')"
+              class="px-3 py-1.5 rounded-full border border-hairline hover:bg-red-50 hover:text-red-600 text-muted text-xs transition">
+              ลบ
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function renderPresetGallery() {
+      const container = document.getElementById('preset-gallery');
+      if (!container) return;
+      container.innerHTML = PRESET_IMAGES.map(img => `
+        <button type="button" onclick="selectPresetImage('${img.url}')"
+          class="group relative rounded-xl overflow-hidden border border-hairline hover:border-gold focus:border-gold transition aspect-square">
+          <img src="${img.url}" alt="${img.label}" class="w-full h-full object-cover" />
+          <span class="absolute inset-x-0 bottom-0 bg-espresso/75 text-pearl text-[9px] py-0.5 text-center truncate px-1">
+            ${img.label}
+          </span>
+        </button>
+      `).join('');
+    }
+
+    function selectPresetImage(url) {
+      document.getElementById('product-image-url').value = url;
+      document.getElementById('product-img-preview').src = url;
+    }
+
+    function handleImageFileUpload(event, inputId, previewId) {
+      const file = event.target.files?.[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const MAX_DIM = 800;
+          let w = img.width;
+          let h = img.height;
+
+          if (w > h && w > MAX_DIM) {
+            h = Math.round((h * MAX_DIM) / w);
+            w = MAX_DIM;
+          } else if (h > MAX_DIM) {
+            w = Math.round((w * MAX_DIM) / h);
+            h = MAX_DIM;
+          }
+
+          canvas.width = w;
+          canvas.height = h;
+          canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+
+          const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+          document.getElementById(inputId).value = dataUrl;
+          document.getElementById(previewId).src = dataUrl;
+          showToast('อัปโหลดและปรับขนาดรูปภาพเรียบร้อยแล้ว');
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function openProductModal(id = null) {
+      renderPresetGallery();
+      const form = document.getElementById('product-form');
+      form.reset();
+
+      if (id) {
+        const p = state.products.find(x => String(x.id) === String(id));
+        if (!p) return;
+        document.getElementById('product-modal-title').textContent = 'แก้ไขเมนูและรูปภาพ';
+        form.elements.id.value = p.id;
+        form.elements.name.value = p.name;
+        form.elements.price.value = p.price;
+        form.elements.stock.value = p.stock ?? 0;
+        form.elements.status.value = p.status || 'ready';
+        form.elements.image_url.value = p.image_url || PRESET_IMAGES[0].url;
+        form.elements.description.value = p.description || '';
+        form.elements.is_active.checked = p.is_active !== false;
+        document.getElementById('product-img-preview').src = p.image_url || PRESET_IMAGES[0].url;
+      } else {
+        document.getElementById('product-modal-title').textContent = 'เพิ่มเมนูทาร์ตใหม่';
+        form.elements.id.value = '';
+        form.elements.status.value = 'ready';
+        form.elements.stock.value = 10;
+        form.elements.image_url.value = PRESET_IMAGES[0].url;
+        form.elements.is_active.checked = true;
+        document.getElementById('product-img-preview').src = PRESET_IMAGES[0].url;
+      }
+
+      openModal('product-modal');
+      safeRefreshIcons();
+    }
+
+    document.getElementById('product-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      const rawId = fd.get('id');
+      const isEdit = Boolean(rawId);
+      const id = rawId || ('p-' + Date.now());
+
+      const payload = {
+        name: fd.get('name').trim(),
+        price: Number(fd.get('price')),
+        stock: Number(fd.get('stock')),
+        status: fd.get('status'),
+        image_url: fd.get('image_url').trim() || PRESET_IMAGES[0].url,
+        description: (fd.get('description') || '').trim(),
+        is_active: document.getElementById('product-active-check').checked
+      };
+
+      if (isEdit) {
+        const idx = state.products.findIndex(x => String(x.id) === String(id));
+        if (idx !== -1) state.products[idx] = { ...state.products[idx], ...payload };
+        if (supabaseClient && state.supabaseConnected) {
+          await supabaseClient.from('products').update(payload).eq('id', id).catch(() => {});
+        }
+      } else {
+        const newProd = { id, ...payload };
+        state.products.push(newProd);
+        if (supabaseClient && state.supabaseConnected) {
+          const { data } = await supabaseClient.from('products').insert(payload).select().maybeSingle();
+          if (data) {
+            state.products[state.products.length - 1] = data;
+          }
+        }
+      }
+
+      persistLocalState();
+      renderProducts();
+      renderAdminProducts();
+      updateAdminStats();
+      closeModal('product-modal');
+      showToast('บันทึกข้อมูลสินค้าเรียบร้อยแล้ว');
+    });
+
+    async function toggleProductActive(id) {
+      const p = state.products.find(x => String(x.id) === String(id));
+      if (!p) return;
+      p.is_active = !(p.is_active !== false);
+      persistLocalState();
+
+      if (supabaseClient && state.supabaseConnected) {
+        await supabaseClient.from('products').update({ is_active: p.is_active }).eq('id', id).catch(() => {});
+      }
+
+      renderProducts();
+      renderAdminProducts();
+      showToast(p.is_active ? 'แสดงสินค้าบนหน้าร้านแล้ว' : 'ซ่อนสินค้าจากหน้าร้านแล้ว');
+    }
+
+    async function deleteProduct(id) {
+      state.products = state.products.filter(x => String(x.id) !== String(id));
+      persistLocalState();
+
+      if (supabaseClient && state.supabaseConnected) {
+        await supabaseClient.from('products').update({ is_active: false }).eq('id', id).catch(() => {});
+      }
+
+      renderProducts();
+      renderAdminProducts();
+      updateAdminStats();
+      showToast('นำสินค้าออกจากรายการแล้ว');
+    }
+
+    // ==================== ADMIN: SETTINGS ====================
+    function populateAdminSettingsForm() {
+      const form = document.getElementById('admin-settings-form');
+      if (!form) return;
+      const s = state.settings;
+      form.elements.brand_name.value = s.brand_name || '';
+      form.elements.announcement.value = s.announcement || '';
+      form.elements.hero_title.value = s.hero_title || '';
+      form.elements.hero_desc.value = s.hero_desc || '';
+      form.elements.hero_image.value = s.hero_image || '';
+      form.elements.story_desc.value = s.story_desc || '';
+      form.elements.hours.value = s.hours || '';
+      form.elements.address.value = s.address || '';
+      form.elements.contact.value = s.contact || '';
+      form.elements.webhook_type.value = s.webhook_type || 'none';
+      form.elements.webhook_url.value = s.webhook_url || '';
+      form.elements.telegram_chat_id.value = s.telegram_chat_id || '';
+      toggleWebhookFields();
+      document.getElementById('settings-hero-preview').src = s.hero_image || PRESET_IMAGES[0].url;
+    }
+
+    document.getElementById('admin-settings-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+
+      state.settings = {
+        ...state.settings,
+        brand_name: fd.get('brand_name').trim(),
+        announcement: fd.get('announcement').trim(),
+        hero_title: fd.get('hero_title').trim(),
+        hero_desc: fd.get('hero_desc').trim(),
+        hero_image: fd.get('hero_image').trim() || DEFAULT_SETTINGS.hero_image,
+        story_desc: fd.get('story_desc').trim(),
+        hours: fd.get('hours').trim(),
+        address: fd.get('address').trim(),
+        contact: fd.get('contact').trim(),
+        webhook_type: fd.get('webhook_type') || 'none',
+        webhook_url: (fd.get('webhook_url') || '').trim(),
+        telegram_chat_id: (fd.get('telegram_chat_id') || '').trim()
+      };
+
+      persistLocalState();
+
+      if (supabaseClient && state.supabaseConnected) {
+        await supabaseClient.from('shop_settings').upsert({
+          id: 1,
+          brand_name: state.settings.brand_name,
+          announcement: state.settings.announcement,
+          hero_title: state.settings.hero_title,
+          hero_desc: state.settings.hero_desc,
+          hours: state.settings.hours,
+          address: state.settings.address,
+          contact: state.settings.contact
+        }).catch(() => {});
+      }
+
+      renderStorefrontSettings();
+      showToast('บันทึกการตั้งค่าหน้าร้านเรียบร้อยแล้ว');
+    });
+
+    // ==================== FILTER & SEARCH LISTENERS ====================
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        state.filter = btn.dataset.filter;
+        document.querySelectorAll('.filter-btn').forEach(b => {
+          const active = b === btn;
+          b.classList.toggle('bg-espresso', active);
+          b.classList.toggle('text-pearl', active);
+          b.classList.toggle('border-espresso', active);
+          b.classList.toggle('bg-pearl', !active);
+          b.classList.toggle('text-cocoa', !active);
+          b.classList.toggle('border-hairline', !active);
+        });
+        renderProducts();
+      });
+    });
+
+    document.getElementById('search-input').addEventListener('input', (e) => {
+      state.search = e.target.value;
+      renderProducts();
+    });
+
+    // ==================== INITIAL BOOT ====================
+    window.addEventListener('DOMContentLoaded', () => {
+      renderStorefrontSettings();
+      renderProducts();
+      updateCartUI();
+      safeRefreshIcons();
+      initSupabaseStore();
+    });
+  </script>
+</body>
+</html>

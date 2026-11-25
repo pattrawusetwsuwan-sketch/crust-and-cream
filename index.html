@@ -680,13 +680,13 @@
 
         <form id="admin-login-form" onsubmit="handleAdminLogin(event)" class="space-y-4">
           <div>
-            <label class="block text-xs font-semibold text-espresso mb-1">รหัสผ่านผู้ดูแลระบบ (หรืออีเมล Supabase)</label>
-            <input id="admin-passcode-input" type="text" required placeholder="กรอกรหัสผ่านร้าน (ค่าเริ่มต้น: crust1234) หรืออีเมลแอดมิน"
+            <label class="block text-xs font-semibold text-espresso mb-1">อีเมลผู้ดูแลระบบ Supabase</label>
+            <input id="admin-passcode-input" type="email" required autocomplete="username" placeholder="อีเมลที่สร้างไว้ใน Supabase Auth"
               class="w-full bg-ivory border border-hairline rounded-xl px-3.5 py-2.5 text-sm text-espresso focus:outline-none focus:border-gold" />
           </div>
           <div id="admin-password-row">
-            <label class="block text-xs font-semibold text-espresso mb-1">รหัสผ่าน (กรณีใช้อีเมล Supabase)</label>
-            <input id="admin-email-password-input" type="password" placeholder="เว้นว่างได้หากใช้รหัสผ่านร้านด้านบน"
+            <label class="block text-xs font-semibold text-espresso mb-1">รหัสผ่าน</label>
+            <input id="admin-email-password-input" type="password" required autocomplete="current-password" placeholder="รหัสผ่าน Supabase Auth"
               class="w-full bg-ivory border border-hairline rounded-xl px-3.5 py-2.5 text-sm text-espresso focus:outline-none focus:border-gold" />
           </div>
           <p id="admin-login-error" class="hidden text-xs text-rose font-medium"></p>
@@ -957,7 +957,7 @@
     // CONFIGURATION & INITIAL STATE
     // =========================================================================
     const SUPABASE_URL = 'https://bhtgrxqprhbcxoncqgad.supabase.co';
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJodGdycXBwcmhiY3hvbmNxZ2FkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE4MzkxNjgsImV4cCI6MjA4NzQxNTE2OH0.q9H11L0m90G5Q60V5K_R57T8U9V0W1X2Y3Z4a5b6c7d';
+    const SUPABASE_ANON_KEY = 'sb_publishable_L0bGkG2Rz3tjflC6XyE9HA_lJk1EsAN';
 
     const STORAGE_KEYS = {
       PRODUCTS: 'cc_products_v2',
@@ -1063,7 +1063,9 @@
       supabase: null,
       supabaseConnected: false,
       realtimeChannel: null,
-      pollTimer: null
+      pollTimer: null,
+      authUser: null,
+      lastAlertedOrderIds: new Set()
     };
 
     // =========================================================================
@@ -1136,23 +1138,38 @@
       }
     }
 
-    function playAlertSound() {
-      if (!state.soundEnabled) return;
+    let alertAudioContext = null;
+    async function unlockAlertAudio() {
       try {
         const AudioCtx = window.AudioContext || window.webkitAudioContext;
-        if (!AudioCtx) return;
-        const ctx = new AudioCtx();
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(880, ctx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(660, ctx.currentTime + 0.18);
-        gain.gain.setValueAtTime(0.12, ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.25);
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start();
-        osc.stop(ctx.currentTime + 0.26);
+        if (!AudioCtx) return false;
+        if (!alertAudioContext) alertAudioContext = new AudioCtx();
+        if (alertAudioContext.state === 'suspended') await alertAudioContext.resume();
+        return alertAudioContext.state === 'running';
+      } catch (err) {
+        console.warn('Audio unlock failed:', err);
+        return false;
+      }
+    }
+
+    async function playAlertSound() {
+      if (!state.soundEnabled) return;
+      try {
+        const ready = await unlockAlertAudio();
+        if (!ready || !alertAudioContext) return;
+        const ctx = alertAudioContext;
+        [880, 1175, 880].forEach((frequency, index) => {
+          const start = ctx.currentTime + index * 0.22;
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(frequency, start);
+          gain.gain.setValueAtTime(0.0001, start);
+          gain.gain.exponentialRampToValueAtTime(0.16, start + 0.025);
+          gain.gain.exponentialRampToValueAtTime(0.0001, start + 0.19);
+          osc.connect(gain); gain.connect(ctx.destination);
+          osc.start(start); osc.stop(start + 0.2);
+        });
       } catch (err) {
         console.warn('Audio alert blocked or unsupported:', err);
       }
@@ -1163,13 +1180,31 @@
     // =========================================================================
     function initSupabase() {
       try {
-        if (!window.supabase || !SUPABASE_URL || !SUPABASE_ANON_KEY || SUPABASE_ANON_KEY.includes('q9H11L0m90G5Q60V5K_R57T8U9V0W1X2Y3Z4a5b6c7d')) {
+        if (!window.supabase || !SUPABASE_URL || !SUPABASE_ANON_KEY) {
           updateDbStatus(false, 'โหมดใช้งานในเครื่อง (พร้อมเชื่อมต่อ Supabase)');
           return;
         }
         state.supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        updateDbStatus(true, 'เชื่อมต่อฐานข้อมูลแล้ว');
-        subscribeRealtime();
+        updateDbStatus(true, 'เชื่อมต่อ Supabase แล้ว — รอผู้ดูแลระบบเข้าสู่ระบบ');
+        state.supabase.auth.getSession().then(({ data }) => {
+          const session = data?.session;
+          state.authUser = session?.user || null;
+          state.isAdminAuthenticated = Boolean(session);
+          if (session) { subscribeRealtime(); refreshOrdersFromCloud(false); }
+        });
+        state.supabase.auth.onAuthStateChange((event, session) => {
+          state.authUser = session?.user || null;
+          state.isAdminAuthenticated = Boolean(session);
+          if (session) {
+            subscribeRealtime();
+            refreshOrdersFromCloud(false);
+          } else {
+            if (state.realtimeChannel) state.supabase.removeChannel(state.realtimeChannel);
+            state.realtimeChannel = null;
+            state.orders = [];
+            renderAdminOrders();
+          }
+        });
       } catch (err) {
         console.error('Supabase init error:', err);
         state.supabaseConnected = false;
@@ -1188,7 +1223,7 @@
     }
 
     function subscribeRealtime() {
-      if (!state.supabase) return;
+      if (!state.supabase || !state.authUser) return;
       try {
         if (state.realtimeChannel) {
           state.supabase.removeChannel(state.realtimeChannel);
@@ -1213,7 +1248,13 @@
           .on('postgres_changes', { event: '*', schema: 'public', table: 'shop_settings' }, () => {
             syncSettingsFromCloud();
           })
-          .subscribe();
+          .subscribe((status, err) => {
+            if (status === 'SUBSCRIBED') updateDbStatus(true, 'ออนไลน์ • รับออเดอร์เรียลไทม์แล้ว');
+            else if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT') {
+              updateDbStatus(false, 'Realtime เชื่อมต่อไม่สำเร็จ — ตรวจสอบ Replication/RLS');
+              console.warn('Realtime channel status:', status, err);
+            }
+          });
       } catch (err) {
         console.warn('Realtime subscription warning:', err);
       }
@@ -1257,7 +1298,7 @@
     }
 
     async function refreshOrdersFromCloud(notifyUser = false) {
-      if (state.supabase) {
+      if (state.supabase && state.authUser) {
         try {
           const { data, error } = await state.supabase
             .from('orders')
@@ -1660,32 +1701,26 @@
           created_at: new Date().toISOString()
         };
 
-        if (state.supabase) {
-          const { data, error } = await state.supabase
-            .from('orders')
-            .insert([
-              {
-                order_no: newOrder.order_no,
-                customer_name: newOrder.customer_name,
-                phone: newOrder.phone,
-                order_type: newOrder.order_type,
-                pickup_date: newOrder.pickup_date,
-                note: newOrder.note,
-                items: newOrder.items,
-                total: newOrder.total,
-                status: newOrder.status
-              }
-            ])
-            .select()
-            .maybeSingle();
-
-          if (!error && data) {
-            newOrder.id = data.id;
-            newOrder.created_at = data.created_at || newOrder.created_at;
-          }
+        if (!state.supabase) {
+          throw new Error('ยังเชื่อมต่อ Supabase ไม่สำเร็จ');
         }
+        const { error } = await state.supabase
+          .from('orders')
+          .insert([{
+            order_no: newOrder.order_no,
+            customer_name: newOrder.customer_name,
+            phone: newOrder.phone,
+            order_type: newOrder.order_type,
+            pickup_date: newOrder.pickup_date,
+            note: newOrder.note,
+            items: newOrder.items,
+            total: newOrder.total,
+            status: newOrder.status
+          }]);
+        if (error) throw error;
 
-        handleIncomingOrder(newOrder, true);
+        // The store device must not alert itself; only the authenticated admin dashboard alerts.
+        handleIncomingOrder(newOrder, false);
         state.cart = [];
         safeWriteStorage(STORAGE_KEYS.CART, []);
         updateCartUI();
@@ -1715,7 +1750,10 @@
     function handleIncomingOrder(order, triggerAlert = true) {
       upsertOrderLocal(order);
 
-      if (triggerAlert) {
+      const alertKey = String(order.id || order.order_no || '');
+      const shouldAlert = triggerAlert && state.isAdminAuthenticated && alertKey && !state.lastAlertedOrderIds.has(alertKey);
+      if (shouldAlert) {
+        state.lastAlertedOrderIds.add(alertKey);
         const feedEntry = {
           id: 'feed-' + Date.now() + '-' + Math.random().toString(36).slice(2, 6),
           orderId: order.id,
@@ -1857,29 +1895,35 @@
       refreshIcons();
     }
 
-    function handleAdminLogin(event) {
+    async function handleAdminLogin(event) {
       event.preventDefault();
-      const codeOrEmail = (document.getElementById('admin-passcode-input')?.value || '').trim();
+      const email = (document.getElementById('admin-passcode-input')?.value || '').trim();
+      const password = document.getElementById('admin-email-password-input')?.value || '';
       const errEl = document.getElementById('admin-login-error');
-
-      if (!codeOrEmail) return;
-
-      // Accepts default shop passcode 'crust1234' or any non-empty admin email/key in demo/standalone mode
-      if (codeOrEmail === 'crust1234' || codeOrEmail.includes('@') || codeOrEmail.length >= 4) {
+      if (!state.supabase) {
+        if (errEl) { errEl.textContent = 'ยังเชื่อมต่อ Supabase ไม่ได้ กรุณาตรวจสอบคีย์และลองใหม่'; errEl.classList.remove('hidden'); }
+        return;
+      }
+      try {
+        const { data, error } = await state.supabase.auth.signInWithPassword({ email, password });
+        if (error) throw error;
+        state.authUser = data.user;
         state.isAdminAuthenticated = true;
-        safeWriteStorage(STORAGE_KEYS.ADMIN_AUTH, true);
+        await unlockAlertAudio();
         if (errEl) errEl.classList.add('hidden');
+        subscribeRealtime();
         showAdminDashboard();
-        showToast('เข้าสู่ระบบ Admin Studio สำเร็จ', 'success');
-      } else if (errEl) {
-        errEl.textContent = 'รหัสผ่านไม่ถูกต้อง ลองใช้ crust1234 หรืออีเมลผู้ดูแลระบบ';
-        errEl.classList.remove('hidden');
+        showToast('เข้าสู่ระบบ Admin สำเร็จ เปิดรับออเดอร์เรียลไทม์แล้ว', 'success');
+      } catch (err) {
+        console.error('Admin login error:', err);
+        if (errEl) { errEl.textContent = 'เข้าสู่ระบบไม่สำเร็จ กรุณาตรวจสอบอีเมลและรหัสผ่าน Supabase Auth'; errEl.classList.remove('hidden'); }
       }
     }
 
-    function logoutAdmin() {
+    async function logoutAdmin() {
       state.isAdminAuthenticated = false;
-      safeWriteStorage(STORAGE_KEYS.ADMIN_AUTH, false);
+      state.authUser = null;
+      if (state.supabase) await state.supabase.auth.signOut();
       document.getElementById('admin-dashboard-body')?.classList.add('hidden');
       document.getElementById('admin-login-gate')?.classList.remove('hidden');
       showToast('ออกจากระบบ Admin แล้ว', 'info');
@@ -1987,11 +2031,12 @@
         .join('');
     }
 
-    function toggleSoundAlert() {
+    async function toggleSoundAlert() {
       state.soundEnabled = !state.soundEnabled;
       const label = document.getElementById('sound-toggle-label');
       if (label) label.textContent = `เสียงกระดิ่ง: ${state.soundEnabled ? 'เปิด' : 'ปิด'}`;
-      showToast(state.soundEnabled ? 'เปิดเสียงแจ้งเตือนออเดอร์ใหม่แล้ว' : 'ปิดเสียงแจ้งเตือนแล้ว', 'info');
+      if (state.soundEnabled) { await unlockAlertAudio(); await playAlertSound(); }
+      showToast(state.soundEnabled ? 'เปิดเสียงแล้ว — ทดสอบเสียงกระดิ่งเรียบร้อย' : 'ปิดเสียงแจ้งเตือนแล้ว', 'info');
     }
 
     async function requestBrowserNotificationPermission() {
@@ -2016,9 +2061,11 @@
     function fireBrowserNotification(order) {
       if (!('Notification' in window) || Notification.permission !== 'granted') return;
       try {
-        new Notification(`Crust & Cream • ออเดอร์ใหม่ ${order.order_no}`, {
-          body: `${order.customer_name} (${formatCurrency(order.total)}) — ${order.order_type}`
+        const notice = new Notification(`Crust & Cream • ออเดอร์ใหม่ ${order.order_no}`, {
+          body: `${order.customer_name} (${formatCurrency(order.total)}) — ${order.order_type}`,
+          tag: `crust-order-${order.id || order.order_no}`
         });
+        notice.onclick = () => { window.focus(); switchToAdmin(); setAdminTab('orders'); notice.close(); };
       } catch (err) {
         console.warn('Browser notification failed:', err);
       }
@@ -2343,7 +2390,7 @@
         state.cart = safeReadStorage(STORAGE_KEYS.CART, []);
         state.liveFeed = safeReadStorage(STORAGE_KEYS.FEED, []);
         state.notifConfig = { ...DEFAULT_NOTIF, ...safeReadStorage(STORAGE_KEYS.NOTIF, {}) };
-        state.isAdminAuthenticated = Boolean(safeReadStorage(STORAGE_KEYS.ADMIN_AUTH, false));
+        state.isAdminAuthenticated = false; // Admin access is verified by Supabase Auth session only
 
         applyShopSettings();
         renderProducts();
